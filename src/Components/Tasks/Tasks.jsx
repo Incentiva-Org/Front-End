@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector } from "react-redux"
+
 import Task from './Task/Task'
 import useStyles from "./Styles"
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import {Grid, CircularProgress, Typography, Grow } from "@material-ui/core"
-import { useSelector } from "react-redux"
-import Form from "../Form/Form"
-import { motion } from "framer-motion"
+import Form from "./Form/Form"
 
-const periodV = {
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {Grid, Grow } from "@material-ui/core"
+
+/* const periodV = {
     hidden:{
        opacity: 0,
        x: '200%'
@@ -33,7 +34,7 @@ const bigContainerVariants = {
         }
     }
 }
-
+ */
 const Tasks = () => {
     const classes = useStyles();
     const mobile = useMediaQuery('(max-width:750px)');

@@ -1,7 +1,8 @@
-import { Typography } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {Card, CardActions, CardContent, CardMedia, Button, Chip, IconButton } from "@material-ui/core"
+
+import { Typography } from '@material-ui/core'
+import {Card, CardActions, CardContent, Chip, IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import useStyles from "./Styles"
 import EditIcon from '@material-ui/icons/Edit';

@@ -9,13 +9,14 @@ export default makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     outline: 'none',
+    width: "450px",
     borderRadius: "20px"
   },
   form: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    width: 300,
+    width: "95%",
     padding: "10px 15px",
   },
   fileInput: {
@@ -24,8 +25,8 @@ export default makeStyles((theme) => ({
   },
   buttonSubmit: {
     marginBottom: 10,
-    margin: "5px 5px",
-    width: "45%"
+    margin: "5px 3px",
+    width: "48%"
   },
   modal: {
     display: 'flex',
