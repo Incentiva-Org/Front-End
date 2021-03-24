@@ -15,6 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 const NavBar = (props) => {
     
     const path = window.location.pathname === "/" ? "/tasks" : window.location.pathname
+    const [currentPath, setCurrentPath] = useState(path)
     const classes = useStyles();
 
     return (
@@ -36,8 +37,8 @@ const NavBar = (props) => {
                 
                 <List>
                     {Object.keys(routes).map((item) => (
-                        <NavLink className={classes.link} to={routes[item].path}>
-                            <ListItem selected={routes[item].path === path} button key={item}>
+                        <NavLink className={classes.link} onClick={() => {setCurrentPath(routes[item].path)}} to={routes[item].path}>
+                            <ListItem selected={routes[item].path === currentPath} button key={item}>
                             <ListItemIcon>{routes[item].icon}</ListItemIcon>
                             <ListItemText primary={item} />
                             </ListItem>

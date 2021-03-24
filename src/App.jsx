@@ -36,11 +36,11 @@ const App = () => {
     <Switch>
       <ThemeProvider theme={theme}>
         <Navbar>
-          <Route path="/tasks" component={Tasks}/>
-          <Route path="/notes" component={Notes}/>
-          <Route path="/study" component={StudyMode}/>
-          <Route path="/insights" component={Insights}/>
-          <Route path="/" component={Tasks}/>
+          <Route exact path="/tasks" component={Tasks}/>
+          <Route exact path="/notes" component={Notes}/>
+          <Route exact path="/study" component={StudyMode}/>
+          <Route exact path="/insights" component={Insights}/>
+          <Route exact path="/" component={Tasks}/>
         </Navbar>
       </ThemeProvider>
     </Switch>
