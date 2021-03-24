@@ -12,7 +12,6 @@ import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 import ClearIcon from '@material-ui/icons/Clear'
 import IconButton from '@material-ui/core/IconButton'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {Grid, Typography} from "@material-ui/core"
 
 const Tasks = () => {
