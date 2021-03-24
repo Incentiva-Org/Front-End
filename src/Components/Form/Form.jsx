@@ -11,6 +11,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
+import {motion} from "framer-motion"
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -107,7 +108,7 @@ const Form = () => {
                             </IconButton>
                             <Paper className={classes.paper}>
                                 <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                                    <Typography variant="h6" style={{fontWeight: "bold"}}>Create Task</Typography>
+                                    <Typography variant="h5" style={{fontWeight: "bold", marginBottom: "10px"}}>Create Task</Typography>
                                     <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
                                     <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description}onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
                                     <TextField name="tag" 
@@ -125,8 +126,38 @@ const Form = () => {
                                         ))}
                                     </TextField>
                                     <TextField name="predictedTime" type="number" variant="outlined" label="Predicted Time (mins)" fullWidth value={taskData.predictedTime}onChange={(e) => setTaskData({ ...taskData, predictedTime: e.target.value })}/>
-                                    <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit">Create</Button>
-                                    <Button className={classes.buttonSubmit} variant="outlined" color="primary" size="large" onClick={clear}>Clear</Button>
+                                    <Button 
+                                        className={classes.buttonSubmit} 
+                                        variant="contained" 
+                                        color="primary" 
+                                        size="large" 
+                                        type="submit" 
+                                        component={motion.div}
+                                        whileHover={{
+                                            scale: 1.05,
+                                            transition: { duration: 0.2 }
+                                        }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleSubmit}
+                                    >
+                                        Create
+                                    </Button>
+                                    <Button 
+                                        className={classes.buttonSubmit} 
+                                        variant="outlined" 
+                                        color="primary" 
+                                        size="large" 
+                                        type="submit" 
+                                        component={motion.div}
+                                        whileHover={{
+                                            scale: 1.05,
+                                            transition: { duration: 0.2 }
+                                        }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={clear}
+                                    >
+                                        Clear
+                                    </Button>
                                 </form>
                                 <Snackbar open={alert && severity == "error"} autoHideDuration={2000} onClose={closeAlert}>
                                     <Alert onClose={closeAlert} severity={severity}>
