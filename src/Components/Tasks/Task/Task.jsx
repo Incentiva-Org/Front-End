@@ -1,21 +1,20 @@
-import React from 'react'
-
-import useStyles from "./Styles"
-
 import { Typography } from '@material-ui/core'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {Card, CardActions, CardContent, Chip, IconButton } from "@material-ui/core"
+import {Card, CardActions, CardContent, CardMedia, Button, Chip, IconButton } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from '@material-ui/icons/Edit'
-
+import useStyles from "./Styles"
+import EditIcon from '@material-ui/icons/Edit';
   
 const Task = ({ task }) => {
     const tasks = useSelector((state) => state.tasks)
-    const classes = useStyles()
+    const classes = useStyles();
 
-    console.log(tasks)
+    const [raised, setRaised] = useState(false);
+    const toggleRaised = () => setRaised(!raised);
+
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
             <CardContent>
                 <div className={classes.header}>
                     <Typography variant="h5" gutterBottom style={{display: "inline-block", fontWeight: "bold"}}>{task.title}</Typography>
@@ -23,7 +22,7 @@ const Task = ({ task }) => {
                 </div>
                 <Typography>{task.predictedTime} mins</Typography>
                 <Chip label={task.tag} classname={classes.chip}/>
-                <Typography variant="h6" gutterBottom>{task.description}</Typography>
+                <Typography variant="body2" component="p" style={{margin: "0px 5px"}}>{task.description}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <IconButton size="small" aria-label="delete" color="primary" onClick={() => {}}>
@@ -37,4 +36,4 @@ const Task = ({ task }) => {
     )
 }
 
-export default Task
+export default Task;
