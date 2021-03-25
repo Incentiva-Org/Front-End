@@ -32,13 +32,12 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: "none",
-        backgroundColor: "blue",
         "&:hover": {
             textDecoration: "none",
         },
-        "&:focus": {
-          textDecoration: "none",
-        },
+    },
+    selected: {
+      color: "purple"
     },
     appBar: {
       [theme.breakpoints.up('sm')]: {
