@@ -5,34 +5,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {Grid, CircularProgress, Typography, Grow } from "@material-ui/core"
 import { useSelector } from "react-redux"
 import Form from "../Form/Form"
-import { motion } from "framer-motion"
-
-const periodV = {
-    hidden:{
-       opacity: 0,
-       x: '200%'
-    },
-    visible:{
-        opacity: 1,
-        x: 0,
-        transition: {
-            type: 'spring',
-            stiffness: 50
-        }
-    }
-}
-
-const bigContainerVariants = {
-    hidden:{
-        opacity: 0
-    },
-    visible:{
-        opacity: 1,
-        transition: {
-            staggerChildren: "0.10"
-        }
-    }
-}
 
 const Tasks = () => {
     const classes = useStyles();

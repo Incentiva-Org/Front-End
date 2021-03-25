@@ -9,8 +9,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
     drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
+      [theme.breakpoints.up('sm')]: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
     },
     drawerPaper: {
       width: drawerWidth,
@@ -25,15 +27,36 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         marginRight: "auto",
         marginTop: "5%",
-        marginBottom: "5%"
+        marginBottom: "5%",
+        display: "block"
     },
     link: {
         textDecoration: "none",
         color: "inherit",
         "&:hover": {
-            textDecoration: "none"
-        }
-    }
+            textDecoration: "none",
+        },
+        "&:focus": {
+          textDecoration: "none",
+        },
+    },
+    appBar: {
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+      },
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+      width: drawerWidth,
+    },
 }));
 
 
