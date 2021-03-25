@@ -40,14 +40,9 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.active': {
         '& .MuiListItem-root': {
-          background: 'rgba(128, 90, 213, 0.2)',
+          background: 'rgba(128, 90, 213, 0.25)',
         },
-        '& .MuiListItemIcon-root': {
-          color: 'rgb(128, 90, 213)',
-        },
-        '& .MuiTypography-displayBlock': {
-          color: 'rgb(128, 90, 213)',
-        },
+        
       },
     },
     appBar: {
