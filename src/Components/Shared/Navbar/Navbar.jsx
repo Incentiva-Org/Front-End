@@ -226,14 +226,14 @@ const NavBar = (props) => {
                     <>
                     <Divider />
                       <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Account</Typography>
-                      <MenuList>
-                        <MenuItem>
+                      <MenuList style={{margin: "8px 0px"}}>
+                        <MenuItem style={{height: "48px"}}>
                           <ListItemIcon>
                             <AccountCircleIcon fontSize="small" />
                           </ListItemIcon>
                           <Typography variant="inherit">Account</Typography>
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem style={{height: "48px"}}>
                           <ListItemIcon>
                             <ExitToAppIcon fontSize="small" />
                           </ListItemIcon>
@@ -242,8 +242,8 @@ const NavBar = (props) => {
                       </MenuList>
                       <Divider />
                       <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Preferences</Typography>
-                      <MenuList>
-                        <MenuItem style={{width: "92%"}}>
+                      <MenuList style={{margin: "8px 0px"}}>
+                        <MenuItem  style={{height: "48px"}}>
                           <ListItemIcon>
                             <NightsStayIcon fontSize="small" />
                           </ListItemIcon>

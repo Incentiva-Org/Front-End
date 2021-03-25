@@ -18,12 +18,12 @@ const Task = ({ task }) => {
         <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
             <CardContent>
                 <div className={classes.header}>
-                    <Typography variant="h5" gutterBottom style={{display: "inline-block", fontWeight: "bold"}}>{task.title}</Typography>
-                    <Typography variant="caption" gutterBottom style={{display: "inline-block", float: "right"}}>{task.day.split("T")[0]}</Typography>
+                    <Typography variant="h5" gutterBottom style={{display: "inline-block", fontWeight: "bold", width: "85%"}}>{task.title}</Typography>
+                    <Typography variant="caption" gutterBottom style={{display: "inline-block", float: "right", position: "absolute", width: "86px"}}>{task.day.split("T")[0]}</Typography>
                 </div>
                 <Typography>{task.predictedTime} mins</Typography>
                 <Chip label={task.tag} classname={classes.chip}/>
-                <Typography variant="body2" component="p" style={{margin: "0px 5px"}}>{task.description}</Typography>
+                <Typography variant="body2" component="p" style={{margin: "0px 5px", height: "80px", width: "100%"}}>{task.description}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <IconButton size="small" aria-label="delete" color="primary" onClick={() => {}}>

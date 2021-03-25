@@ -9,16 +9,18 @@ import MuiAlert from '@material-ui/lab/Alert';
 import useStyles from "./Styles"
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import ClearIcon from '@material-ui/icons/Clear';
+import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogContent';
+
+import styles from "./Styles"
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
 const Form = () => {
     const CHARACTER_LIMIT = 250;
     const tags = [
@@ -89,45 +91,38 @@ const Form = () => {
                 <Fab color="primary" aria-label="add" onClick={handleOpen}>
                     <AddIcon />
                 </Fab>
-                <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
+                <Dialog 
+                    aria-labelledby="customized-dialog-title" 
                     className={classes.modal}
                     open={open}
                     onClose={handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                    timeout: 500,
-                    }}
-                    disableAutoFocus={true}
-                    disableEnforceFocus={true}
                 >
-                    <Fade in={open}>
-                        <div className={classes.paper}>
-                            <IconButton aria-label="cancel" style={{float: "right", margin: "12px 5px"}} onClick={handleClose}>
-                                <ClearIcon />
+                        <MuiDialogTitle disableTypography className={classes.root}>
+                            <Typography variant="h6">Add Task</Typography>
+                            <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                                <CloseIcon />
                             </IconButton>
-                            <Paper className={classes.paper}>
-                                <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                                    <Typography variant="h5" style={{fontWeight: "bold", marginBottom: "10px"}}>Create Task</Typography>
-                                    <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
-                                    <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description}onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
-                                    <TextField name="tag" 
-                                        variant="outlined" 
-                                        label="Tag" 
-                                        select 
-                                        fullWidth
-                                        value={taskData.tag}
-                                        onChange={(e) => setTaskData({ ...taskData, tag: e.target.value })}
-                                    >
-                                        {tags.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                    <TextField name="predictedTime" type="number" variant="outlined" label="Predicted Time (mins)" fullWidth value={taskData.predictedTime}onChange={(e) => setTaskData({ ...taskData, predictedTime: e.target.value })}/>
+                        </MuiDialogTitle>
+                        <MuiDialogContent dividers>
+                            <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+                                <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
+                                <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description}onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
+                                <TextField name="tag" 
+                                    variant="outlined" 
+                                    label="Tag" 
+                                    select 
+                                    fullWidth
+                                    value={taskData.tag}
+                                    onChange={(e) => setTaskData({ ...taskData, tag: e.target.value })}
+                                >
+                                    {tags.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                <TextField name="predictedTime" type="number" variant="outlined" label="Predicted Time (mins)" fullWidth value={taskData.predictedTime}onChange={(e) => setTaskData({ ...taskData, predictedTime: e.target.value })}/>
+                                <MuiDialogActions style={{padding: "0px", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
                                     <Button 
                                         className={classes.buttonSubmit} 
                                         variant="contained" 
@@ -160,16 +155,15 @@ const Form = () => {
                                     >
                                         Clear
                                     </Button>
-                                </form>
-                                <Snackbar open={alert && severity === "error"} autoHideDuration={2000} onClose={closeAlert}>
-                                    <Alert onClose={closeAlert} severity={severity}>
-                                        All fields must be filled out!
-                                    </Alert>
-                                </Snackbar>
-                            </Paper>
-                        </div>
-                    </Fade>
-                </Modal>
+                                </MuiDialogActions>
+                            </form>
+                            <Snackbar open={alert && severity === "error"} autoHideDuration={2000} onClose={closeAlert}>
+                                <Alert onClose={closeAlert} severity={severity}>
+                                    All fields must be filled out!
+                                </Alert>
+                            </Snackbar>
+                        </MuiDialogContent>
+                </Dialog>
                 <Snackbar open={alert && severity === "success"} autoHideDuration={2000} onClose={closeAlert}>
                     <Alert onClose={closeAlert} severity={severity}>
                         Task created successfully!

@@ -6,28 +6,22 @@ export default makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  paper: {
-    outline: 'none',
-    width: "300px",
-    borderRadius: "20px",
-    marginLeft: "auto",
-    marginRight: "auto"
-  },
   form: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    width: "100%",
-    padding: theme.spacing(2),
+    width: "80%",
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   fileInput: {
     width: '50%',
     margin: '10px 0',
   },
   buttonSubmit: {
-    marginBottom: 10,
-    margin: "10px 3px",
-    width: "47%"
+    margin: "10px",
+    width: "100px",
+    display: "inline-block"
   },
   modal: {
     display: 'flex',
@@ -44,5 +38,11 @@ export default makeStyles((theme) => ({
     bottom: 50,
     left: 'auto',
     position: 'fixed',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   },
 }));
