@@ -7,6 +7,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
+
     },
     drawer: {
       [theme.breakpoints.up('sm')]: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     selected: {
-      color: "purple"
+      backgroundColor: "##805AD5"
     },
     appBar: {
       [theme.breakpoints.up('sm')]: {

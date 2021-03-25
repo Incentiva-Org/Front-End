@@ -61,7 +61,7 @@ const NavBar = (props) => {
             }            
             <List>
                 {Object.keys(routes).map((item) => (
-                    <MuiLink classes={{root: classes.link, onClick: classes.selected}} component={NavLink} onClick={() => {setCurrentPath(routes[item].path); handleDrawerToggle()}} to={routes[item].path}>
+                    <MuiLink underline="none" classes={{root: classes.link, onClick: classes.selected}} component={NavLink} onClick={() => {setCurrentPath(routes[item].path); handleDrawerToggle()}} to={routes[item].path}>
                         <ListItem selected={routes[item].path === currentPath} button key={item}> 
                         <ListItemIcon>{routes[item].icon}</ListItemIcon>
                         <ListItemText primary={item} />
