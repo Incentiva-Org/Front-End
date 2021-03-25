@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .MuiTypography-displayBlock': {
           color: 'rgb(128, 90, 213)',
-        }
+        },
       },
     },
     appBar: {

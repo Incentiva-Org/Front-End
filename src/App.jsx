@@ -14,18 +14,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core'
 
 const App = () => {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        // Purple and green play nicely together.
-        main: "#805AD5"
-      },
-      secondary: {
-        // This is green.A700 as hex.
-        main: '#11cb5f',
-      },
-    },
-  });
   const dispatch = useDispatch();
     
   useEffect(() => {
@@ -34,15 +22,13 @@ const App = () => {
 
   return (
     <Switch>
-      <ThemeProvider theme={theme}>
-        <Navbar>
-          <Route exact path="/tasks" component={Tasks}/>
-          <Route exact path="/notes" component={Notes}/>
-          <Route exact path="/study" component={StudyMode}/>
-          <Route exact path="/insights" component={Insights}/>
-          <Route exact path="/" component={Tasks}/>
-        </Navbar>
-      </ThemeProvider>
+      <Navbar>
+        <Route exact path="/tasks" component={Tasks}/>
+        <Route exact path="/notes" component={Notes}/>
+        <Route exact path="/study" component={StudyMode}/>
+        <Route exact path="/insights" component={Insights}/>
+        <Route exact path="/" component={Tasks}/>
+      </Navbar>
     </Switch>
   );
 }

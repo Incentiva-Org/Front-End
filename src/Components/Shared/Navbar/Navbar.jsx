@@ -26,12 +26,67 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, Divider, MenuList } from '@material-ui/core'
+
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import Switch from "@material-ui/core/Switch";
+import NightsStayIcon from '@material-ui/icons/NightsStay';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import {
+  orange,
+  lightBlue,
+  deepPurple,
+  deepOrange
+} from "@material-ui/core/colors";
+
 const NavBar = (props) => {
     
     const path = window.location.pathname === "/" ? "/tasks" : window.location.pathname
     const [currentPath, setCurrentPath] = useState(path)
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    const [darkState, setDarkState] = useState(false);
+    const palletType = darkState ? "dark" : "light";
+    const primaryText = darkState ? "#fff": "rgba(0, 0, 0, 0.87)"
+    const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
+    /*
+    const darkTheme = createMuiTheme({
+      palette: {
+        type: palletType,
+        primary: {
+          main: mainPrimaryColor
+        },
+        secondary: {
+          main: mainSecondaryColor
+        }
+      }
+    });
+    */
+    const theme = createMuiTheme({
+      palette: {
+        type: palletType,
+        primary: {
+          // Purple and green play nicely together.
+          main: "#805AD5"
+        },
+        secondary: {
+          // This is green.A700 as hex.
+          main: '#11cb5f',
+        },
+        text: {
+          primary: primaryText
+        }
+      },
+    });
+
+    const handleThemeChange = () => {
+      setDarkState(!darkState);
+    };
 
     const mobile = useMediaQuery('(max-width:600px)');
 
@@ -40,6 +95,16 @@ const NavBar = (props) => {
             setMobileOpen(!mobileOpen);
         }
     };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const openMenu = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const closeMenu = () => {
+      setAnchorEl(null);
+    };
+
     const drawer = (
         <div>
             {mobile? 
@@ -64,7 +129,7 @@ const NavBar = (props) => {
                     <MuiLink underline="none" className={classes.link} component={NavLink} onClick={() => {setCurrentPath(routes[item].path); handleDrawerToggle()}} to={routes[item].path}>
                         <ListItem selected={routes[item].path === currentPath} button key={item}> 
                         <ListItemIcon>{routes[item].icon}</ListItemIcon>
-                        <ListItemText primary={item} style={{color: "black"}} />
+                        <ListItemText primary={item} style={{color: primaryText}}/>
                         </ListItem>
                     </MuiLink>
                 ))}
@@ -73,6 +138,7 @@ const NavBar = (props) => {
     );
 
     return (
+      <ThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
           {mobile? 
@@ -92,9 +158,35 @@ const NavBar = (props) => {
                     <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit">
                         <AccountCircleIcon />
                     </IconButton>
-                    <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit">
+                    <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu} >
                         <MoreVertIcon />
                     </IconButton>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={closeMenu}
+                    >
+                      <MenuItem style={{marginBottom: "5px"}}>
+                          <ListItemIcon>
+                            <AccountCircleIcon fontSize="small" />
+                          </ListItemIcon>
+                          <Typography variant="inherit">Account</Typography>
+                        </MenuItem>
+                        <MenuItem>
+                          <ListItemIcon>
+                            <ExitToAppIcon fontSize="small" />
+                          </ListItemIcon>
+                          <Typography variant="inherit">Logout</Typography>
+                        </MenuItem>
+                      <MenuItem>
+                        <ListItemIcon>
+                          <NightsStayIcon fontSize="small" />
+                        </ListItemIcon>
+                        <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
+                      </MenuItem>
+                    </Menu>
                 </div>
                 </Toolbar>
             </AppBar>
@@ -129,6 +221,40 @@ const NavBar = (props) => {
                 open
               >
                 {drawer}
+                {!mobile ? 
+                  (
+                    <>
+                    <Divider />
+                      <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Account</Typography>
+                      <MenuList>
+                        <MenuItem>
+                          <ListItemIcon>
+                            <AccountCircleIcon fontSize="small" />
+                          </ListItemIcon>
+                          <Typography variant="inherit">Account</Typography>
+                        </MenuItem>
+                        <MenuItem>
+                          <ListItemIcon>
+                            <ExitToAppIcon fontSize="small" />
+                          </ListItemIcon>
+                          <Typography variant="inherit">Logout</Typography>
+                        </MenuItem>
+                      </MenuList>
+                      <Divider />
+                      <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Preferences</Typography>
+                      <MenuList>
+                        <MenuItem style={{width: "92%"}}>
+                          <ListItemIcon>
+                            <NightsStayIcon fontSize="small" />
+                          </ListItemIcon>
+                          <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
+                        </MenuItem>
+                      </MenuList>
+                    </>
+                  )
+                  :
+                    <div></div>
+                }
               </Drawer>
             </Hidden>
           </nav>
@@ -137,6 +263,7 @@ const NavBar = (props) => {
             {props.children}
         </main>
         </div>
+        </ThemeProvider>
       );
 }
 
