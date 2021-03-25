@@ -31,13 +31,23 @@ const useStyles = makeStyles((theme) => ({
         display: "block"
     },
     link: {
-        textDecoration: "none",
-        "&:hover": {
-            textDecoration: "none",
+      '& .MuiListItem-root': {
+        borderRadius: "8px",
+        width: "92%",
+        marginLeft: "auto",
+        marginRight: "auto",
+      },
+      '&.active': {
+        '& .MuiListItem-root': {
+          background: 'rgba(128, 90, 213, 0.2)',
         },
-    },
-    selected: {
-      color: "purple"
+        '& .MuiListItemIcon-root': {
+          color: 'rgb(128, 90, 213)',
+        },
+        '& .MuiTypography-displayBlock': {
+          color: 'rgb(128, 90, 213)',
+        }
+      },
     },
     appBar: {
       [theme.breakpoints.up('sm')]: {
