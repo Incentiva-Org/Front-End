@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         textDecoration: "none",
-        color: "inherit",
+        backgroundColor: "blue",
         "&:hover": {
             textDecoration: "none",
         },

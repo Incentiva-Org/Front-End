@@ -7,17 +7,18 @@ export default makeStyles((theme) => ({
     },
   },
   paper: {
-    padding: theme.spacing(2),
     outline: 'none',
-    width: "380px",
-    borderRadius: "20px"
+    width: "300px",
+    borderRadius: "20px",
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   form: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     width: "100%",
-    padding: "10px 15px",
+    padding: theme.spacing(2),
   },
   fileInput: {
     width: '50%',
@@ -33,6 +34,8 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     outline: 'none',
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   fab: {
     margin: 0,
