@@ -15,14 +15,10 @@ import MuiDialogActions from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
-<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Alarm from '../../Sounds/alarm_gentle.wav'
-=======
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
->>>>>>> a88290e944bff7e07c65d5653abc0401d101e32a
 
 function timeString(t) {
     var str = Math.floor(t/60) + ":" + t%60
