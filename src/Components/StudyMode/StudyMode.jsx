@@ -21,7 +21,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-
+import Grid from '@material-ui/core/Grid';
 import Alarm from '../../Sounds/alarm_gentle.wav'
 
 function timeString(t) {
@@ -115,9 +115,9 @@ const StudyMode = () => {
     return (
         <div>
             <h1>Study Mode</h1>
-            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "90%", fontSize: '40px', marginBottom: '20px'}}>
+            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "100%", fontSize: '40px', marginBottom: '20px'}}>
                 <Box position="relative" display="inline-flex">
-                    <CircularProgress variant="determinate" value={normalise(t)} thickness={1.8} color="primary" style={{width: "375px", height: "375px", border: "black"}}/>
+                    <CircularProgress variant="determinate" value={normalise(t)} thickness={1.8} color="primary" style={{width: "340px", height: "340px"}}/>
                     <Box
                         top={0}
                         left={0}
@@ -224,59 +224,62 @@ const StudyMode = () => {
                                 </MuiDialogActions>
                         </form>
                     </Dialog>
+                <br></br>
                 <br></br>                
             </div>
-            <div style={{textAlign: "center", justifyContent: "space-between", width: "80%", marginRight: "auto", marginLeft: "auto"}}>
-                <Button 
-                    variant="contained"
-                    color={selected == "Work" ? "primary" : "default"}
-                    onClick={() =>{
-                        setSelected("Work");
-                        AlarmAudio.pause();
-                    }}
-                    style={{
-                        marginRight: "20px",
-                        height: "40px",
-                        fontSize: "13px",
-                        fontWeight: "bold",
-                    }}
+            <Grid container spacing={1} justify="center">
+                <Grid item>
+                    <Button 
+                        variant="contained"
+                        color={selected == "Work" ? "primary" : "default"}
+                        onClick={() =>{
+                            setSelected("Work");
+                            AlarmAudio.pause();
+                        }}
+                        style={{
+                            height: "40px",
+                            fontSize: "12px",
+                            fontWeight: "bold",
+                        }}
+                        >
+                        Work
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button 
+                        variant="contained"
+                        color={selected == "Short Break" ? "primary" : "default"}
+                        onClick={() =>{
+                            setSelected("Short Break");
+                            AlarmAudio.pause();
+                        }}
+                        style={{
+                            height: "40px",
+                            fontSize: "12px",
+                            fontWeight: "bold"
+                        }}
                     >
-                    Work
-                    
-                </Button>
-                <Button 
-                    variant="contained"
-                    color={selected == "Short Break" ? "primary" : "default"}
-                    onClick={() =>{
-                        setSelected("Short Break");
-                        AlarmAudio.pause();
-                    }}
-                    style={{
-                        marginRight: "20px",
-                        height: "40px",
-                        fontSize: "13px",
-                        fontWeight: "bold"
-                    }}
-                >
-                Short Break
-                </Button>
-
-                <Button 
-                    variant="contained"
-                    color={selected == "Long Break" ? "primary" : "default"}
-                    onClick={() =>{
-                        setSelected("Long Break");
-                        AlarmAudio.pause();
-                    }}
-                    style={{
-                        height: "40px",
-                        fontSize: "13px",
-                        fontWeight: "bold"
-                    }}
-                >
-                    Long Break
-                </Button>
-            </div>
+                    Short Break
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button 
+                        variant="contained"
+                        color={selected == "Long Break" ? "primary" : "default"}
+                        onClick={() =>{
+                            setSelected("Long Break");
+                            AlarmAudio.pause();
+                        }}
+                        style={{
+                            height: "40px",
+                            fontSize: "12px",
+                            fontWeight: "bold"
+                        }}
+                    >
+                        Long Break
+                    </Button>
+                </Grid>
+            </Grid>
         </div>
     )
 }

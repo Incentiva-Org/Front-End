@@ -15,6 +15,10 @@ const taskVariants = {
   exit: { transition: { staggerChildren: 0.2 } }
 }
 
+const handleClick = (event) => {
+    event.target.style.border = "black 2px solid"
+}
+
 const Tasks = () => {
     const classes = useStyles();
     const mobile = useMediaQuery('(max-width:750px)');
@@ -37,7 +41,7 @@ const Tasks = () => {
                                 {...(true ? { timeout: 1000 } : {})}
                             >
                                 <Grid key={task._id} item xs={12} sm={12} md={6} lg={4} xl={4}>
-                                    <Task task={task} style={{display: "inline-block"}}/>
+                                    <Task task={task} style={{display: "inline-block"}} onClick={() => handleClick}/>
                                 </Grid>
                             </Grow>
                         ))}

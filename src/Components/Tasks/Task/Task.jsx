@@ -12,14 +12,20 @@ const Task = ({ task }) => {
     const classes = useStyles();
 
     const [raised, setRaised] = useState(false);
-    const toggleRaised = () => setRaised(!raised);
+    const toggleRaised = () => {
+        setRaised(!raised);
+    }
 
+    const [selected, setSelected] = useState(false);
+    const outline = (event) => {
+        setSelected(!selected)
+    }
     return (
         <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
             <CardContent>
                 <div className={classes.header}>
-                    <Typography variant="h5" gutterBottom style={{display: "inline-block", fontWeight: "bold", width: "85%"}}>{task.title}</Typography>
-                    <Typography variant="caption" gutterBottom style={{display: "inline-block", float: "right", position: "absolute", width: "86px"}}>{task.day.split("T")[0]}</Typography>
+                    <Typography variant="h5" gutterBottom style={{display: "inline-block", fontWeight: "bold", width: "75%"}}>{task.title}</Typography>
+                    <Typography variant="caption" gutterBottom style={{display: "inline-block", float: "right", width: "68px"}}>{task.day.split("T")[0]}</Typography>
                 </div>
                 <Typography>{task.predictedTime} mins</Typography>
                 <Chip label={task.tag} classname={classes.chip}/>

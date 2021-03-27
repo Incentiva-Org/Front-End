@@ -20,7 +20,12 @@ export default makeStyles({
     borderRadius: '15px',
     height: '100%',
     position: 'relative',
-    margin: "20px 10px"
+    margin: "20px 10px",
+  },
+  cardOutlined: {
+    '&.MuiGrid-item': {
+        border: 'black 2px solid',
+    },
   },
   overlay: {
     position: 'absolute',
