@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {NavLink} from 'react-router-dom'
 
 import Logo from '../../../Assets/Logo.png'
@@ -54,19 +54,7 @@ const NavBar = (props) => {
     const palletType = darkState ? "dark" : "light";
     const primaryText = darkState ? "#fff": "rgba(0, 0, 0, 0.87)"
     const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
-    /*
-    const darkTheme = createMuiTheme({
-      palette: {
-        type: palletType,
-        primary: {
-          main: mainPrimaryColor
-        },
-        secondary: {
-          main: mainSecondaryColor
-        }
-      }
-    });
-    */
+
     const theme = createMuiTheme({
       palette: {
         type: palletType,
@@ -104,6 +92,12 @@ const NavBar = (props) => {
     const closeMenu = () => {
       setAnchorEl(null);
     };
+
+
+    useEffect(() => {
+      window.matchMedia("(prefers-color-scheme: dark)").matches && handleThemeChange()
+
+    }, [window.matchMedia("(prefers-color-scheme: dark)").matches])
 
     const drawer = (
         <div>
@@ -195,7 +189,6 @@ const NavBar = (props) => {
             <div></div>
         }
           <nav className={classes.drawer} aria-label="side drawer">
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">
               <Drawer
                 variant="temporary"
@@ -206,7 +199,7 @@ const NavBar = (props) => {
                   paper: classes.drawerPaper,
                 }}
                 ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
+                  keepMounted: true, 
                 }}
               >
                 {drawer}

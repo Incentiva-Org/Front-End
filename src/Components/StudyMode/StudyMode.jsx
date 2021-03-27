@@ -1,28 +1,28 @@
 import React, {useState, useEffect} from 'react'
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+
+import useStyles from "./Styles"
+import Alarm from '../../Assets/Sounds/alarm_gentle.wav'
+
 import { IconButton, Button, ButtonGroup, Typography, TextField } from "@material-ui/core"
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import FullScreenIcon from '@material-ui/icons/Fullscreen';
 import PauseIcon from '@material-ui/icons/Pause';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Input from '@material-ui/core/Input';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
-import useStyles from "./Styles"
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
+<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Alarm from '../../Sounds/alarm_gentle.wav'
+=======
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+>>>>>>> a88290e944bff7e07c65d5653abc0401d101e32a
 
 function timeString(t) {
     var str = Math.floor(t/60) + ":" + t%60
@@ -48,7 +48,6 @@ const StudyMode = () => {
     const [selected, setSelected] = useState("Work")
     const [t, setT] = useState(CountData["Work"])
     const [paused, setPaused] = useState(true)
-    const [active, setActive] = useState(true) //whether buttons are active
 
     useEffect(() => {
         if (!paused) {
@@ -60,6 +59,7 @@ const StudyMode = () => {
             }
             else {
                 AlarmAudio.play();
+                openDonePrompt()
             }
         }
     }, [t, paused])
@@ -76,18 +76,6 @@ const StudyMode = () => {
     
     const [timeForm, setTimeForm] = useState(timeString(t))
 
-    const changeTime = (inc) => {
-        setActive(false)
-        setPaused(true)
-        setTimeout(() => {
-            setT(inc)
-            setTimeout(() => {
-                setActive(true)
-                setPaused(false)
-            }, 500)
-        }, 1000)
-    }
-
     const setTimeToForm = () => {
         var min = Math.floor(parseInt(timeForm.substring(0, timeForm.indexOf(":"))))
         var sec = Math.floor(parseInt(timeForm.substring(timeForm.indexOf(":")+1)))
@@ -97,10 +85,10 @@ const StudyMode = () => {
         setTimeout(() => {setPaused(false)}, 1000)
     }
 
+    const [settings, setSettings] = useState(false); 
     const handleSubmit = () => {
         closeSettings();
     }
-    const [settings, setSettings] = useState(false);
     const closeSettings = () => {
         setSettings(false);
     }
@@ -108,14 +96,48 @@ const StudyMode = () => {
     const openSettings = () => {
         setSettings(true);
     }
+
+    
+    const [donePrompt, setDonePrompt] = useState(false); 
+    const closeDonePrompt = () => {
+        setDonePrompt(false);
+        AlarmAudio.pause()
+    }
+    
+    const openDonePrompt = () => {
+        setDonePrompt(true);
+    }
+
+    const fullScreen = () => {
+        const screen = document.documentElement;
+        window.fullScreen ?  document.exitFullscreen().catch(() => {}) : screen.requestFullscreen().catch(() => {})
+        
+    }
+
+    useEffect(() => {
+        return () => {
+            document.exitFullscreen().catch(() => {})
+        }
+    }, [])
+
+    const mobile = useMediaQuery('(max-width:600px)');
+
     const classes = useStyles();
 
     const normalise = value => value * 100 / CountData[selected];
 
     return (
         <div>
-            <h1>Study Mode</h1>
-            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "100%", fontSize: '40px', marginBottom: '20px'}}>
+            <h1 style={{display: "inline-block"}}>Study Mode</h1>
+            {!mobile && 
+            
+            <IconButton onClick={fullScreen} size='lg' style={{background: "rgba(128, 90, 213, 0.1)", marginTop: "10px", display: "inline-block", float: "right"}} color="primary" >
+                <FullScreenIcon />
+            </IconButton>
+        }
+
+
+            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "90%", fontSize: '40px', marginBottom: '20px'}}>
                 <Box position="relative" display="inline-flex">
                     <CircularProgress variant="determinate" value={normalise(t)} thickness={1.8} color="primary" style={{width: "340px", height: "340px"}}/>
                     <Box
@@ -141,7 +163,7 @@ const StudyMode = () => {
                         setPaused(!paused)
                     }} 
                     size='lg' s
-                    style={{background: "rgba(128, 90, 213, 0.1)", marginBottom: "10px", marginRight: "20px"}} 
+                    style={{background: "rgba(128, 90, 213, 0.1)", marginBottom: "30px", marginRight: "20px"}} 
                     color="primary"
                 >
                     {paused ? 
@@ -150,7 +172,7 @@ const StudyMode = () => {
                         <PauseIcon/>
                     }
                 </IconButton>
-                <IconButton onClick={openSettings} size='lg' style={{background: "rgba(128, 90, 213, 0.1)", marginBottom: "10px", display: "inline-block"}} color="primary" >
+                <IconButton onClick={openSettings} size='lg' style={{background: "rgba(128, 90, 213, 0.1)", marginBottom: "30px", display: "inline-block"}} color="primary" >
                     <SettingsIcon />
                 </IconButton>
                 <Dialog 
@@ -224,7 +246,22 @@ const StudyMode = () => {
                                 </MuiDialogActions>
                         </form>
                     </Dialog>
-                <br></br>
+
+                <Dialog 
+                    aria-labelledby="customized-dialog-title" 
+                    className={classes.modal}
+                    open={donePrompt}
+                    onClose={closeDonePrompt}
+                >
+                    <MuiDialogTitle disableTypography className={classes.root}>
+                        <Typography variant="h6">Times up!</Typography>
+                        <Button onClick={closeDonePrompt} style={{marginLeft: "10px", marginTop:"10px"}} color="primary">
+                            Ok
+                        </Button>
+                    </MuiDialogTitle>
+
+
+                </Dialog>
                 <br></br>                
             </div>
             <Grid container spacing={1} justify="center">
