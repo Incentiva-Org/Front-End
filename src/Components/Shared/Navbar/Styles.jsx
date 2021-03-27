@@ -37,12 +37,33 @@ const useStyles = makeStyles((theme) => ({
         width: "92%",
         marginLeft: "auto",
         marginRight: "auto",
+        fontWeight: "bold"
+      },
+      '& .MuiTypography-displayBlock': {
+        fontWeight: "bold"
       },
       '&.active': {
         '& .MuiListItem-root': {
-          background: 'rgba(128, 90, 213, 0.25)',
+          background: 'rgba(128, 90, 213, 0.1)',
         },
-        
+        '& .MuiListItemIcon-root': {
+          color: 'rgb(128, 90, 213)',
+        },
+        '& .MuiTypography-displayBlock': {
+          color: 'rgb(128, 90, 213)',
+        },
+      },
+      '&.hover': {
+        '& .MuiListItem-root': {
+          background: 'rgba(128, 90, 213, 0.1)',
+          fontWeight: "bold"
+        },
+        '& .MuiListItemIcon-root': {
+          color: 'rgb(128, 90, 213)',
+        },
+        '& .MuiTypography-displayBlock': {
+          color: 'rgb(128, 90, 213)',
+        },
       },
     },
     appBar: {

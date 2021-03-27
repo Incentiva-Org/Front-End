@@ -95,7 +95,7 @@ const NavBar = (props) => {
             setMobileOpen(!mobileOpen);
         }
     };
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const openMenu = (event) => {
       setAnchorEl(event.currentTarget);
@@ -227,13 +227,13 @@ const NavBar = (props) => {
                     <Divider />
                       <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Account</Typography>
                       <MenuList style={{margin: "8px 0px"}}>
-                        <MenuItem style={{height: "48px"}}>
+                        <MenuItem style={{height: "50px"}}>
                           <ListItemIcon>
                             <AccountCircleIcon fontSize="small" />
                           </ListItemIcon>
                           <Typography variant="inherit">Account</Typography>
                         </MenuItem>
-                        <MenuItem style={{height: "48px"}}>
+                        <MenuItem style={{height: "50px"}}>
                           <ListItemIcon>
                             <ExitToAppIcon fontSize="small" />
                           </ListItemIcon>
@@ -243,7 +243,7 @@ const NavBar = (props) => {
                       <Divider />
                       <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Preferences</Typography>
                       <MenuList style={{margin: "8px 0px"}}>
-                        <MenuItem  style={{height: "48px"}}>
+                        <MenuItem style={{height: "50px"}}>
                           <ListItemIcon>
                             <NightsStayIcon fontSize="small" />
                           </ListItemIcon>

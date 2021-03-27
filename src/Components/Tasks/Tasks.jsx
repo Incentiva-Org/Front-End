@@ -8,6 +8,13 @@ import Form from "./Form/Form"
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {Grid, CircularProgress, Typography, Grow } from "@material-ui/core"
 
+import { motion } from "framer-motion"
+
+const taskVariants = {
+  enter: { transition: { staggerChildren: 0.2 } },
+  exit: { transition: { staggerChildren: 0.2 } }
+}
+
 const Tasks = () => {
     const classes = useStyles();
     const mobile = useMediaQuery('(max-width:750px)');
@@ -22,19 +29,19 @@ const Tasks = () => {
         : (
             <div className={classes.mainContainer}>
                 <h1>Tasks</h1>
-                <Grid container spacing={2}>
-                    {tasks.map((task) => (
-                        <Grow
-                            in
-                            style={{ transformOrigin: '0 0 0' }}
-                            {...(true ? { timeout: 1000 } : {})}
-                        >
-                            <Grid key={task._id} item xs={12} sm={12} md={6} lg={4} xl={4}>
-                                <Task task={task} style={{display: "inline-block"}}/>
-                            </Grid>
-                        </Grow>
-                    ))}
-                </Grid>
+                    <Grid container spacing={2}>
+                        {tasks.map((task) => (
+                            <Grow
+                                in
+                                style={{ transformOrigin: '0 0 0' }}
+                                {...(true ? { timeout: 1000 } : {})}
+                            >
+                                <Grid key={task._id} item xs={12} sm={12} md={6} lg={4} xl={4}>
+                                    <Task task={task} style={{display: "inline-block"}}/>
+                                </Grid>
+                            </Grow>
+                        ))}
+                    </Grid>
                 <Form />
                 <br></br>
             </div>
