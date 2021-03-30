@@ -51,8 +51,8 @@ const NavBar = (props) => {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const [darkState, setDarkState] = useState(false);
-    const palletType = darkState ? "dark" : "light";
-    const primaryText = darkState ? "#fff": "rgba(0, 0, 0, 0.87)"
+    const palletType = localStorage.getItem("dark-mode") === "true" ? "dark" : "light";
+    const primaryText = localStorage.getItem("dark-mode") === "true" ? "#fff": "rgba(0, 0, 0, 0.87)"
     const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
 
     const theme = createMuiTheme({
@@ -73,7 +73,9 @@ const NavBar = (props) => {
     });
 
     const handleThemeChange = () => {
-      setDarkState(!darkState);
+      setDarkState(!darkState)
+      console.log(darkState)
+      localStorage.setItem('dark-mode', darkState);
     };
 
     const mobile = useMediaQuery('(max-width:600px)');
@@ -178,7 +180,7 @@ const NavBar = (props) => {
                         <ListItemIcon>
                           <NightsStayIcon fontSize="small" />
                         </ListItemIcon>
-                        <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
+                        <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={localStorage.getItem("dark-mode") === "true"} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
                       </MenuItem>
                     </Menu>
                 </div>
@@ -240,7 +242,7 @@ const NavBar = (props) => {
                           <ListItemIcon>
                             <NightsStayIcon fontSize="small" />
                           </ListItemIcon>
-                          <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
+                          <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={localStorage.getItem("dark-mode") === 'true'} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
                         </MenuItem>
                       </MenuList>
                     </>

@@ -21,11 +21,11 @@ const Task = ({ task }) => {
         setSelected(!selected)
     }
     return (
-        <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
+        <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised} style={{border: {...raised ? ("2px black solid") : ""}}}>
             <CardContent>
                 <div className={classes.header}>
                     <Typography variant="h5" gutterBottom style={{display: "inline-block", fontWeight: "bold", width: "75%"}}>{task.title}</Typography>
-                    <Typography variant="caption" gutterBottom style={{display: "inline-block", float: "right", width: "68px"}}>{task.day.split("T")[0]}</Typography>
+                    <Typography variant="caption" gutterBottom style={{display: "inline-block", float: "right", width: "68px"}}>{task.day}</Typography>
                 </div>
                 <Typography>{task.predictedTime} mins</Typography>
                 <Chip label={task.tag} classname={classes.chip}/>

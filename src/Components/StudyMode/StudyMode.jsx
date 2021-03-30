@@ -96,7 +96,7 @@ const StudyMode = () => {
     
     const [donePrompt, setDonePrompt] = useState(false); 
     const closeDonePrompt = () => {
-        setDonePrompt(false);
+        setDonePrompt(true);
         AlarmAudio.pause()
     }
     
@@ -120,7 +120,9 @@ const StudyMode = () => {
 
     const classes = useStyles();
 
-    const normalise = value => value * 100 / CountData[selected];
+    const normalise = () => {
+        return t * 100 / CountData[selected];
+    }
 
     return (
         <div>
@@ -133,9 +135,9 @@ const StudyMode = () => {
         }
 
 
-            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "90%", fontSize: '40px', marginBottom: '20px'}}>
+            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "100%", fontSize: '35px', marginBottom: '20px'}}>
                 <Box position="relative" display="inline-flex">
-                    <CircularProgress variant="determinate" value={normalise(t)} thickness={1.8} color="primary" style={{width: "340px", height: "340px"}}/>
+                    <CircularProgress variant="determinate" value={normalise()} thickness={1.8} color="primary" style={{width: "300px", height: "300px"}}/>
                     <Box
                         top={0}
                         left={0}
@@ -260,13 +262,14 @@ const StudyMode = () => {
                 </Dialog>
                 <br></br>                
             </div>
-            <Grid container spacing={1} justify="center">
+            <Grid container spacing={2} justify="center">
                 <Grid item>
                     <Button 
                         variant="contained"
                         color={selected == "Work" ? "primary" : "default"}
                         onClick={() =>{
                             setSelected("Work");
+                            setT(CountData[selected])
                             AlarmAudio.pause();
                         }}
                         style={{
@@ -284,6 +287,7 @@ const StudyMode = () => {
                         color={selected == "Short Break" ? "primary" : "default"}
                         onClick={() =>{
                             setSelected("Short Break");
+                            setT(CountData[selected])
                             AlarmAudio.pause();
                         }}
                         style={{
@@ -301,6 +305,7 @@ const StudyMode = () => {
                         color={selected == "Long Break" ? "primary" : "default"}
                         onClick={() =>{
                             setSelected("Long Break");
+                            setT(CountData[selected])
                             AlarmAudio.pause();
                         }}
                         style={{

@@ -15,7 +15,7 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogContent';
-
+import {format} from 'date-fns';
 import styles from "./Styles"
 
 function Alert(props) {
@@ -45,7 +45,7 @@ const Form = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [taskData, setTaskData] = useState({
-        title: "", description: "", tag: "", predictedTime: "", day: new Date()
+        title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date")
     })
 
     const clear = () => {
@@ -104,6 +104,7 @@ const Form = () => {
                             </IconButton>
                         </MuiDialogTitle>
                         <MuiDialogContent dividers>
+                            <Typography>{taskData.day}</Typography>
                             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                                 <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
                                 <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description}onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
