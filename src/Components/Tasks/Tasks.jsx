@@ -28,16 +28,18 @@ const handleClick = (event) => {
     event.target.style.border = "black 2px solid"
 }
 
-localStorage.setItem("selected-date", format(new Date(), "MM/dd/yyyy"))
-
 const Tasks = () => {
     const classes = useStyles();
+    const mobile = useMediaQuery('(max-width:750px)');
     const tasks = useSelector((state) => state.tasks)
-    const [selectedDate, setSelectedDate] = useState(localStorage.getItem("selected-date"));
+    const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
         setSelectedDate(date);
-        localStorage.setItem("selected-date", format(date, "MM/dd/yyyy"))
+        console.log(format(date, 'MM/dd/yyyy'))
     };
+    useEffect(() => {
+        localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
+    })
     return (
         !tasks.length ?
             <div className={classes.mainContainer}>
@@ -68,7 +70,7 @@ const Tasks = () => {
 
                 <Grid container spacing={2}>
                     {tasks.map((task) => (
-                        {...task.day === selectedDate ?
+                        {...task.day === format(selectedDate, "MM/dd/yyyy") ?
                             ( 
                                 <Grow
                                     in

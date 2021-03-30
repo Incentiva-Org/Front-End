@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {motion} from "framer-motion"
 
@@ -48,6 +48,10 @@ const Form = () => {
         title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date")
     })
 
+    useEffect(() => {
+       taskData.day = localStorage.getItem("selected-date")
+    })
+
     const clear = () => {
         setTaskData({title: "", description: "", tag: "", predictedTime: ""});
     }
@@ -56,6 +60,7 @@ const Form = () => {
 
     const handleOpen = () => {
         setOpen(true);
+        taskData.day = localStorage.getItem("selected-date")
     };
 
     const handleClose = () => {
