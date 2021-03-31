@@ -6,7 +6,8 @@ import {Card, CardActions, CardContent, Chip, IconButton } from "@material-ui/co
 import DeleteIcon from "@material-ui/icons/Delete"
 import useStyles from "./Styles"
 import EditIcon from '@material-ui/icons/Edit';
-  
+import Skeleton from 'react-loading-skeleton';
+
 const Task = ({ task }) => {
     const tasks = useSelector((state) => state.tasks)
     const classes = useStyles();
