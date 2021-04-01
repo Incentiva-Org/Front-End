@@ -51,7 +51,6 @@ export default makeStyles({
   cardActions: {
     padding: '0 16px 30px 16px',
     display: 'flex',
-    marginLeft: "auto"
   },
   chip: {
   },

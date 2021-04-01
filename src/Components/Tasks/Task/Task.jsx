@@ -39,7 +39,6 @@ const Task = ({ task }) => {
     return (
         <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised} style={{border: {...raised ? ("2px black solid") : ""}}}>
             <CardContent>
-                <Typography variant="caption" gutterBottom style={{float: "right", width: "68px"}}>{task.day}</Typography>
                 <div className={classes.header}>
                     <FormControlLabel
                         
@@ -61,23 +60,27 @@ const Task = ({ task }) => {
                     />
                     
                 </div>
-                <Grid container alignItems="center">
-                    <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block"}}/>
+                <Grid container alignItems="center" style={{marginBottom: "10px"}}>
+                    <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block"}}/>
                     <Typography variant="body2" style={{display: "inline-block", margin: "4px"}}>{task.predictedTime} mins</Typography>
                 </Grid>
                 <Typography variant="body2" component="p" style={{margin: "0px 5px", height: "40px", width: "100%"}}>{task.description}</Typography>
             </CardContent>
+            
             <CardActions className={classes.cardActions}>
-                <Tooltip title="Edit" placement="top">
-                    <IconButton size="small" aria-label="edit" color="primary" onClick={() => {}}>
-                        <EditIcon fontSize="medium" />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete" placement="top">
-                    <IconButton size="small" aria-label="delete" color="primary" onClick={() => {}}>
-                        <DeleteIcon fontSize="medium" />
-                    </IconButton>
-                </Tooltip>
+                <Typography variant="subtitle2" gutterBottom style={{marginLeft: "5px", float: "left", width: "68px" }}>{task.day}</Typography>
+                <div style={{marginLeft: "auto"}}>
+                    <Tooltip title="Edit" placement="top">
+                        <IconButton size="small" aria-label="edit" color="primary" onClick={() => {}}>
+                            <EditIcon fontSize="medium" />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" placement="top">
+                        <IconButton size="small" aria-label="delete" color="primary" onClick={() => {}}>
+                            <DeleteIcon fontSize="medium" />
+                        </IconButton>
+                    </Tooltip>
+                </div>
             </CardActions>
         </Card>
     )
