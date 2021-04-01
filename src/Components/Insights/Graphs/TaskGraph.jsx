@@ -16,7 +16,7 @@ export default function Graphs({data}) {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="Date" />
-            <YAxis />
+            <YAxis  />
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="Work" stroke="#0088FE" />

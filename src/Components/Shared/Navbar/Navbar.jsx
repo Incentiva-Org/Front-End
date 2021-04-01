@@ -130,120 +130,132 @@ const NavBar = (props) => {
             </List>
         </div>
     );
-
-    return (
-      <ThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <CssBaseline />
-          {mobile? 
-          ( 
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    className={classes.menuButton}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <div style={{marginLeft: "auto"}}>
-                    <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit">
-                        <AccountCircleIcon />
-                    </IconButton>
-                    <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu} >
-                        <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                      id="simple-menu"
-                      anchorEl={anchorEl}
-                      keepMounted
-                      open={Boolean(anchorEl)}
-                      onClose={closeMenu}
-                    >
+    if(path != "/login") {
+      return (
+        <ThemeProvider theme={theme}>
+          <div className={classes.root}>
+            <CssBaseline />
+            {mobile? 
+            ( 
+              <AppBar position="fixed" className={classes.appBar}>
+                  <Toolbar>
+                  <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      edge="start"
+                      onClick={handleDrawerToggle}
+                      className={classes.menuButton}
+                  >
+                      <MenuIcon />
+                  </IconButton>
+                  <div style={{marginLeft: "auto"}}>
+                      <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit">
+                          <AccountCircleIcon />
+                      </IconButton>
+                      <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu} >
+                          <MoreVertIcon />
+                      </IconButton>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={closeMenu}
+                      >
+                          <MenuItem>
+                            <ListItemIcon>
+                              <ExitToAppIcon fontSize="small" />
+                            </ListItemIcon>
+                            <Typography variant="inherit">Logout</Typography>
+                          </MenuItem>
                         <MenuItem>
                           <ListItemIcon>
-                            <ExitToAppIcon fontSize="small" />
+                            <NightsStayIcon fontSize="small" />
                           </ListItemIcon>
-                          <Typography variant="inherit">Logout</Typography>
+                          <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
                         </MenuItem>
-                      <MenuItem>
-                        <ListItemIcon>
-                          <NightsStayIcon fontSize="small" />
-                        </ListItemIcon>
-                        <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
-                      </MenuItem>
-                    </Menu>
-                </div>
-                </Toolbar>
-            </AppBar>
-          )
-        :
-            <div></div>
-        }
-          <nav className={classes.drawer} aria-label="side drawer">
-            <Hidden smUp implementation="css">
-              <Drawer
-                variant="temporary"
-                anchor={'left'}
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                ModalProps={{
-                  keepMounted: true, 
-                }}
-              >
-                {drawer}
-              </Drawer>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-              <Drawer
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                variant="permanent"
-                open
-              >
-                {drawer}
-                {!mobile ? 
-                  (
-                    <>
-                      <div style={{margin: "auto auto 30px auto", justifyContent: "space-between", width: "90%"}}>
-                        <Tooltip title="Account" placement="top">
-                          <IconButton style={{display: "inline-block", padding: "8px"}}>
-                            <AccountCircleIcon fontSize="medium" color="primary" />
-                          </IconButton>
-                        </Tooltip>
-                        <Typography style={{display: "inline-block", padding: "8px"}}>Test User</Typography>
-                        <Tooltip title="Logout" placement="top">
-                          <IconButton style={{display: "inline-block"}}>
-                            <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Dark Mode" placement="top">
-                          <IconButton onClick={handleThemeChange} style={{display: "inline-block"}}>
-                            <NightsStayIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
-                          </IconButton>
-                        </Tooltip>
-                      </div>
-                    </>
-                  )
-                  :
-                    <div></div>
-                }
-              </Drawer>
-            </Hidden>
-          </nav>
-        <main className={classes.content}>
-            {mobile? (<div className={classes.toolbar} />) : <div></div>}
-            {props.children}
-        </main>
-        </div>
+                      </Menu>
+                  </div>
+                  </Toolbar>
+              </AppBar>
+            )
+          :
+              <div></div>
+          }
+            <nav className={classes.drawer} aria-label="side drawer">
+              <Hidden smUp implementation="css">
+                <Drawer
+                  variant="temporary"
+                  anchor={'left'}
+                  open={mobileOpen}
+                  onClose={handleDrawerToggle}
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  ModalProps={{
+                    keepMounted: true, 
+                  }}
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+              <Hidden xsDown implementation="css">
+                <Drawer
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  variant="permanent"
+                  open
+                >
+                  {drawer}
+                  {!mobile ? 
+                    (
+                      <>
+                        <div style={{margin: "auto auto 30px auto", justifyContent: "space-between", width: "90%"}}>
+                          <Tooltip title="Account" placement="top">
+                            <IconButton style={{display: "inline-block", padding: "8px"}}>
+                              <AccountCircleIcon fontSize="medium" color="primary" />
+                            </IconButton>
+                          </Tooltip>
+                          <Typography style={{display: "inline-block", padding: "8px"}}>Test User</Typography>
+                          <Tooltip title="Logout" placement="top">
+                            <IconButton style={{display: "inline-block"}}>
+                              <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Dark Mode" placement="top">
+                            <IconButton onClick={handleThemeChange} style={{display: "inline-block"}}>
+                              <NightsStayIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
+                            </IconButton>
+                          </Tooltip>
+                        </div>
+                      </>
+                    )
+                    :
+                      <div></div>
+                  }
+                </Drawer>
+              </Hidden>
+            </nav>
+          <main className={classes.content}>
+              {mobile? (<div className={classes.toolbar} />) : <></>}
+              {props.children}
+          </main>
+          </div>
+          </ThemeProvider>
+        );
+    }
+    else {
+      return (
+        <ThemeProvider theme={theme}>
+            <div className={classes.root}>
+              <main className={classes.content}>
+                      {props.children}
+              </main>
+            </div>
         </ThemeProvider>
       );
+    }
 }
 
 export default NavBar

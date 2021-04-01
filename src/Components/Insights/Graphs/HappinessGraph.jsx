@@ -2,6 +2,7 @@ import {React, Component, useState, createRef, useEffect} from 'react'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function HappinessGraph({data}) {
+    console.log(data)
     return (
             <BarChart
             width={500}
@@ -14,8 +15,8 @@ export default function HappinessGraph({data}) {
                 bottom: 5
             }}
             >
-                <XAxis dataKey="day" />
-                <YAxis />
+                <XAxis dataKey="Date" />
+                <YAxis interval={[0, 10]}/>
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="Happiness" barSize={30} fill="#805AD5"/>

@@ -86,7 +86,7 @@ const Tasks = () => {
 
             {loading && <Skeletons numItems={getCount()} />}
             {!loading && 
-                        <Grid container spacing={1}>
+                        <Grid container spacing={2}>
                                 {tasks.map((task) => (
                                     {...task.day === format(selectedDate, "MM/dd/yyyy") ?
                                         ( 
@@ -95,7 +95,7 @@ const Tasks = () => {
                                                 style={{ transformOrigin: '0 0 0' }}
                                                 {...(true ? { timeout: 1000 } : {})}
                                             >
-                                                <Grid key={task._id} item xs={12} sm={10} md={6} lg={3} xl={3}>
+                                                <Grid key={task._id} item xs={12} sm={10} md={6} lg={3} xl={3} style={{height: "205px"}}>
                                                     {<Task task={task} style={{display: "inline-block"}} />}
                                                 </Grid>
                                             </Grow>

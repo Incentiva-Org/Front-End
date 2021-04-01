@@ -18,9 +18,9 @@ export default makeStyles({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '15px',
-    height: '80%',
+    height: '100%',
     position: 'relative',
-    margin: "20px 10px",
+    margin: "10px 0",
     '&.MuiPaper-elevation8': {
         
     },

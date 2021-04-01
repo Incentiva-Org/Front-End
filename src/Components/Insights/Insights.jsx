@@ -70,40 +70,23 @@ const getTagCounts = () => {
             }
         }
     }
-    console.log(school, work, life, exercise);
-    setTagCounts({School: school, Work: work, Life: life, Exercise: exercise});
-}
-const handlePredictClick = () => {
-    var school = 0
-    var work = 0
-    var life = 0
-    var exercise = 0
-    for(const i in tasks) {
-        if(tasks[i].day === format(new Date(), "MM/dd/yyyy")) {
-            if(tasks[i].tag === "School") {
-                school++;
-            }
-            else if(tasks[i].tag === "Work") {
-                work++;
-            }
-            else if(tasks[i].tag === "Life") {
-                life++;
-            }
-            else if(tasks[i].tag === "Exercise") {
-                exercise++;
-            }
-        }
-    }
-    console.log(school, work, life, exercise);
 
   const formData = {
-    Date: format(new Date(), "MM/dd/yyyy"),
-    School: school,
-    Work: work,
-    Life: life,
-    Exercise: exercise,
-    Happiness: happiness
+      "days": [
+          {
+            Date: format(new Date(), "MM/dd/yyyy"),
+            School: school,
+            Work: work,
+            Life: life,
+            Exercise: exercise,
+            Happiness: happiness
+        },
+    ]
   }
+  return formData;
+}
+const handlePredictClick = () => {
+    const formData = getTagCounts().days;
   console.log(formData)
   setLoading(true)
   fetch('https://incentiva-backend.herokuapp.com/', 
@@ -161,13 +144,12 @@ const handlePredictClick = () => {
         {result == "" ? null :
           <div style={{width: "100%", marginRight: "auto", marginLeft: "auto"}}>
             <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>{result}</Typography>
-            <br></br>
             <h2 style={{fontWeight: "bold", fontSize:"20px"}}>Analytics:</h2>
             <div style={{width: "48%", display: "inline-block", marginRight: "20px"}}>
-              <TaskGraph data={tasks}/>
+              <TaskGraph data={getTagCounts().days}/>
             </div>
             <div style={{width: "48%", display: "inline-block", marginLeft: "20px"}}>
-              <HappinessGraph data={tasks}/>
+              <HappinessGraph data={getTagCounts().days}/>
             </div>
           </div>
         }
