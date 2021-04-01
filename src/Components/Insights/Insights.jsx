@@ -17,6 +17,7 @@ import TaskGraph from "./Graphs/TaskGraph"
 import HappinessGraph from "./Graphs/HappinessGraph"
 import CheckIcon from "@material-ui/icons/CheckBox"
 import {format} from 'date-fns';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -124,16 +125,12 @@ const handlePredictClick = () => {
   return (
     <div className={classes.mainContainer}>
         <h1>Tasks</h1>
-        <Button variant="contained" color="primary" style={{marginBottom: "30px"}} onClick={handlePredictClick}>
+        <Button variant="contained" color="primary" style={{marginBottom: "30px"}} onClick={handlePredictClick} endIcon={<EqualizerIcon/>}>
             Generate Insights (0)
         </Button>
         <br></br>
-        <Typography id="discrete-slider" gutterBottom>
+        <Typography gutterBottom style={{textAlign: "center"}}>
             Indicate your happiness level below for today:
-        </Typography>
-        <br></br>
-        <Typography style={{fontWeight: "bold", textAlign: ""}}>
-            Current happiness: {happiness}
         </Typography>
         <br></br>
         <div style={{margin: "0px auto", textAlign: "center"}}>
@@ -147,7 +144,7 @@ const handlePredictClick = () => {
               marks
               min={0}
               max={10}
-              style={{display: "inline-block"}}
+              style={{display: "inline-block", width: "75%"}}
               onChange={handleSliderChange}
             />
             <div style={{width: "100%", justifyContent: "space-between"}}>
@@ -157,27 +154,20 @@ const handlePredictClick = () => {
               <MoodIcon style={{width: "25%"}}/>
             </div>
           </div>
-          <Button variant="contained" color="primary"  onClick={(e) => {getTagCounts()}} style={{display: "inline-block", marginLeft: "50px", marginBottom: "70px"}}>
-              Confirm
-          </Button>
         </div>
         <Backdrop className={classes.backdrop} open={loading}>
           <CircularProgress color="inherit" />
         </Backdrop>
         {result == "" ? null :
           <div style={{width: "100%", marginRight: "auto", marginLeft: "auto"}}>
-            <div style={{textAlign: "center"}}>
-              <h2 style={{fontSize: "20px"}}>{result}</h2>
-            </div>
+            <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>{result}</Typography>
             <br></br>
             <h2 style={{fontWeight: "bold", fontSize:"20px"}}>Analytics:</h2>
-            <br></br>
-            <br></br>
             <div style={{width: "48%", display: "inline-block", marginRight: "20px"}}>
-              <TaskGraph/>
+              <TaskGraph data={tasks}/>
             </div>
             <div style={{width: "48%", display: "inline-block", marginLeft: "20px"}}>
-              <HappinessGraph/>
+              <HappinessGraph data={tasks}/>
             </div>
           </div>
         }
