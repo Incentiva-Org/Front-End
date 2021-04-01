@@ -18,13 +18,11 @@ export default makeStyles({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: '15px',
-    height: '100%',
+    height: '80%',
     position: 'relative',
     margin: "20px 10px",
-  },
-  cardOutlined: {
-    '&.MuiGrid-item': {
-        border: 'black 2px solid',
+    '&.MuiPaper-elevation8': {
+        
     },
   },
   overlay: {
@@ -51,10 +49,19 @@ export default makeStyles({
     justifyContent: "space-between"
   },
   cardActions: {
-    padding: '0 16px 8px 16px',
+    padding: '0 16px 30px 16px',
     display: 'flex',
+    marginLeft: "auto"
   },
   chip: {
+  },
+  title: {
+  },
+  checkBox: {
+    '&.active': {
+      '&.MuiFormControlLabel-label': {
+        textDecoration: "line-through"
+      }
+    }
   }
-  
 });

@@ -8,8 +8,6 @@ import Form from "./Form/Form"
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {Grid, CircularProgress, Typography, Grow } from "@material-ui/core"
 
-import { motion } from "framer-motion"
-
 import {format} from 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -19,6 +17,7 @@ import {
 
 import moment from 'moment'
 import Skeletons from "./Task/Skeletons"
+import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 
 const taskVariants = {
   enter: { transition: { staggerChildren: 0.2 } },
@@ -39,7 +38,7 @@ const Tasks = () => {
         setSelectedDate(date);
         console.log(format(date, 'MM/dd/yyyy'))
     };
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     
     const getCount = () => {
         var cnt = 0;
@@ -55,11 +54,11 @@ const Tasks = () => {
         setLoading(true);
         const timer = setTimeout(() => {
           setLoading(false);
-        }, 1000);
+        }, 800);
         // Cancel the timer while unmounting
         return () => clearTimeout(timer);
     }, []);
-
+    
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
     })
@@ -86,29 +85,31 @@ const Tasks = () => {
             </div>
 
             {loading && <Skeletons numItems={getCount()} />}
-            {!loading && <Grid container spacing={2}>
-                {tasks.map((task) => (
-                    {...task.day === format(selectedDate, "MM/dd/yyyy") ?
-                        ( 
-                            <Grow
-                                in
-                                style={{ transformOrigin: '0 0 0' }}
-                                {...(true ? { timeout: 1000 } : {})}
-                            >
-                                <Grid key={task._id} item xs={12} sm={12} md={6} lg={4} xl={4}>
-                                    {<Task task={task} style={{display: "inline-block"}} onClick={() => handleClick}/>}
-                                </Grid>
-                            </Grow>
-                        )
-                        :
-                        <div></div>
+            {!loading && 
+                        <Grid container spacing={1}>
+                                {tasks.map((task) => (
+                                    {...task.day === format(selectedDate, "MM/dd/yyyy") ?
+                                        ( 
+                                            <Grow
+                                                in
+                                                style={{ transformOrigin: '0 0 0' }}
+                                                {...(true ? { timeout: 1000 } : {})}
+                                            >
+                                                <Grid key={task._id} item xs={12} sm={10} md={6} lg={3} xl={3}>
+                                                    {<Task task={task} style={{display: "inline-block"}} />}
+                                                </Grid>
+                                            </Grow>
+                                        )
+                                        :
+                                        <></>
+                                    }
+                                ))} 
+                        </Grid>
                     }
-                ))}
-            </Grid>}
-            <Form />
+                <Form />
             <br></br>
         </div>
     )
 }
-
+  
 export default Tasks;

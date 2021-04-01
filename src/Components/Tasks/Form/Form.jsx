@@ -22,7 +22,7 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 const Form = () => {
-    const CHARACTER_LIMIT = 250;
+    const CHARACTER_LIMIT = 150;
     const tags = [
         {
             value: 'School',

@@ -27,7 +27,7 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider, Divider, MenuList } from '@material-ui/core'
+import { ThemeProvider, Divider, MenuList, Tooltip } from '@material-ui/core'
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -162,12 +162,6 @@ const NavBar = (props) => {
                       open={Boolean(anchorEl)}
                       onClose={closeMenu}
                     >
-                      <MenuItem style={{marginBottom: "5px"}}>
-                          <ListItemIcon>
-                            <AccountCircleIcon fontSize="small" />
-                          </ListItemIcon>
-                          <Typography variant="inherit">Account</Typography>
-                        </MenuItem>
                         <MenuItem>
                           <ListItemIcon>
                             <ExitToAppIcon fontSize="small" />
@@ -217,32 +211,24 @@ const NavBar = (props) => {
                 {!mobile ? 
                   (
                     <>
-                    <Divider />
-                      <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Account</Typography>
-                      <MenuList style={{margin: "8px 0px"}}>
-                        <MenuItem style={{height: "50px"}}>
-                          <ListItemIcon>
-                            <AccountCircleIcon fontSize="small" />
-                          </ListItemIcon>
-                          <Typography variant="inherit">Account</Typography>
-                        </MenuItem>
-                        <MenuItem style={{height: "50px"}}>
-                          <ListItemIcon>
-                            <ExitToAppIcon fontSize="small" />
-                          </ListItemIcon>
-                          <Typography variant="inherit">Logout</Typography>
-                        </MenuItem>
-                      </MenuList>
-                      <Divider />
-                      <Typography variant="h6" style={{margin: "10px 0px 0px 15px", fontSize: "18px"}}>Preferences</Typography>
-                      <MenuList style={{margin: "8px 0px"}}>
-                        <MenuItem style={{height: "50px"}}>
-                          <ListItemIcon>
-                            <NightsStayIcon fontSize="small" />
-                          </ListItemIcon>
-                          <Typography variant="inherit" style={{marginRight: "5px"}}>Dark Mode<Switch checked={darkState} onChange={handleThemeChange} style={{display: "inline-block"}} color="default" /></Typography>
-                        </MenuItem>
-                      </MenuList>
+                      <div style={{margin: "auto auto 30px auto", justifyContent: "space-between", width: "90%"}}>
+                        <Tooltip title="Account" placement="top">
+                          <IconButton style={{display: "inline-block", padding: "8px"}}>
+                            <AccountCircleIcon fontSize="medium" color="primary" />
+                          </IconButton>
+                        </Tooltip>
+                        <Typography style={{display: "inline-block", padding: "8px"}}>Test User</Typography>
+                        <Tooltip title="Logout" placement="top">
+                          <IconButton style={{display: "inline-block"}}>
+                            <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Dark Mode" placement="top">
+                          <IconButton onClick={handleThemeChange} style={{display: "inline-block"}}>
+                            <NightsStayIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
+                          </IconButton>
+                        </Tooltip>
+                      </div>
                     </>
                   )
                   :
