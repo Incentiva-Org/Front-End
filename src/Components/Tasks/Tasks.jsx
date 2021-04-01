@@ -105,7 +105,12 @@ const Tasks = () => {
                                     }
                                 ))} 
                         </Grid>
-                    }
+            }
+            {getCount() == 0 && 
+                <div style={{margin: "200px auto", textAlign: "center"}}>
+                    <Typography  variant="h5" >There's nothing here! Try adding a task</Typography>
+                </div>
+            }
                 <Form />
             <br></br>
         </div>
