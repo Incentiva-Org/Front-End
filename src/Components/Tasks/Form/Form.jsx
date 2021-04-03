@@ -54,7 +54,7 @@ const Form = () => {
     })
 
     const clear = () => {
-        setTaskData({title: "", description: "", tag: "", predictedTime: ""});
+        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date")});
     }
 
     const [open, setOpen] = useState(false);

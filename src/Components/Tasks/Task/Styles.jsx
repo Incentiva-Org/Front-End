@@ -49,7 +49,6 @@ export default makeStyles((theme) => ({
     justifyContent: "space-between"
   },
   cardActions: {
-    padding: '0 16px 30px 16px',
     display: 'flex',
   },
   chip: {
@@ -78,7 +77,8 @@ export default makeStyles((theme) => ({
   buttonSubmit: {
     margin: "10px",
     width: "100px",
-    display: "inline-block"
+    display: "inline-block",
+    padding: "8px 10px"
   },
   modal: {
     display: 'flex',
@@ -102,4 +102,7 @@ export default makeStyles((theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  '&.MuiFormLabel-root': {
+    marginBottom: "10px"
+  }
 }))

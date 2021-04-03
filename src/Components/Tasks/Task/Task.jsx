@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { editTask } from "../../../Actions/Tasks"
+import { deleteTask } from '../../../Actions/Tasks';
 
 import { Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button } from "@material-ui/core"
@@ -20,7 +21,6 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogContent';
-import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -54,7 +54,7 @@ const Task = ({ task }) => {
     })
 
     const clear = () => {
-        setTaskData({title: "", description: "", tag: "", predictedTime: ""});
+        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: task.day});
     }
 
     const [open, setOpen] = useState(false);
@@ -94,10 +94,10 @@ const Task = ({ task }) => {
     }
     const [severity, setSeverity] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(taskData.title !== "" && taskData.description !== "" && taskData.tag !== "" && taskData.predictedTime !== "") {
-            dispatch(editTask(taskData));
+            dispatch(editTask(taskData._id, taskData));
             handleClose();
             clear();
             setTimeout(1000);
@@ -148,7 +148,7 @@ const Task = ({ task }) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete" placement="top">
-                            <IconButton size="small" aria-label="delete" color="primary" onClick={() => {}}>
+                            <IconButton size="small" aria-label="delete" color="primary"onClick={() => dispatch(deleteTask(task._id))}>
                                 <DeleteIcon fontSize="medium" />
                             </IconButton>
                         </Tooltip>
@@ -200,7 +200,7 @@ const Task = ({ task }) => {
                                             transition: { duration: 0.2 }
                                         }}
                                         whileTap={{ scale: 0.95 }}
-                                        onClick={handleSubmit}
+                                        onClick={(e) => {handleSubmit()}}
                                     >
                                         Confirm
                                     </Button>
@@ -231,7 +231,7 @@ const Task = ({ task }) => {
                 </Dialog>
                 <Snackbar open={alert && severity === "success"} autoHideDuration={2000} onClose={closeAlert}>
                     <Alert onClose={closeAlert} severity={severity}>
-                        Task created successfully!
+                        Task edited successfully!
                     </Alert>
                 </Snackbar>
         </>
