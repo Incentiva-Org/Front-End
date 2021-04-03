@@ -130,7 +130,7 @@ const NavBar = (props) => {
             </List>
         </div>
     );
-    if(path != "/login") {
+    if(path !== "/login" && path !== "/register") {
       return (
         <ThemeProvider theme={theme}>
           <div className={classes.root}>

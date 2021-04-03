@@ -9,6 +9,7 @@ import Insights from './Components/Insights/Insights'
 import StudyMode from './Components/StudyMode/StudyMode'
 import Tasks from './Components/Tasks/Tasks'
 import Notes from './Components/Notes/Notes'
+import Register from './Components/Register/Register'
 import Login from './Components/Login/Login'
 
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -28,6 +29,7 @@ const App = () => {
         <Route exact path="/notes" component={Notes}/>
         <Route exact path="/study" component={StudyMode}/>
         <Route exact path="/insights" component={Insights}/>
+        <Route exact path="/register" component={Register}/>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/" component={Tasks}/>
       </Navbar>
