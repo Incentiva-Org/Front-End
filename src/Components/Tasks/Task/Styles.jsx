@@ -55,11 +55,17 @@ export default makeStyles((theme) => ({
   },
   title: {
   },
-  checkBox: {
-    '&.active': {
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+    },
+    '&.Mui-checked': {
       '&.MuiFormControlLabel-label': {
         textDecoration: "line-through"
       }
+    },
+    '&.MuiButton-containedSizeLarge': {
+      padding: "8px 12px"
     }
   },
   form: {
@@ -77,8 +83,7 @@ export default makeStyles((theme) => ({
   buttonSubmit: {
     margin: "10px",
     width: "100px",
-    display: "inline-block",
-    padding: "8px 10px"
+    display: "inline-block"
   },
   modal: {
     display: 'flex',
@@ -102,7 +107,4 @@ export default makeStyles((theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  '&.MuiFormLabel-root': {
-    marginBottom: "10px"
-  }
 }))

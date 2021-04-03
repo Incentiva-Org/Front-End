@@ -33,6 +33,7 @@ const Tasks = () => {
     const classes = useStyles();
     const mobile = useMediaQuery('(max-width:750px)');
     const tasks = useSelector((state) => state.tasks)
+
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
         setSelectedDate(date);

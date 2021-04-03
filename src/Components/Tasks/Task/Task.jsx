@@ -97,15 +97,17 @@ const Task = ({ task }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(taskData.title !== "" && taskData.description !== "" && taskData.tag !== "" && taskData.predictedTime !== "") {
-            dispatch(editTask(taskData._id, taskData));
+            dispatch(editTask(task._id, taskData));
             handleClose();
             clear();
-            setTimeout(1000);
+            window.location.reload();
+            setTimeout(2000);
             setSeverity("success")
         }
         else {
             setSeverity("error")
         }
+        setAlert(true)
     }
     return (
         <>
@@ -127,8 +129,11 @@ const Task = ({ task }) => {
                             />
                             }
                             label={
-                                <Typography variant="h6" className={classes.title} style={{fontWeight: "bold", textDecoration: {...checked ? ("line-through") : "none"}}}>{task.title}</Typography>
-                            }
+                                {...checked ? 
+                                    (<Typography variant="h6" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through"}}>{task.title}</Typography>)
+                                    :
+                                    <Typography variant="h6" className={classes.title} style={{fontWeight: "bold"}}>{task.title}</Typography>
+                                }                            }
                         />
                         
                     </div>
@@ -200,7 +205,7 @@ const Task = ({ task }) => {
                                             transition: { duration: 0.2 }
                                         }}
                                         whileTap={{ scale: 0.95 }}
-                                        onClick={(e) => {handleSubmit()}}
+                                        onClick={(e) => {handleSubmit(e)}}
                                     >
                                         Confirm
                                     </Button>
