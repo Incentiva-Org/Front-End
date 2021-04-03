@@ -21,3 +21,13 @@ export const createTask = (task) => async (dispatch) => {
         console.log(error.message)
     }
 }
+export const editTask = (task) => async (dispatch) => {
+    try {
+        const { data } = await api.editTask(task);
+
+        dispatch({ type: "PATCH", payload: data })
+    }
+    catch (error) {
+        console.log(error.message)
+    }
+}

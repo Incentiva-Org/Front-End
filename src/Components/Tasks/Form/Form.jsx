@@ -21,6 +21,7 @@ import styles from "./Styles"
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
 const Form = () => {
     const CHARACTER_LIMIT = 150;
     const tags = [
