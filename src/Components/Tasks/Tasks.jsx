@@ -18,6 +18,7 @@ import {
 import moment from 'moment'
 import Skeletons from "./Task/Skeletons"
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { createSelector } from 'reselect'
 
 const taskVariants = {
   enter: { transition: { staggerChildren: 0.2 } },
@@ -63,7 +64,7 @@ const Tasks = () => {
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
     })
-
+    
     return (
         <div className={classes.mainContainer}>
             <h1>Tasks</h1>

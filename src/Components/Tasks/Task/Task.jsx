@@ -32,6 +32,10 @@ const Task = ({ task }) => {
     const tasks = useSelector((state) => state.tasks)
     const classes = useStyles();
 
+    const [taskData, setTaskData] = useState({
+        title: task.title, description: task.description, tag: task.tag, predictedTime: task.predictedTime, day: task.day, completed: task.completed
+    })
+
     const [raised, setRaised] = useState(false);
     const toggleRaised = () => {
         setRaised(!raised);
@@ -46,15 +50,13 @@ const Task = ({ task }) => {
     const handleChange = (event) => {
         setChecked(event.target.checked);
         event.target.style.textDecoration = "line-through"
-        
+        setTaskData({ ...taskData, completed: event.target.checked })
     };
     const dispatch = useDispatch();
-    const [taskData, setTaskData] = useState({
-        title: task.title, description: task.description, tag: task.tag, predictedTime: task.predictedTime, day: task.day
-    })
+    
 
     const clear = () => {
-        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: task.day});
+        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: task.day, completed: task.completed});
     }
 
     const [open, setOpen] = useState(false);
@@ -66,6 +68,7 @@ const Task = ({ task }) => {
     const handleClose = () => {
         setOpen(false);
     };
+
     const CHARACTER_LIMIT = 150;
     const tags = [
         {
@@ -100,7 +103,6 @@ const Task = ({ task }) => {
             dispatch(editTask(task._id, taskData));
             handleClose();
             clear();
-            window.location.reload();
             setTimeout(2000);
             setSeverity("success")
         }
@@ -108,6 +110,7 @@ const Task = ({ task }) => {
             setSeverity("error")
         }
         setAlert(true)
+        console.log(task)
     }
     return (
         <>
@@ -176,7 +179,7 @@ const Task = ({ task }) => {
                             <Typography>{taskData.day}</Typography>
                             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                                 <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
-                                <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description}onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
+                                <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description} onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
                                 <TextField name="tag" 
                                     variant="outlined" 
                                     label="Tag" 

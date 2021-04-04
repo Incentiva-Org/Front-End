@@ -1,5 +1,5 @@
 import * as api from '../API'
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../Constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes';
 
 //Action Creators
 export const getTasks = () => async (dispatch) => {
