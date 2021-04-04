@@ -64,7 +64,6 @@ const Tasks = () => {
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
     })
-    
     return (
         <div className={classes.mainContainer}>
             <h1>Tasks</h1>

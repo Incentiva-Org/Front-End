@@ -4,9 +4,9 @@ import useStyles from "./Styles"
 import Alarm from '../../Assets/Sounds/alarm_gentle.wav'
 
 import { IconButton, Button, ButtonGroup, Typography, TextField } from "@material-ui/core"
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import FullScreenIcon from '@material-ui/icons/Fullscreen';
-import PauseIcon from '@material-ui/icons/Pause';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -18,7 +18,7 @@ import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
+import Tooltip from "@material-ui/core/Tooltip"
 
 function timeString(t) {
     var str = Math.floor(t/60) + ":" + t%60
@@ -135,7 +135,7 @@ const StudyMode = () => {
         }
 
 
-            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "100%", fontSize: '35px', marginBottom: '20px'}}>
+            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "348px", fontSize: '35px', marginBottom: '20px'}}>
                 <Box position="relative" display="inline-flex">
                     <CircularProgress variant="determinate" value={normalise()} thickness={1.8} color="primary" style={{width: "348px", height: "348px"}}/>
                     <Box
@@ -160,18 +160,18 @@ const StudyMode = () => {
                         }
                         setPaused(!paused)
                     }} 
-                    size='lg' s
-                    style={{background: "rgba(128, 90, 213, 0.1)", marginBottom: "30px", marginRight: "20px"}} 
+                    size='lg'
+                    style={{marginBottom: "30px", marginRight: "20px", padding: "0px"}} 
                     color="primary"
                 >
                     {paused ? 
-                    (<PlayArrowIcon/>)
+                    (<PlayCircleOutlineIcon style={{width: "44px", height: "44px"}}/>)
                     :
-                        <PauseIcon/>
+                        <PauseCircleOutlineIcon style={{width: "44px", height: "44px"}}/>
                     }
                 </IconButton>
-                <IconButton onClick={openSettings} size='lg' style={{background: "rgba(128, 90, 213, 0.1)", marginBottom: "30px", display: "inline-block"}} color="primary" >
-                    <SettingsIcon />
+                <IconButton onClick={openSettings} size='lg' style={{marginBottom: "30px", display: "inline-block", padding: "8px"}} color="primary" >
+                    <SettingsIcon style={{width: "30px", height: "30px"}}/>
                 </IconButton>
                 <Dialog 
                     aria-labelledby="customized-dialog-title" 
