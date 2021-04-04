@@ -9,5 +9,5 @@ export const deleteTask = (id) => axios.delete(`${url}/${id}`);
 
 const authUrl = 'https://incentiva-server.herokuapp.com/auth/';
 
-export const createUser = (newuser) => axios.post(`${authUrl}/signup`, newUser)
+export const createUser = (newUser) => axios.post(`${authUrl}/signup`, newUser)
 export const loginUser = (user) => axios.post(`${authUrl}/signin`, user)
