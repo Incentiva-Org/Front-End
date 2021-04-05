@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { createUser } from "../../Actions/User"
+
 import { Typography, Paper, Input, InputLabel, InputAdornment, FormControl, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/EmailOutlined';
@@ -12,13 +16,14 @@ function Alert(props) {
 }
 
 const Register = () => {
+    const dispatch = useDispatch();
     const CHARACTER_LIMIT = 50;
     const [visible, setVisible] = useState(false);
     const toggleVisibility = () => {
         setVisible(!visible);
     }
     const [userData, setUserData] = useState({
-        username: '', email: '', password: '', confirmPassword: ''
+        username: '', email: '', password: '', confirmPassword: '', expiry: ''
     })
     const [usernameErrors, setUsernameErrors] = useState("")
     const [emailErrors, setEmailErrors] = useState("")
@@ -32,6 +37,18 @@ const Register = () => {
           }
           setAlert(false);
     }
+    const setStorage = () => {
+        const date = new Date()
+        date.setDate(date.getDate() + 1)
+        setUserData({...userData, expiry: date})
+        localStorage.setItem('userData', userData)
+    }
+    useEffect(() => {
+        if(localStorage.getItem('userData')){
+            window.location.pathname = "/tasks"
+        }
+    })
+
     const [severity, setSeverity] = useState("");
     const handleSubmit = () => {
         var isValid = true;
@@ -83,6 +100,8 @@ const Register = () => {
             setConfirmPasswordErrors("")
             setSeverity("success")
             setTimeout(1000);
+            dispatch(createUser(userData))
+            setStorage()
             window.location.pathname = "/login"
         }
         else {
