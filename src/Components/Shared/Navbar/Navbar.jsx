@@ -45,7 +45,10 @@ import {
 
 const NavBar = (props) => {
     
-    const path = window.location.pathname === "/" ? "/tasks" : window.location.pathname
+    var path = window.location.pathname === "/" ? "/login" : window.location.pathname
+    if(!localStorage.getItem("userData")) {
+      path = '/register'
+    }
     const [currentPath, setCurrentPath] = useState(path)
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -217,7 +220,7 @@ const NavBar = (props) => {
                               <AccountCircleIcon fontSize="medium" color="primary" />
                             </IconButton>
                           </Tooltip>
-                          <Typography style={{display: "inline-block", padding: "8px"}}>{localStorage.getItem('userData')[username]}</Typography>
+                          <Typography style={{display: "inline-block", padding: "8px"}}>{JSON.parse(localStorage.getItem("userData")).username}</Typography>
                           <Tooltip title="Logout" placement="top">
                             <IconButton style={{display: "inline-block"}}>
                               <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>

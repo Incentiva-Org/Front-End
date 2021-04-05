@@ -35,7 +35,7 @@ const Login = () => {
         if(isValid) {
             setSeverity("success")
             setTimeout(1000);
-            localStorage.setItem('useData', {username: userData.username, email: userData.email})
+            localStorage.setItem('userData', {username: userData.username, email: userData.email})
         }
         else {
             setSeverity("error")

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { createUser } from "../../Actions/User"
+import { createUser } from "../../Actions/Users"
 
 import { Typography, Paper, Input, InputLabel, InputAdornment, FormControl, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -23,7 +23,7 @@ const Register = () => {
         setVisible(!visible);
     }
     const [userData, setUserData] = useState({
-        username: '', email: '', password: '', confirmPassword: '', expiry: ''
+        username: '', email: '', password: '', confirmPassword: ''
     })
     const [usernameErrors, setUsernameErrors] = useState("")
     const [emailErrors, setEmailErrors] = useState("")
@@ -38,14 +38,12 @@ const Register = () => {
           setAlert(false);
     }
     const setStorage = () => {
-        const date = new Date()
-        date.setDate(date.getDate() + 1)
-        setUserData({...userData, expiry: date})
-        localStorage.setItem('userData', userData)
+
+        localStorage.setItem('userData', JSON.stringify(userData))
     }
     useEffect(() => {
         if(localStorage.getItem('userData')){
-            window.location.pathname = "/tasks"
+            window.location.pathname = "/login"
         }
     })
 
@@ -100,8 +98,8 @@ const Register = () => {
             setConfirmPasswordErrors("")
             setSeverity("success")
             setTimeout(1000);
-            dispatch(createUser(userData))
             setStorage()
+            dispatch(createUser(JSON.parse(userData)))
             window.location.pathname = "/login"
         }
         else {

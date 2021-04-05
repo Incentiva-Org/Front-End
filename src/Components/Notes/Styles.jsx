@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     folderContainer: {
         flexGrow: 1,
-        maxWidth: 400,
+        maxWidth: 360,
         position: 'relative',
         overflow: 'auto',
         maxHeight: 300,
