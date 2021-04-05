@@ -217,7 +217,7 @@ const NavBar = (props) => {
                               <AccountCircleIcon fontSize="medium" color="primary" />
                             </IconButton>
                           </Tooltip>
-                          <Typography style={{display: "inline-block", padding: "8px"}}>Test User</Typography>
+                          <Typography style={{display: "inline-block", padding: "8px"}}>{localStorage.getItem('userData')[username]}</Typography>
                           <Tooltip title="Logout" placement="top">
                             <IconButton style={{display: "inline-block"}}>
                               <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>

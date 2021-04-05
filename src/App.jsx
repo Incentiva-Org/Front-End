@@ -22,6 +22,12 @@ const App = () => {
     dispatch(getTasks());
   }, [dispatch])
 
+  useEffect(() => {
+    if(!localStorage.getItem('userData') && window.location.pathname != "/login" && window.location.pathname != "/register"){
+      window.location.pathname = '/login'
+    }
+  }, [localStorage])
+
   return (
     <Switch>
       <Navbar>

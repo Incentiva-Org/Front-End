@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
 import { Typography, Paper, Input, InputLabel, InputAdornment, FormControl, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/EmailOutlined';
@@ -34,12 +35,18 @@ const Login = () => {
         if(isValid) {
             setSeverity("success")
             setTimeout(1000);
+            localStorage.setItem('useData', {username: userData.username, email: userData.email})
         }
         else {
             setSeverity("error")
         }
         setAlert(true)
     }
+    useEffect(() => {
+        if(localStorage.getItem('userData')){
+            window.location.pathname = "/tasks"
+        }
+    })
     return ( 
         <div>
             <Paper elevation={3} style={{width: "350px", height: "280px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "10px"}}>
