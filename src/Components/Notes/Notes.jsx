@@ -24,7 +24,6 @@ import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import InputBase from "@material-ui/core/InputBase";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import { createWorker } from 'tesseract.js';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import axios from 'axios'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
