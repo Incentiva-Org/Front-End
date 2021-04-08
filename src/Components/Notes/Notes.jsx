@@ -19,14 +19,21 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import Tooltip from "@material-ui/core/Tooltip"
 import Grid from '@material-ui/core/Grid';
-import { Container, TextField, Fab, Dialog, Typography, CircularProgress } from '@material-ui/core';
+import { Container, TextField, Fab, Dialog, Typography, CircularProgress, Button, Snackbar } from '@material-ui/core';
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import InputBase from "@material-ui/core/InputBase";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import { createWorker } from 'tesseract.js';
-import Tesseract from "tesseract.js"
 import LinearProgress from '@material-ui/core/LinearProgress';
+import axios from 'axios'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Notes = () => {
   const classes = useStyles();
@@ -42,40 +49,49 @@ const Notes = () => {
   const [mainState, setMainState] = useState("initial")
   const [imageUploaded, setImageUploaded] = useState(0)
   const [selectedFile, setSelectedFile] = useState(null)
-  const [imgText, setImgText] = useState("");
-  const [progress, setProgress] = useState(0);
+  const [encoding, setEncoding] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [textFromImage, setTextFromImage] = useState("")
+  const [copied, setCopied] = useState(false)
+  const [alert, setAlert] = useState(false);
+  const closeAlert = (event, reason) => {
+      if (reason === 'clickaway') {
+          return;
+        }
+        setAlert(false);
+  }
   const handleUploadClick = (event) => {
     var file = event.target.files[0];
-    const reader = new FileReader();
-    var url = reader.readAsDataURL(file);
-    console.log(URL.createObjectURL(event.target.files[0]))
-    reader.onloadend = function(e) {
-      setSelectedFile([reader.result])
-    }.bind(this);
-    setMainState("uploaded")
     setSelectedFile(event.target.files[0])
-    setImageUploaded(1);
-    Tesseract.recognize(
-      URL.createObjectURL(event.target.files[0]),
-      'eng',
-      { logger: m => console.log(m) }
+    
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setSelectedFile([reader.result])
+      setImageUploaded(reader.result)
+      setEncoding(reader.result.split("base64,")[1])
+    }
+    setMainState("uploaded")
+  }
 
-    ).then(({ data: { text } }) => {
-      console.log(text);
-      setImgText(text);
-    })
-  };
-
-  const imageResetHandler = (event) => {
+  const imageResetHandler = () => {
     setMainState("initial");
     setSelectedFile(null);
     setImageUploaded(0);
+    setTextFromImage("")
   }
 
-  const [ocrText, setOcrText] = useState([])
-
-  const worker = createWorker();
-
+  const uploadImage = () => {
+    console.log(encoding)
+    setLoading(true);
+    axios.post('http://localhost:4000/', {
+      imageString: encoding
+    })
+    .then(res => {
+      setTimeout(() => setLoading(false), 200)
+      setTextFromImage(res.data);
+    })
+  }
   return (
     <div className={classes.mainContainer}>
         <h1>Notes</h1>
@@ -148,35 +164,67 @@ const Notes = () => {
                       
                     </TextField>
                     <div>
-                      <input
-                        accept="image/*"
-                        style={{display: "none"}}
-                        id="contained-button-file"
-                        multiple
-                        type="file"
-                        onChange={handleUploadClick}
-                      />
-                      <label htmlFor="contained-button-file">
-                        <Fab component="span" className={classes.button}>
-                          <AddPhotoAlternateIcon />
-                        </Fab>
-                      </label>
+                        <input
+                          accept="image/*"
+                          style={{display: "none"}}
+                          id="contained-button-file"
+                          type="file"
+                          onChange={handleUploadClick}
+                        />
+                        <label htmlFor="contained-button-file">
+                          <Fab component="span" className={classes.button}>
+                            <AddPhotoAlternateIcon />
+                          </Fab>
+                        </label>
                       <Dialog open={selectedFile !== null}>
-                        <CardActionArea>
+                        <Button onClick={imageResetHandler} color="primary" style={{width: "50px", margin: "5px"}}>Close</Button>
+                        <CardActionArea style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
                           <img
                             width="100%"
                             className={classes.media}
                             src={selectedFile}
                           />
                         </CardActionArea>
-                        <Container>
-                          <Typography>{!imgText ? (<LinearProgress variant="determinate" value={progress} />) : imgText}</Typography>
+                        <Button variant="contained" color="primary" style={{width: "50%", marginLeft: "auto", marginRight: "auto", marginTop: "5px", marginBottom:"10px"}} onClick={uploadImage}>Upload</Button>
+                        <Container style={{width: "80%"}}>
+                          {loading ? 
+                            (
+                              <LinearProgress variant="indeterminate" />
+                            )
+                              :
+                              <>
+                                {textFromImage ? 
+                                (
+                                  <>
+                                    <Typography style={{fontWeight: "bold"}}>Output:</Typography>
+                                    <Typography>{textFromImage}</Typography>
+                                    <CopyToClipboard text={textFromImage} style={{float: "right", marginBottom: "5px"}}
+                                    onCopy={() => {setCopied(true); setAlert(true)}}>
+                                      <Tooltip title="Copy" placement="top">
+                                        <IconButton color="primary">
+                                          <FileCopyIcon />
+                                        </IconButton>
+                                      </Tooltip>
+                                    </CopyToClipboard>
+                                  </>
+                                )
+                                :
+                                  <></>
+                                }
+                              </>
+                          }
+                          
                         </Container>
                       </Dialog>
                     </div>
                   </Container>
                 </Grid>
             </Grid>
+            <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>
+                <Alert onClose={closeAlert} severity="success">
+                    Copied to clipboard!
+                </Alert>
+            </Snackbar>
           </div>
     </div>
   );

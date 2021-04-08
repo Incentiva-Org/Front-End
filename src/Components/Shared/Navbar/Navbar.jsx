@@ -45,7 +45,7 @@ import {
 
 const NavBar = (props) => {
     
-    var path = window.location.pathname === "/" ? "/login" : window.location.pathname
+    var path = window.location.pathname === "/" ? "/tasks" : window.location.pathname
     if(!localStorage.getItem("userData")) {
       path = '/register'
     }
