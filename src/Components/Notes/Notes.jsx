@@ -53,6 +53,8 @@ const Notes = () => {
   const [textFromImage, setTextFromImage] = useState("")
   const [copied, setCopied] = useState(false)
   const [alert, setAlert] = useState(false);
+  const [otherInfo, setOtherInfo] = useState("")
+
   const closeAlert = (event, reason) => {
       if (reason === 'clickaway') {
           return;
@@ -144,7 +146,7 @@ const Notes = () => {
                     </Collapse>
                 </List>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12} sm={10} md={10}>
                   <Container>
                     <TextField
                         id="outlined-multiline-static"
@@ -157,7 +159,7 @@ const Notes = () => {
                     <TextField
                         id="outlined-multiline-static"
                         multiline
-                        rows={5}
+                        rows={20}
                         variant="outlined"
                         fullWidth
                     >
@@ -172,13 +174,15 @@ const Notes = () => {
                           onChange={handleUploadClick}
                         />
                         <label htmlFor="contained-button-file">
-                          <Fab component="span" className={classes.button}>
+                          <Fab component="span" className={classes.button} style={{marginTop: "5px"}}>
                             <AddPhotoAlternateIcon />
                           </Fab>
                         </label>
-                      <Dialog open={selectedFile !== null}>
-                        <Button onClick={imageResetHandler} color="primary" style={{width: "50px", margin: "5px"}}>Close</Button>
-                        <CardActionArea style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
+                      <Dialog open={selectedFile !== null} style={{padding: "5px"}}>
+                        <div >
+                          <Button onClick={imageResetHandler} color="primary" style={{width: "50px"}}>Close</Button>
+                        </div>
+                        <CardActionArea style={{textAlign: "center"}}>
                           <img
                             width="100%"
                             className={classes.media}
@@ -186,26 +190,26 @@ const Notes = () => {
                           />
                         </CardActionArea>
                         <Button variant="contained" color="primary" style={{width: "50%", marginLeft: "auto", marginRight: "auto", marginTop: "5px", marginBottom:"10px"}} onClick={uploadImage}>Upload</Button>
-                        <Container style={{width: "80%"}}>
+                        <Container style={{width: "95%"}}>
                           {loading ? 
                             (
-                              <LinearProgress variant="indeterminate" />
+                              <LinearProgress variant="indeterminate" style={{marginBottom: "10px"}}/>
                             )
                               :
                               <>
                                 {textFromImage ? 
                                 (
                                   <>
-                                    <Typography style={{fontWeight: "bold"}}>Output:</Typography>
-                                    <Typography>{textFromImage}</Typography>
-                                    <CopyToClipboard text={textFromImage} style={{float: "right", marginBottom: "5px"}}
-                                    onCopy={() => {setCopied(true); setAlert(true)}}>
+                                    <CopyToClipboard text={textFromImage} style={{float: "right", display: "block"}}
+                                      onCopy={() => {setCopied(true); setAlert(true)}}>
                                       <Tooltip title="Copy" placement="top">
                                         <IconButton color="primary">
                                           <FileCopyIcon />
                                         </IconButton>
                                       </Tooltip>
                                     </CopyToClipboard>
+                                    <Typography style={{fontWeight: "bold"}}>Output:</Typography>
+                                    <Typography>{textFromImage}</Typography>
                                   </>
                                 )
                                 :
