@@ -78,6 +78,7 @@ const Notes = () => {
     setSelectedFile(null);
     setImageUploaded(0);
     setTextFromImage("")
+    setLoading(false)
   }
 
   const uploadImage = () => {
