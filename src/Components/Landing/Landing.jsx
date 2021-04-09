@@ -128,7 +128,6 @@ const Landing = () => {
                     ))}
                 </Grid>
                 <div style={{width: "253px", height:"300px", marginRight:"auto", marginLeft:"auto", textAlign: "center"}}>
-                    <Typography>HIHFIEhfoiewfhweiofiweofweoi</Typography>
                     <Typography style={{bottom: "0px", position: "absolute", textAlign: "center"}}>Incentiva 2021 All Rights Reserved</Typography>
                 </div>
             </div>
