@@ -114,7 +114,7 @@ const Landing = () => {
                     points: 3
                 }}
             />
-            <div style={{background: "#805AD5", position: "relative", bottom: "5px"}}>
+            <div style={{background: "#805AD5", position: "relative", bottom: "8px"}}>
                 <Fade in style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                     <Typography variant="h4" style={{textAlign: "center", fontWeight: "bold", marginBottom: "20px"}}>Features</Typography>
                 </Fade>
