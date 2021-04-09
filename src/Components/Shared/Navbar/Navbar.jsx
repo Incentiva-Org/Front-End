@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {NavLink} from 'react-router-dom'
 
 import Logo from '../../../Assets/Logo.png'
+import MiniLogo from "../../../Assets/mini-logo.png"
 import routes from '../Routes'
 import useStyles from './Styles'
 
@@ -36,6 +37,9 @@ import Switch from "@material-ui/core/Switch";
 import NightsStayIcon from '@material-ui/icons/NightsStay';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+import Grid from "@material-ui/core/Grid"
+import Button from "@material-ui/core/Button"
+
 import {
   orange,
   lightBlue,
@@ -45,9 +49,9 @@ import {
 
 const NavBar = (props) => {
     
-    var path = window.location.pathname === "/" ? "/tasks" : window.location.pathname
+    var path = window.location.pathname
     if(!localStorage.getItem("userData")) {
-      path = '/register'
+      path = '/'
     }
     const [currentPath, setCurrentPath] = useState(path)
     const classes = useStyles();
@@ -56,7 +60,6 @@ const NavBar = (props) => {
     const [darkState, setDarkState] = useState(false);
     const palletType = darkState ? "dark" : "light";
     const primaryText = darkState ? "#fff": "rgba(0, 0, 0, 0.87)"
-    const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
 
     const theme = createMuiTheme({
       palette: {
@@ -133,7 +136,17 @@ const NavBar = (props) => {
             </List>
         </div>
     );
-    if(path !== "/login" && path !== "/register") {
+    const LandingNav = () => {
+      return (
+        <ThemeProvider theme={theme}>
+            <div className={classes.root}>
+              <CssBaseline />
+              
+          </div>
+        </ThemeProvider>
+      )
+    }
+    if(path === "/tasks" || path === "/study" || path === "/notes" || path === "/insights") {
       return (
         <ThemeProvider theme={theme}>
           <div className={classes.root}>
@@ -248,16 +261,78 @@ const NavBar = (props) => {
           </ThemeProvider>
         );
     }
-    else {
+    else if(path === "/login" || path === "/register") {
       return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
+              <CssBaseline />
               <main className={classes.content}>
                       {props.children}
               </main>
             </div>
         </ThemeProvider>
       );
+    }
+    else {
+      return (
+        <ThemeProvider theme={theme}>
+            <div className={classes.root} style={{overflowX: "hidden"}}>
+              <CssBaseline />
+              <AppBar position="fixed" className={classes.appBar} color="inherit">
+                <Toolbar>
+                    <MuiLink onClick={() => setCurrentPath("/")} href="/">
+                        <img
+                            className={classes.miniLogo}
+                            src={MiniLogo}
+                            alt="Logo"
+                        />
+                    </MuiLink>
+                    <div style={{textAlign: "right", marginLeft: "auto"}}>
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={5}
+                            style={{lineHeight: "40px"}}
+                        >
+                            <Grid item>
+                                <MuiLink 
+                                    className={classes.landingLink} 
+                                    onClick={() => setCurrentPath("/about")} 
+                                    href="/about"
+                                >
+                                    About
+                                </MuiLink>
+                            </Grid>
+                            <Grid item>
+                                <MuiLink className={classes.landingLink} onClick={() => setCurrentPath("/contact")} href="/contact">Contact</MuiLink>
+                            </Grid>
+                            <Grid item>
+                                <MuiLink className={classes.landingLink} onClick={() => setCurrentPath("/team")} href="/team">Our Team</MuiLink>
+                            </Grid>
+                            <Grid item>
+                              <MuiLink href="/login" style={{textDecoration: "none"}}>
+                                <Button className={classes.navButton} color="primary" onClick={() => window.location.path = "/login"}>Login</Button>
+                              </MuiLink>
+                              <MuiLink href="/register">
+                                <Button className={classes.navButton} color="primary" variant="contained" onClick={() => window.location.path = "/register"}>Register</Button>
+                              </MuiLink> 
+                              <Tooltip title="Dark Mode" placement="top">
+                                  <IconButton onClick={handleThemeChange} style={{display: "inline-block"}}>
+                                      <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}} style={{display: "inline-block"}}/>
+                                  </IconButton>
+                              </Tooltip>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Toolbar>
+            </AppBar>
+            <main className={classes.content} style={{padding: "0px"}}>
+                <Toolbar />
+                {props.children}
+            </main>
+          </div>
+        </ThemeProvider>
+      )
     }
 }
 

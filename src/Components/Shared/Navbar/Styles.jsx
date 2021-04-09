@@ -83,6 +83,23 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
       width: drawerWidth,
     },
+    navButton: {
+      fontSize: '16px', 
+      marginRight: "5px",
+      textTransform: "none"
+    },
+    landingLink: {
+      fontSize: "18px",
+      color: "inherit",
+      textDecoration: "none",
+      '&.MuiLink-underlineHover': {
+        textDecoration: "none"
+      },
+    },
+    miniLogo: {
+      width: "120px",
+      margin: "10px"
+    },
 }));
 
 

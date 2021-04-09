@@ -42,15 +42,10 @@ const Login = () => {
         }
         setAlert(true)
     }
-    useEffect(() => {
-        if(localStorage.getItem('userData')){
-            window.location.pathname = "/tasks"
-        }
-    })
     return ( 
         <div>
-            <Paper elevation={3} style={{width: "350px", height: "280px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "10px"}}>
-                <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>Login</Typography>
+            <Paper elevation={3} style={{width: "350px", height: "350px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "10px"}}>
+                <Typography variant="h5" style={{fontWeight: "bold", textAlign: "center"}}>Login</Typography>
                 <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", marginBottom: "10px", marginTop: "10px"}}>
                     <Grid container spacing={1} style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
                         <Grid item style={{width: "10%"}}>
