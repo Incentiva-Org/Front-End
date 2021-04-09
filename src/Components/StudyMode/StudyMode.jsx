@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import useStyles from "./Styles"
 import Alarm from '../../Assets/Sounds/alarm_gentle.wav'
 
-import { IconButton, Button, ButtonGroup, Typography, TextField } from "@material-ui/core"
+import { IconButton, Button, Typography, TextField } from "@material-ui/core"
 import FullScreenIcon from '@material-ui/icons/Fullscreen';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
@@ -15,10 +15,8 @@ import MuiDialogActions from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Tooltip from "@material-ui/core/Tooltip"
 
 function timeString(t) {
     var str = Math.floor(t/60) + ":" + t%60
@@ -47,7 +45,7 @@ const StudyMode = () => {
 
     useEffect(() => {
         if (!paused) {
-            if (t!=0) {
+            if (t!==0) {
                 let timer = setTimeout(() => {
                     setT(t => t-1)
                 }, 1000)
@@ -266,7 +264,7 @@ const StudyMode = () => {
                 <Grid item>
                     <Button 
                         variant="contained"
-                        color={selected == "Work" ? "primary" : "default"}
+                        color={selected === "Work" ? "primary" : "default"}
                         onClick={() =>{
                             setSelected("Work");
                             setT(CountData[selected])
@@ -284,7 +282,7 @@ const StudyMode = () => {
                 <Grid item>
                     <Button 
                         variant="contained"
-                        color={selected == "Short Break" ? "primary" : "default"}
+                        color={selected === "Short Break" ? "primary" : "default"}
                         onClick={() =>{
                             setSelected("Short Break");
                             setT(CountData[selected])
@@ -302,7 +300,7 @@ const StudyMode = () => {
                 <Grid item>
                     <Button 
                         variant="contained"
-                        color={selected == "Long Break" ? "primary" : "default"}
+                        color={selected === "Long Break" ? "primary" : "default"}
                         onClick={() =>{
                             setSelected("Long Break");
                             setT(CountData[selected])

@@ -14,7 +14,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MuiLink from '@material-ui/core/Link';
 
 import Toolbar from '@material-ui/core/Toolbar';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
@@ -24,11 +23,10 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider, Divider, MenuList, Tooltip } from '@material-ui/core'
+import { ThemeProvider, Tooltip } from '@material-ui/core'
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -38,14 +36,7 @@ import NightsStayIcon from '@material-ui/icons/NightsStay';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-
-import {
-  orange,
-  lightBlue,
-  deepPurple,
-  deepOrange
-} from "@material-ui/core/colors";
+import Button from "@material-ui/core/Button";
 
 const NavBar = (props) => {
     
@@ -110,19 +101,23 @@ const NavBar = (props) => {
             {mobile? 
                 (
                     <div className={classes.toolbar}>
+                      <MuiLink component={NavLink} onClick={() => {setCurrentPath("/tasks"); handleDrawerToggle()}} to="/tasks">
                         <img
-                            className={classes.logo}
-                            src={Logo}
-                            alt="Logo"
-                            />
+                          className={classes.logo}
+                          src={Logo}
+                          alt="Logo"
+                        />
+                      </MuiLink>
                     </div>     
                 ) 
             : 
+              <MuiLink component={NavLink} onClick={() => {setCurrentPath("/tasks"); handleDrawerToggle()}} to="/tasks">
                 <img
-                    className={classes.logo}
-                    src={Logo}
-                    alt="Logo"
-                />  
+                  className={classes.logo}
+                  src={Logo}
+                  alt="Logo"
+                />
+              </MuiLink>
             }            
             <List>
                 {Object.keys(routes).map((item) => (
@@ -287,28 +282,51 @@ const NavBar = (props) => {
                             spacing={5}
                             style={{lineHeight: "40px"}}
                         >
-                            <Grid item>
+                            <Grid item style={{paddingTop: "23px"}}>
                                 <MuiLink 
                                     className={classes.landingLink} 
                                     underline="none"
                                     onClick={() => setCurrentPath("/about")} 
                                     href="/about"
+                                    style={{
+                                      color: "inherit"
+                                    }}
                                 >
                                     About
                                 </MuiLink>
                             </Grid>
-                            <Grid item>
-                                <MuiLink className={classes.landingLink} underline="none" onClick={() => setCurrentPath("/contact")} href="/contact">Contact</MuiLink>
+                            <Grid item style={{paddingTop: "23px"}}>
+                                <MuiLink 
+                                    className={classes.landingLink} 
+                                    underline="none"
+                                    onClick={() => setCurrentPath("/contact")} 
+                                    href="/contact"
+                                    style={{
+                                      color: "inherit"
+                                    }}
+                                >
+                                    Contact
+                                </MuiLink>
                             </Grid>
-                            <Grid item>
-                                <MuiLink className={classes.landingLink} underline="none" onClick={() => setCurrentPath("/team")} href="/team">Our Team</MuiLink>
+                            <Grid item style={{paddingTop: "23px"}}>
+                                <MuiLink 
+                                    className={classes.landingLink} 
+                                    underline="none"
+                                    onClick={() => setCurrentPath("/team")} 
+                                    href="/team"
+                                    style={{
+                                      color: "inherit"
+                                    }}
+                                >
+                                    Team
+                                </MuiLink>
                             </Grid>
                             <Grid item>
                               <MuiLink underline="none" onClick={() => setCurrentPath("/login")} href="/login">
-                                <Button className={classes.navButton} color="primary">Login</Button>
+                                <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
                               </MuiLink>
                               <MuiLink href="/register" underline="none" onClick={() => setCurrentPath("/register")}>
-                                <Button className={classes.navButton} color="primary" variant="contained">Register</Button>
+                                <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
                               </MuiLink> 
                               <Tooltip title="Dark Mode" placement="bottom">
                                   <IconButton onClick={handleThemeChange}>

@@ -5,8 +5,7 @@ import Task from './Task/Task'
 import useStyles from "./Styles"
 import Form from "./Form/Form"
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import {Grid, CircularProgress, Typography, Grow } from "@material-ui/core"
+import {Grid, Typography, Grow } from "@material-ui/core"
 
 import {format} from 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -15,24 +14,10 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-import moment from 'moment'
 import Skeletons from "./Task/Skeletons"
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
-import { createSelector } from 'reselect'
-
-const taskVariants = {
-  enter: { transition: { staggerChildren: 0.2 } },
-  exit: { transition: { staggerChildren: 0.2 } }
-}
-
-const handleClick = (event) => {
-    event.target.style.border = "black 2px solid"
-}
-
 
 const Tasks = () => {
     const classes = useStyles();
-    const mobile = useMediaQuery('(max-width:750px)');
     const tasks = useSelector((state) => state.tasks)
 
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -107,7 +92,7 @@ const Tasks = () => {
                                 ))} 
                         </Grid>
             }
-            {getCount() == 0 && 
+            {getCount() === 0 && 
                 <div style={{margin: "200px auto", textAlign: "center"}}>
                     <Typography  variant="h5" >There's nothing here! Try adding a task</Typography>
                 </div>

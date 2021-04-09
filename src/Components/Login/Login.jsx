@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { Typography, Paper, Input, InputLabel, InputAdornment, FormControl, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
+import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import EmailIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import {motion} from 'framer-motion'
@@ -18,7 +17,7 @@ const Login = () => {
         setVisible(!visible);
     }
     const [userData, setUserData] = useState({
-        username: '', email: ''
+        username: '', password: ''
     })
 
     const [alert, setAlert] = useState(false);
@@ -31,11 +30,21 @@ const Login = () => {
     const [severity, setSeverity] = useState("");
     const handleSubmit = () => {
         var isValid = true;
-
+        const currData = JSON.parse(localStorage.getItem("userData"))
+        if(userData.username === currData.username && userData.password === currData.password) {
+            console.log("username and password good")
+        }
+        else if(userData.username === currData.email && userData.password === currData.password) {
+            console.log("email and password good")
+        }
+        else {
+            isValid = false;
+            console.log("Error")
+        }
         if(isValid) {
             setSeverity("success")
             setTimeout(1000);
-            localStorage.setItem('userData', {username: userData.username, email: userData.email})
+            window.location.pathname = "/tasks"
         }
         else {
             setSeverity("error")

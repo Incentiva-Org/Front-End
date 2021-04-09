@@ -9,9 +9,6 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from "./Styles"
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -19,10 +16,8 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import Tooltip from "@material-ui/core/Tooltip"
 import Grid from '@material-ui/core/Grid';
-import { Container, TextField, Fab, Dialog, Typography, CircularProgress, Button, Snackbar } from '@material-ui/core';
+import { Container, TextField, Fab, Dialog, Typography, Button, Snackbar } from '@material-ui/core';
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import InputBase from "@material-ui/core/InputBase";
-import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import axios from 'axios'
@@ -53,7 +48,6 @@ const Notes = () => {
   const [textFromImage, setTextFromImage] = useState("")
   const [copied, setCopied] = useState(false)
   const [alert, setAlert] = useState(false);
-  const [otherInfo, setOtherInfo] = useState("")
 
   const closeAlert = (event, reason) => {
       if (reason === 'clickaway') {
@@ -187,6 +181,7 @@ const Notes = () => {
                             width="100%"
                             className={classes.media}
                             src={selectedFile}
+                            alt="Upload"
                           />
                         </CardActionArea>
                         <Button variant="contained" color="primary" style={{width: "50%", marginLeft: "auto", marginRight: "auto", marginTop: "5px", marginBottom:"10px"}} onClick={uploadImage}>Upload</Button>

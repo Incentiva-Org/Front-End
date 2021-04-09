@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { editTask } from "../../../Actions/Tasks"
 import { deleteTask } from '../../../Actions/Tasks';
@@ -10,10 +10,8 @@ import DeleteIcon from "@material-ui/icons/Delete"
 import useStyles from "./Styles"
 import EditIcon from '@material-ui/icons/Edit';
 import Checkbox from '@material-ui/core/Checkbox';
-import Divider from '@material-ui/core/Divider';
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Tooltip from '@material-ui/core/Tooltip';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -29,7 +27,6 @@ function Alert(props) {
 }
 
 const Task = ({ task }) => {
-    const tasks = useSelector((state) => state.tasks)
     const classes = useStyles();
 
     const [taskData, setTaskData] = useState({
@@ -41,10 +38,6 @@ const Task = ({ task }) => {
         setRaised(!raised);
     }
 
-    const [selected, setSelected] = useState(false);
-    const outline = (event) => {
-        setSelected(!selected)
-    }
     const [checked, setChecked] = useState(false);
 
     const handleChange = (event) => {

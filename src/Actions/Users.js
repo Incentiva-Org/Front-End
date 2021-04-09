@@ -1,5 +1,5 @@
 import * as api from '../API'
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes';
+import { CREATE } from '../constants/actionTypes';
 
 export const createUser = (user) => async (dispatch) => {
     try {

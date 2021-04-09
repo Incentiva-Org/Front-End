@@ -4,17 +4,12 @@ import {
     Typography,
     Card,
     Grid,
-    CardActions,
     CardContent,
     Button,
-    Grow,
-    Container,
-    Paper,
     Collapse,
     Fade,
     Slide,
     Zoom,
-    IconButton,
     Fab,
     Link
 } from "@material-ui/core"
@@ -33,7 +28,6 @@ import Star from '@material-ui/icons/Star'
 
 const Landing = () => {
     const classes = useStyles();
-    const [opened, setOpened] = useState(false);
 
     const cards = [
         {
@@ -103,6 +97,7 @@ const Landing = () => {
                     <img 
                         src={MainImg}
                         width="30%"
+                        alt="MainImg"
                     />
                 </Slide>
             </div>

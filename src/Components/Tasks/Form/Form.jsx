@@ -4,7 +4,7 @@ import {motion} from "framer-motion"
 
 import { createTask } from "../../../Actions/Tasks"
 
-import { TextField, Button, Typography, Paper, MenuItem, Snackbar } from "@material-ui/core"
+import { TextField, Button, Typography, MenuItem, Snackbar } from "@material-ui/core"
 import MuiAlert from '@material-ui/lab/Alert';
 import useStyles from "./Styles"
 import Fab from '@material-ui/core/Fab';
@@ -15,8 +15,6 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogContent';
-import {format} from 'date-fns';
-import styles from "./Styles"
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;

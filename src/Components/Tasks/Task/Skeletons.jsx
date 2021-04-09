@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import {Grid } from "@material-ui/core"
 import useStyles from './Styles'
 import { Typography } from '@material-ui/core'
-import {Card, CardActions, CardContent, Chip, IconButton } from "@material-ui/core"
+import {Card, CardActions, CardContent } from "@material-ui/core"
 
 const SkeletonCard = ({numItems}) => {
     const classes = useStyles();

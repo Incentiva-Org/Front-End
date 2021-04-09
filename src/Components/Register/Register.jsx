@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { createUser } from "../../Actions/Users"
 
-import { Typography, Paper, Input, InputLabel, InputAdornment, FormControl, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
+import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -94,7 +94,6 @@ const Register = () => {
             setSeverity("success")
             setTimeout(1000);
             setStorage()
-            dispatch(createUser(JSON.parse(userData)))
             window.location.pathname = "/login"
         }
         else {

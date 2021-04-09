@@ -33,13 +33,14 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
       '& .MuiListItem-root': {
-        borderRadius: "8px",
-        width: "92%",
         marginLeft: "auto",
         marginRight: "auto",
-        fontWeight: "bold"
+        fontWeight: "bold",
       },
       '& .MuiTypography-displayBlock': {
+        fontWeight: "bold"
+      },
+      '& .MuiListItemIcon-root': {
         fontWeight: "bold"
       },
       '&.active': {
@@ -55,8 +56,6 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.hover': {
         '& .MuiListItem-root': {
-          background: 'rgba(128, 90, 213, 0.1)',
-          fontWeight: "bold"
         },
         '& .MuiListItemIcon-root': {
           color: 'rgb(128, 90, 213)',
@@ -80,18 +79,14 @@ const useStyles = makeStyles((theme) => ({
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-      width: drawerWidth,
-    },
     navButton: {
-      fontSize: '16px', 
+      fontSize: '18px', 
       marginRight: "5px",
       textTransform: "none"
     },
     landingLink: {
       fontSize: "18px",
-      color: "inherit",
-
+      color: "inherit"
     },
     miniLogo: {
       width: "120px",

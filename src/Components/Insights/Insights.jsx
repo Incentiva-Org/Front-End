@@ -1,11 +1,9 @@
 
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import { useSelector } from "react-redux"
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import Input from '@material-ui/core/Input';
 import {Button} from '@material-ui/core'
 import MoodIcon from '@material-ui/icons/Mood';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
@@ -15,7 +13,6 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TaskGraph from "./Graphs/TaskGraph"
 import HappinessGraph from "./Graphs/HappinessGraph"
-import CheckIcon from "@material-ui/icons/CheckBox"
 import {format} from 'date-fns';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 
@@ -38,9 +35,6 @@ function valuetext(value) {
 
 const Insights = () => {
   const tasks = useSelector((state) => state.tasks)
-  const [tagCounts, setTagCounts] = useState({
-      School: 0, Work: 0, Life: 0, Exercise: 0
-  })
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();
@@ -86,7 +80,7 @@ const getTagCounts = () => {
   return formData;
 }
 const handlePredictClick = () => {
-    const formData = getTagCounts().days;
+  const formData = getTagCounts().days;
   console.log(formData)
   setLoading(true)
   fetch('https://incentiva-backend.herokuapp.com/', 
@@ -141,7 +135,7 @@ const handlePredictClick = () => {
         <Backdrop className={classes.backdrop} open={loading}>
           <CircularProgress color="inherit" />
         </Backdrop>
-        {result == "" ? null :
+        {result ? null :
           <div style={{width: "100%", marginRight: "auto", marginLeft: "auto"}}>
             <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>{result}</Typography>
             <h2 style={{fontWeight: "bold", fontSize:"20px"}}>Analytics:</h2>

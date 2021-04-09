@@ -1,5 +1,5 @@
-import {React, Component, useState, createRef, useEffect} from 'react'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {React} from 'react'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 
 export default function HappinessGraph({data}) {
     console.log(data)
