@@ -44,7 +44,7 @@ const Login = () => {
     }
     return ( 
         <div>
-            <Paper elevation={3} style={{width: "350px", height: "350px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "10px"}}>
+            <Paper elevation={3} style={{width: "350px", height: "350px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "15px"}}>
                 <Typography variant="h5" style={{fontWeight: "bold", textAlign: "center"}}>Login</Typography>
                 <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", marginBottom: "10px", marginTop: "10px"}}>
                     <Grid container spacing={1} style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
@@ -72,7 +72,7 @@ const Login = () => {
                         </Grid>
                     </Grid>
                 </div>
-                <div style={{width: "20%", marginRight: "auto", marginLeft: "auto", marginTop: "20px", marginBottom: "10px"}}>
+                <div style={{width: "20%", marginRight: "auto", marginLeft: "auto", marginTop: "20px", marginBottom: "15px"}}>
                     <Button 
                         variant="contained" 
                         color="primary" 
@@ -90,6 +90,10 @@ const Login = () => {
                 </div>
                 <div style={{textAlign: "center"}}>
                     <Typography variant="caption" style={{textAlign: "center"}}>Don't have an account? <Link href="/register" variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Register here</Link></Typography>
+                </div>
+                <br></br>
+                <div style={{textAlign: "center"}}>
+                    <Typography variant="caption" style={{textAlign: "center"}}><Link href="#" variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Forgot Password?</Link></Typography>
                 </div>
             </Paper>
             <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>
