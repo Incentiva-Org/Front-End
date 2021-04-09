@@ -53,6 +53,7 @@ const NavBar = (props) => {
     if(!localStorage.getItem("userData")) {
       path = '/'
     }
+    
     const [currentPath, setCurrentPath] = useState(path)
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = useState(false);

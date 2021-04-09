@@ -23,11 +23,10 @@ const App = () => {
   useEffect(() => {
     dispatch(getTasks());
   }, [dispatch])
-
   /*
   useEffect(() => {
     if(!localStorage.getItem('userData') && window.location.pathname != "/login" && window.location.pathname != "/register"){
-      window.location.pathname = '/login'
+      window.location.pathname = '/'
     }
   }, [localStorage])
   */

@@ -15,7 +15,8 @@ import {
     Slide,
     Zoom,
     IconButton,
-    Fab
+    Fab,
+    Link
 } from "@material-ui/core"
 
 import MuiLink from "@material-ui/core/Link"
@@ -43,7 +44,7 @@ const Landing = () => {
         {
             title: "Study",
             image: <AccessTime />,
-            description: "Utilizing the pomodoro method, our minimalistic, distraction-free layout is guaranteed to maximize productivity."
+            description: <Typography>Utilizing the <Link underline="none" href='https://en.wikipedia.org/wiki/Pomodoro_Technique' target="_blank">Pomodoro Technique</Link>, our minimalistic, distraction-free layout is guaranteed to maximize productivity.</Typography>
         },
         {
             title: "Notes",
@@ -127,7 +128,7 @@ const Landing = () => {
                         </Zoom>
                     ))}
                 </Grid>
-                <div style={{width: "253px", height:"300px", marginRight:"auto", marginLeft:"auto", textAlign: "center"}}>
+                <div style={{width: "253px", height:"200px", marginRight:"auto", marginLeft:"auto", textAlign: "center"}}>
                     <Typography style={{bottom: "0px", position: "absolute", textAlign: "center"}}>Incentiva 2021 All Rights Reserved</Typography>
                 </div>
             </div>
