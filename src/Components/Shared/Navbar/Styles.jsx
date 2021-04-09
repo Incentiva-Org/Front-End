@@ -91,10 +91,7 @@ const useStyles = makeStyles((theme) => ({
     landingLink: {
       fontSize: "18px",
       color: "inherit",
-      textDecoration: "none",
-      '&.MuiLink-underlineHover': {
-        textDecoration: "none"
-      },
+
     },
     miniLogo: {
       width: "120px",

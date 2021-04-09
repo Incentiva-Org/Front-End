@@ -18,6 +18,8 @@ import {
     Fab
 } from "@material-ui/core"
 
+import MuiLink from "@material-ui/core/Link"
+
 import useStyles from "./Styles"
 
 import Wave from 'react-wavify'
@@ -51,7 +53,7 @@ const Landing = () => {
         {
             title: "Insights",
             image: <Star />,
-            description: "You thought the AI stuff was done? Here with Insights, from both your happiness scores and tasks are gathered, analyzed by our backend AI model, and outputs which type of task contributes the most to your happiness."
+            description: "You thought the AI stuff was done? Here with Insights, data from both your happiness scores and tasks are gathered, analyzed by our backend AI model, and outputs which type of task contributes the most to your happiness."
         }
     ];
 
@@ -83,12 +85,16 @@ const Landing = () => {
                 <Fade in mountOnEnter unmountOnExit style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                     <div style={{width: "60%", padding: "20px 0px", marginLeft: "20px", marginTop:"auto", marginBottom:"auto"}}>
                         <Typography variant="h5" style={{fontSize: "20px", lineHeight: "1.5"}}>
-                            Introducing Incentiva, a platform that gives its users all the tools and motivation they need to succeed in their day-to-day lives.
-                            With tools for simple task management, distraction-free study sessions, sophisticated note-taking, and personalized insights, Incentiva aims to help anyone who could use an increase in motivation and structure to their workflow.
+                            Introducing Incentiva: a platform that gives its users all the tools and motivation they need to succeed in their day-to-day lives.
+                            With tools for simple task management, distraction-free study sessions, sophisticated note-taking, and personalized insights, Incentiva aims to help anyone looking to improve their workflow.
                         </Typography>
                         <div style={{marginTop: "20px", textAlign: "right"}}>
-                            <Button style={{marginRight: "20px"}} color="primary">Login</Button>
-                            <Button color="primary" variant="contained">Register</Button>
+                            <MuiLink href="/login" underline="none">
+                                <Button style={{marginRight: "20px"}} color="primary">Login</Button>
+                            </MuiLink>
+                            <MuiLink href="/register" underline="none">
+                                <Button color="primary" variant="contained">Register</Button>
+                            </MuiLink>
                         </div>   
                     </div>
                 </Fade>
@@ -102,25 +108,29 @@ const Landing = () => {
             <Wave fill='#805AD5'
                 paused={false}
                 options={{
-                    height: 20,
+                    height: 30,
                     amplitude: 25,
                     speed: 0.2,
                     points: 3
                 }}
             />
-            <div style={{background: "#805AD5", position: "relative", bottom: "30px", height: "50vh"}}>
+            <div style={{background: "#805AD5", position: "relative", bottom: "5px"}}>
                 <Fade in style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                     <Typography variant="h4" style={{textAlign: "center", fontWeight: "bold", marginBottom: "20px"}}>Features</Typography>
                 </Fade>
                 <Grid container flex="row" spacing={5} justify="center" alignItems="center" style={{padding: "10px 0px"}}>
                     {cards.map((card, index) => (
-                        <Zoom in style={{transitionDelay: `${index * 250}ms`, transitionDuration: "250ms"}}>
+                        <Zoom in style={{transitionDelay: `${index * 250}ms`, transitionDuration: "500ms"}}>
                             <Grid item key={card.title}>
                                 {<ContentCard props={card}/>}
                             </Grid>
                         </Zoom>
                     ))}
                 </Grid>
+                <div style={{width: "253px", height:"300px", marginRight:"auto", marginLeft:"auto", textAlign: "center"}}>
+                    <Typography>HIHFIEhfoiewfhweiofiweofweoi</Typography>
+                    <Typography style={{bottom: "0px", position: "absolute", textAlign: "center"}}>Incentiva 2021 All Rights Reserved</Typography>
+                </div>
             </div>
         </div>
     )

@@ -99,7 +99,6 @@ const NavBar = (props) => {
       setAnchorEl(null);
     };
 
-
     useEffect(() => {
       window.matchMedia("(prefers-color-scheme: dark)").matches && handleThemeChange()
 
@@ -136,16 +135,7 @@ const NavBar = (props) => {
             </List>
         </div>
     );
-    const LandingNav = () => {
-      return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.root}>
-              <CssBaseline />
-              
-          </div>
-        </ThemeProvider>
-      )
-    }
+
     if(path === "/tasks" || path === "/study" || path === "/notes" || path === "/insights") {
       return (
         <ThemeProvider theme={theme}>
@@ -261,6 +251,7 @@ const NavBar = (props) => {
           </ThemeProvider>
         );
     }
+
     else if(path === "/login" || path === "/register") {
       return (
         <ThemeProvider theme={theme}>
@@ -273,6 +264,7 @@ const NavBar = (props) => {
         </ThemeProvider>
       );
     }
+
     else {
       return (
         <ThemeProvider theme={theme}>
@@ -297,6 +289,7 @@ const NavBar = (props) => {
                             <Grid item>
                                 <MuiLink 
                                     className={classes.landingLink} 
+                                    underline="none"
                                     onClick={() => setCurrentPath("/about")} 
                                     href="/about"
                                 >
@@ -304,21 +297,21 @@ const NavBar = (props) => {
                                 </MuiLink>
                             </Grid>
                             <Grid item>
-                                <MuiLink className={classes.landingLink} onClick={() => setCurrentPath("/contact")} href="/contact">Contact</MuiLink>
+                                <MuiLink className={classes.landingLink} underline="none" onClick={() => setCurrentPath("/contact")} href="/contact">Contact</MuiLink>
                             </Grid>
                             <Grid item>
-                                <MuiLink className={classes.landingLink} onClick={() => setCurrentPath("/team")} href="/team">Our Team</MuiLink>
+                                <MuiLink className={classes.landingLink} underline="none" onClick={() => setCurrentPath("/team")} href="/team">Our Team</MuiLink>
                             </Grid>
                             <Grid item>
-                              <MuiLink href="/login" style={{textDecoration: "none"}}>
-                                <Button className={classes.navButton} color="primary" onClick={() => window.location.path = "/login"}>Login</Button>
+                              <MuiLink underline="none" onClick={() => setCurrentPath("/login")} href="/login">
+                                <Button className={classes.navButton} color="primary">Login</Button>
                               </MuiLink>
-                              <MuiLink href="/register">
-                                <Button className={classes.navButton} color="primary" variant="contained" onClick={() => window.location.path = "/register"}>Register</Button>
+                              <MuiLink href="/register" underline="none" onClick={() => setCurrentPath("/register")}>
+                                <Button className={classes.navButton} color="primary" variant="contained">Register</Button>
                               </MuiLink> 
-                              <Tooltip title="Dark Mode" placement="top">
-                                  <IconButton onClick={handleThemeChange} style={{display: "inline-block"}}>
-                                      <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}} style={{display: "inline-block"}}/>
+                              <Tooltip title="Dark Mode" placement="bottom">
+                                  <IconButton onClick={handleThemeChange}>
+                                      <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}}/>
                                   </IconButton>
                               </Tooltip>
                             </Grid>
