@@ -18,20 +18,18 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-
+function timeString(t) {
+    var str = Math.floor(t/60) + ":" + t%60
+    if (t%60<10) {
+        str = str.replace(":", ":0")
+    }
+    if (Math.floor(t/60)<10) {
+        str = "0" + str
+    }
+    return str
+}
 
 const StudyMode = () => {
-
-    const timeString = (t) => {
-        var str = Math.floor(t/60) + ":" + t%60
-        if (t%60<10) {
-            str = str.replace(":", ":0")
-        }
-        if (Math.floor(t/60)<10) {
-            str = "0" + str
-        }
-        return str
-    }
 
     const AlarmAudio = new Audio(Alarm);
 
@@ -44,17 +42,6 @@ const StudyMode = () => {
     const [selected, setSelected] = useState("Work")
     const [t, setT] = useState(CountData["Work"])
     const [paused, setPaused] = useState(true)
-
-    const [donePrompt, setDonePrompt] = useState(false);
-
-    const openDonePrompt = () => {
-        setDonePrompt(true);
-    }
-
-    const closeDonePrompt = () => {
-        setDonePrompt(false);
-        AlarmAudio.pause()
-    }
 
     useEffect(() => {
         if (!paused) {
@@ -78,8 +65,8 @@ const StudyMode = () => {
     }, [paused])
 
     useEffect(() => {
-        setT(t => CountData[selected])
-    }, [t, selected])
+        setT(CountData[selected])
+    }, [selected])
     
     const [timeForm, setTimeForm] = useState(timeString(t))
 
@@ -105,7 +92,15 @@ const StudyMode = () => {
     }
 
     
+    const [donePrompt, setDonePrompt] = useState(false); 
+    const closeDonePrompt = () => {
+        setDonePrompt(true);
+        AlarmAudio.pause()
+    }
     
+    const openDonePrompt = () => {
+        setDonePrompt(true);
+    }
 
     const fullScreen = () => {
         const screen = document.documentElement;
@@ -252,7 +247,7 @@ const StudyMode = () => {
                     aria-labelledby="customized-dialog-title" 
                     className={classes.modal}
                     open={donePrompt}
-                    onClose={setDonePrompt(false)}
+                    onClose={closeDonePrompt}
                 >
                     <MuiDialogTitle disableTypography className={classes.root}>
                         <Typography variant="h6">Times up!</Typography>
@@ -260,6 +255,8 @@ const StudyMode = () => {
                             Ok
                         </Button>
                     </MuiDialogTitle>
+
+
                 </Dialog>
                 <br></br>                
             </div>

@@ -116,8 +116,16 @@ const Notes = () => {
         {Title: "File 9", Body: "Body 9"},
         {Title: "File 10", Body: "Body 10"}
       ]
+    },
+    {
+      Title: "Folder 6",
+      Files: [
+        {Title: "File 11", Body: "Body 11"},
+        {Title: "File 12", Body: "Body 12"}
+      ]
     }
   ]
+  
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [noteData, setNoteData] = useState({
