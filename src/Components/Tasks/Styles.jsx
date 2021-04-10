@@ -28,5 +28,10 @@ export default makeStyles((theme) => ({
     left: 'auto',
     position: 'fixed',
   },
-  
+  dragListContent: {
+    position: 'relative',
+    width: '320px',
+    height: '400px',
+    padding: "5px 0px"
+  }
 }))

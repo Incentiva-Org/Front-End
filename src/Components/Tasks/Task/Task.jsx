@@ -5,7 +5,7 @@ import { editTask } from "../../../Actions/Tasks"
 import { deleteTask } from '../../../Actions/Tasks';
 
 import { Typography } from '@material-ui/core'
-import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button } from "@material-ui/core"
+import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
 import useStyles from "./Styles"
 import EditIcon from '@material-ui/icons/Edit';
@@ -21,6 +21,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiAlert from '@material-ui/lab/Alert';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -62,25 +63,36 @@ const Task = ({ task }) => {
         setOpen(false);
     };
 
-    const CHARACTER_LIMIT = 150;
+    const CHARACTER_LIMIT = 50;
     const tags = [
         {
             value: 'School',
             label: 'School',
+            color: "#FF8042"
         },
         {
             value: 'Work',
             label: 'Work',
+            color: "#FFBB28"
         },
         {
             value: 'Life',
             label: 'Life',
+            color: "#00C49F"
         },
         {
             value: 'Exercise',
             label: 'Exercise',
+            color: "#0088FE"
         },
     ];
+    var color = ""
+    for(const i in tags) {
+        if(tags[i].value === task.tag) {
+            color = tags[i].color
+        }
+    }
+    console.log(color)
     const [alert, setAlert] = useState(false);
     const closeAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -95,7 +107,6 @@ const Task = ({ task }) => {
         if(taskData.title !== "" && taskData.description !== "" && taskData.tag !== "" && taskData.predictedTime !== "") {
             dispatch(editTask(task._id, taskData));
             handleClose();
-            clear();
             setTimeout(2000);
             setSeverity("success")
         }
@@ -107,11 +118,10 @@ const Task = ({ task }) => {
     }
     return (
         <>
-            <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised} style={{border: {...raised ? ("2px black solid") : ""}}}>
-                <CardContent>
+            <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
+                <CardContent style={{paddingBottom: "0px"}}>
                     <div className={classes.header}>
                         <FormControlLabel
-                            
                             control={
                             <Checkbox
                                 checked={checked}
@@ -121,23 +131,27 @@ const Task = ({ task }) => {
                                 checkedIcon={<CheckBoxIcon fontSize="medium" />}
                                 color="primary"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
-                                style={{display: "inline-block", left: 0, top: 0}}
+                                style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms"}}
                             />
                             }
                             label={
                                 {...checked ? 
-                                    (<Typography variant="h6" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through"}}>{task.title}</Typography>)
+                                    (
+                                    <Typography variant="h6" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through"}}>{task.title}</Typography>
+                                    )
                                     :
                                     <Typography variant="h6" className={classes.title} style={{fontWeight: "bold"}}>{task.title}</Typography>
-                                }                            }
+                                }                            
+                            }
                         />
-                        
+                        <Tooltip title={task.description} arrow style={{maxWidth: "300px", fontSize: "15px"}} TransitionComponent={Zoom}>
+                            <IconButton size="md" color="primary" style={{padding: "0px"}}><InfoOutlinedIcon/></IconButton>
+                        </Tooltip>
                     </div>
-                    <Grid container alignItems="center" style={{marginBottom: "10px"}}>
-                        <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block"}}/>
+                    <Grid container alignItems="center">
+                        <Chip label={task.tag} classname={classes.chip} color={color} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block"}}/>
                         <Typography variant="body2" style={{display: "inline-block", margin: "4px"}}>{task.predictedTime} mins</Typography>
                     </Grid>
-                    <Typography variant="body2" component="p" style={{margin: "0px 5px", height: "40px", width: "100%"}}>{task.description}</Typography>
                 </CardContent>
                 
                 <CardActions className={classes.cardActions}>
@@ -202,6 +216,9 @@ const Task = ({ task }) => {
                                         }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={(e) => {handleSubmit(e)}}
+                                        style={{
+                                            padding: "7px"
+                                        }}
                                     >
                                         Confirm
                                     </Button>

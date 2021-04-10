@@ -19,10 +19,10 @@ export default function Graphs({data}) {
             <YAxis  />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="Work" stroke="#0088FE" />
-            <Line type="monotone" dataKey="School" stroke="#00C49F" />
-            <Line type="monotone" dataKey="Life" stroke="#FFBB28" />
-            <Line type="monotone" dataKey="Exercise" stroke="#FF8042" />
+            <Line type="monotone" dataKey="School" stroke="#FF8042" />
+            <Line type="monotone" dataKey="Work" stroke="#FFBB28" />
+            <Line type="monotone" dataKey="Life" stroke="#00C49F" />
+            <Line type="monotone" dataKey="Exercise" stroke="#0088FE" />
           </LineChart>
       );
   }

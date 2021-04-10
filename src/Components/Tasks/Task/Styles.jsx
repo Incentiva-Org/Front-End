@@ -14,28 +14,17 @@ export default makeStyles((theme) => ({
     height: '100%',
   },
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    borderRadius: '15px',
-    height: '100%',
-    position: 'relative',
-    margin: "10px 0",
-    '&.MuiPaper-elevation8': {
-        
-    },
-  },
-  overlay: {
+    borderRadius: '10px',
     position: 'absolute',
-    top: '20px',
-    left: '20px',
-    color: 'white',
-  },
-  overlay2: {
-    position: 'absolute',
-    top: '20px',
-    right: '20px',
-    color: 'white',
+    width: '320px',
+    height: '150px',
+    transformOrigin: '50% 50% 0px',
+    borderRadius: '10px',
+    touchAction: 'none',
+    transform: 'none',
+    userSelect: "none",
+    padding: '10px',
+    overflow: "hidden"
   },
   grid: {
     display: 'flex',
@@ -50,6 +39,7 @@ export default makeStyles((theme) => ({
   },
   cardActions: {
     display: 'flex',
+    paddingTop: "0px"
   },
   chip: {
   },

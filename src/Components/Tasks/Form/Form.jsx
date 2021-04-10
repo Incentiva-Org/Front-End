@@ -21,7 +21,7 @@ function Alert(props) {
 }
 
 const Form = () => {
-    const CHARACTER_LIMIT = 150;
+    const CHARACTER_LIMIT = 50;
     const tags = [
         {
             value: 'School',
