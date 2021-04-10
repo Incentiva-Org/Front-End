@@ -77,18 +77,26 @@ const Tasks = () => {
     };
     const [loading, setLoading] = useState(true);
     
-    var filteredTasks = []
+    var onDeck = []
+    var completed = []
     const getCount = () => {
         var cnt = 0;
         for(const i in tasks) {
             if(tasks[i].day === format(selectedDate, "MM/dd/yyyy")) {
-                cnt += 1;
-                filteredTasks.push(tasks[i])
+                cnt++;
+                console.log(tasks[i].completed)
+                if(tasks[i].completed === true) {
+                    onDeck.push(tasks[i])
+                }
+                else {
+                    completed.push(tasks[i])
+                }
             }
         }
         return cnt;
     }
-    getCount();
+
+    getCount()
 
     const reloadTasks = () => {
 
@@ -131,39 +139,39 @@ const Tasks = () => {
             </div>
             <Grid container justify="center" spacing={5}>
                 <Grid item>
-                    <div style={{width: "350px", textAlign: "center"}}>
+                    <div style={{width: "360px", textAlign: "center"}}>
                         <Typography variant="h6" style={{fontWeight:"bold"}}>On Deck</Typography>
                     </div>
                     <div style={{
                         margin: '0',
                         padding: '0',
                         height: '100%',
-                        width: '350px',
+                        width: '360px',
                         overflow: 'hidden',
                         userSelect: 'none',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <DraggableList items={filteredTasks} classes={classes} />
+                        <DraggableList items={onDeck} classes={classes} />
                     </div>
                 </Grid>
                 <Grid item>
-                    <div style={{width: "350px", textAlign: "center"}}>
+                    <div style={{width: "360px", textAlign: "center"}}>
                         <Typography variant="h6" style={{fontWeight:"bold"}}>Completed</Typography>
                     </div>
                     <div style={{
                         margin: '0',
                         padding: '0',
                         height: '100%',
-                        width: '350px',
+                        width: '360px',
                         overflow: 'hidden',
                         userSelect: 'none',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <DraggableList items={filteredTasks} classes={classes} />
+                        <DraggableList items={completed} classes={classes} />
                     </div>
                 </Grid>
             </Grid>

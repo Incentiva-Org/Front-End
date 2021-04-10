@@ -95,7 +95,7 @@ const Notes = () => {
 
   const uploadImage = () => {
     setLoading(true);
-    axios.post('http://localhost:4000/', {
+    axios.post('https://incentiva-cloud-vision.herokuapp.com/', {
       imageString: encoding
     })
     .then(res => {

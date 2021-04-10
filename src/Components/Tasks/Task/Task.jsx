@@ -30,10 +30,6 @@ function Alert(props) {
 
 const Task = ({ task, reloadTasks }) => {
 
-
-    
-
-
     const classes = useStyles();
 
     const [taskData, setTaskData] = useState({
@@ -46,15 +42,7 @@ const Task = ({ task, reloadTasks }) => {
     }
 
     const [checked, setChecked] = useState(false);
-
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-        event.target.style.textDecoration = "line-through"
-        setTaskData({ ...taskData, completed: event.target.checked })
-    };
-    
-    
-
+        
     const clear = () => {
         setTaskData({title: "", description: "", tag: "", predictedTime: "", day: task.day, completed: task.completed});
     }
@@ -114,7 +102,6 @@ const Task = ({ task, reloadTasks }) => {
             editTask(task._id, taskData).then(() => {
                 reloadTasks()
                 handleClose();
-                
                 setTimeout(2000);
                 setSeverity("success")
             })
@@ -125,6 +112,11 @@ const Task = ({ task, reloadTasks }) => {
         setAlert(true)
         
     }
+    const handleChange = async (event) => {
+        setChecked(event.target.checked);
+        setTaskData({ ...taskData, completed: event.target.checked })
+    };
+
     return (
         <>
             <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
