@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import {motion} from "framer-motion"
 
-import { createTask } from "../../../Actions/Tasks"
+import { createTask } from '../../../API/index'
 
 import { TextField, Button, Typography, MenuItem, Snackbar } from "@material-ui/core"
 import MuiAlert from '@material-ui/lab/Alert';
@@ -20,7 +19,9 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const Form = () => {
+const Form = (props) => {
+
+
     const CHARACTER_LIMIT = 50;
     const tags = [
         {
@@ -42,18 +43,20 @@ const Form = () => {
     ];
 
     const classes = useStyles();
-    const dispatch = useDispatch();
+    
+    
     const [taskData, setTaskData] = useState({
-        title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date")
+        title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date"), username: JSON.parse(localStorage.getItem("userData")).username
     })
+
+    const clear = () => {
+        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date"), username: JSON.parse(localStorage.getItem("userData")).username});
+    }
 
     useEffect(() => {
        taskData.day = localStorage.getItem("selected-date")
     })
 
-    const clear = () => {
-        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date")});
-    }
 
     const [open, setOpen] = useState(false);
 
@@ -78,11 +81,13 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(taskData.title !== "" && taskData.description !== "" && taskData.tag !== "" && taskData.predictedTime !== "") {
-            dispatch(createTask(taskData));
-            handleClose();
-            clear();
-            setTimeout(1000);
-            setSeverity("success")
+            createTask(taskData).then(() => {
+                handleClose();
+                clear();
+                setTimeout(1000);
+                setSeverity("success")
+                props.reloadTasks()
+            })
         }
         else {
             setSeverity("error")

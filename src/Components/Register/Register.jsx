@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
-import { createUser } from "../../Actions/Users"
+import { createUser } from "../../API/index"
 
 import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -16,7 +15,9 @@ function Alert(props) {
 }
 
 const Register = () => {
-    const dispatch = useDispatch();
+
+    if(localStorage.getItem('userData')){window.location.pathname = "/tasks"}
+    
     const CHARACTER_LIMIT = 50;
     const [visible, setVisible] = useState(false);
     const toggleVisibility = () => {
@@ -37,10 +38,8 @@ const Register = () => {
           }
           setAlert(false);
     }
-    const setStorage = () => {
 
-        localStorage.setItem('userData', JSON.stringify(userData))
-    }
+    
 
     const [severity, setSeverity] = useState("");
     const handleSubmit = () => {
@@ -92,9 +91,10 @@ const Register = () => {
             setPasswordErrors("")
             setConfirmPasswordErrors("")
             setSeverity("success")
-            setTimeout(1000);
-            setStorage()
-            window.location.pathname = "/login"
+            
+            createUser(userData).then(() => {window.location.pathname = "/login"})
+            
+            
         }
         else {
             setSeverity("error")

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {Route, Switch} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import { getTasks } from './Actions/Tasks'
+import { getTasks } from './API/index'
 
 import Navbar from './Components/Shared/Navbar/Navbar.jsx'
 import Insights from './Components/Insights/Insights'
@@ -18,18 +18,13 @@ import Team from './Components/Team/Team'
 
 
 const App = () => {
-  const dispatch = useDispatch();
-    
-  useEffect(() => {
-    dispatch(getTasks());
-  }, [dispatch])
-  /*
-  useEffect(() => {
-    if(!localStorage.getItem('userData') && window.location.pathname != "/login" && window.location.pathname != "/register"){
-      window.location.pathname = '/'
-    }
-  }, [localStorage])
-  */
+ 
+  const needLogIn = ["/tasks", "/notes", "/study", "insights"]
+
+  if(needLogIn.includes(window.location.pathname)){
+    if(!localStorage.getItem("userData")){ window.location.pathname = "/login" }
+  }
+
   return (
     <Switch>
       <Navbar>

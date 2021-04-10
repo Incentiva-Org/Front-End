@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { editTask } from "../../../Actions/Tasks"
-import { deleteTask } from '../../../Actions/Tasks';
+import { editTask } from "../../../API/index"
+import { deleteTask } from '../../../API/index';
+import { fetchTasks } from '../../../API/index'
 
 import { Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"
@@ -27,7 +28,12 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const Task = ({ task }) => {
+const Task = ({ task, reloadTasks }) => {
+
+
+    
+
+
     const classes = useStyles();
 
     const [taskData, setTaskData] = useState({
@@ -46,7 +52,7 @@ const Task = ({ task }) => {
         event.target.style.textDecoration = "line-through"
         setTaskData({ ...taskData, completed: event.target.checked })
     };
-    const dispatch = useDispatch();
+    
     
 
     const clear = () => {
@@ -105,16 +111,19 @@ const Task = ({ task }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(taskData.title !== "" && taskData.description !== "" && taskData.tag !== "" && taskData.predictedTime !== "") {
-            dispatch(editTask(task._id, taskData));
-            handleClose();
-            setTimeout(2000);
-            setSeverity("success")
+            editTask(task._id, taskData).then(() => {
+                reloadTasks()
+                handleClose();
+                
+                setTimeout(2000);
+                setSeverity("success")
+            })
         }
         else {
             setSeverity("error")
         }
         setAlert(true)
-        console.log(task)
+        
     }
     return (
         <>
@@ -144,9 +153,7 @@ const Task = ({ task }) => {
                                 }                            
                             }
                         />
-                        <Tooltip title={task.description} arrow style={{maxWidth: "300px", fontSize: "15px"}} TransitionComponent={Zoom}>
-                            <IconButton size="md" color="primary" style={{padding: "0px"}}><InfoOutlinedIcon/></IconButton>
-                        </Tooltip>
+                        <Typography variant="body2" component="p" style={{marginTop: "10px", height: "40px", width: "100%"}}>{task.description}</Typography>
                     </div>
                     <Grid container alignItems="center">
                         <Chip label={task.tag} classname={classes.chip} color={color} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block"}}/>
@@ -163,7 +170,9 @@ const Task = ({ task }) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete" placement="top">
-                            <IconButton size="small" aria-label="delete" color="primary"onClick={() => dispatch(deleteTask(task._id))}>
+                            <IconButton size="small" aria-label="delete" color="primary"onClick={() => {
+                                    deleteTask(task._id).then(() => reloadTasks())                                    
+                                }}>
                                 <DeleteIcon fontSize="medium" />
                             </IconButton>
                         </Tooltip>

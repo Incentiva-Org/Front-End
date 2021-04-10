@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useRef } from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import React, {useEffect, useState, useRef} from 'react'
+
+import { fetchTasks } from "../../API/index"
 
 import Task from './Task/Task'
 import useStyles from "./Styles"
 import Form from "./Form/Form"
 
-import { getTasks } from "../../Actions/Tasks"
 
 import {Grid, Typography, Grow } from "@material-ui/core"
 
@@ -28,22 +28,22 @@ const Tasks = () => {
 
     const fn = (order, active, originalIndex, curIndex, y) => (index) =>
     active && index === originalIndex
-        ? { y: curIndex * 170 + y, scale: 1.1, zIndex: '1', shadow: 15, immediate: (n) => n === 'y' || n === 'zIndex' }
-        : { y: order.indexOf(index) * 170, scale: 1, zIndex: '0', shadow: 1, immediate: false }
+        ? { y: curIndex * 220 + y, scale: 1.1, zIndex: '1', shadow: 15, immediate: (n) => n === 'y' || n === 'zIndex' }
+        : { y: order.indexOf(index) * 220, scale: 1, zIndex: '0', shadow: 1, immediate: false }
 
     const DraggableList = ({ items, classes }) => {
         const order = useRef(items.map((_, index) => index)) // Store indicies as a local ref, this represents the item order
-        const [springs, setSprings] = useSprings(items.length, fn(order.current)) // Create springs, each corresponds to an item, controlling its transform, scale, etc.
+        const [springs, setSprings] = useSprings(items.length, fn(order.current)) 
         const bind = useDrag(({ args: [originalIndex], active, movement: [, y] }) => {
             const curIndex = order.current.indexOf(originalIndex)
-            const curRow = clamp(Math.round((curIndex * 170 + y) / 170), 0, items.length - 1)
+            const curRow = clamp(Math.round((curIndex * 220 + y) / 220), 0, items.length - 1)
             const newOrder = swap(order.current, curIndex, curRow)
             setSprings(fn(newOrder, active, originalIndex, curIndex, y)) // Feed springs new style data, they'll animate the view without causing a single render
             if (!active) order.current = newOrder
         })
         return (
             <>
-                <div className={classes.dragListContent} style={{ height: items.length * 180 }}>
+                <div className={classes.dragListContent} style={{ height: items.length * 220 }}>
                 {springs.map(({ zIndex, shadow, y, scale }, i) => (
                     <animated.div
                         {...bind(i)}
@@ -55,7 +55,7 @@ const Tasks = () => {
                             scale
                         }}
                         children={
-                            <Task task={items[i]}/>
+                            <Task task={items[i]} reloadTasks={reloadTasks} />
                         }
                     />
                 ))}
@@ -64,7 +64,11 @@ const Tasks = () => {
         )
     }
     const classes = useStyles();
-    const tasks = useSelector((state) => state.tasks)
+    //const mobile = useMediaQuery('(max-width:750px)');
+
+    const [tasks, setTasks] = useState()
+
+
 
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
@@ -86,18 +90,24 @@ const Tasks = () => {
     }
     getCount();
 
-    useEffect(() => {
-        setLoading(true);
-        const timer = setTimeout(() => {
-          setLoading(false);
-        }, 800);
-        // Cancel the timer while unmounting
-        return () => clearTimeout(timer);
-    }, []);
-    
+    const reloadTasks = () => {
+
+        fetchTasks(JSON.parse(localStorage.getItem('userData')).username).then((response) => {
+            const returnResponse = response.data
+            console.log('reloaded')
+            setTasks(returnResponse['tasksData'])
+            setLoading(false)
+        })
+
+    }
+
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
-    })
+        
+        reloadTasks()
+    }, []);
+    
+    
 
     return (
         <div className={classes.mainContainer}>
@@ -157,7 +167,7 @@ const Tasks = () => {
                     </div>
                 </Grid>
             </Grid>
-            <Form />
+            <Form reloadTasks={reloadTasks} />
             <br></br>
         </div>
     )

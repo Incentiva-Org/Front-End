@@ -1,6 +1,8 @@
 
-import React, { useState } from 'react'
-import { useSelector } from "react-redux"
+import React, {useEffect, useState} from 'react'
+
+import { fetchTasks } from '../../API/index'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
@@ -34,7 +36,25 @@ function valuetext(value) {
 }
 
 const Insights = () => {
-  const tasks = useSelector((state) => state.tasks)
+  const [tasks, setTasks] = useState()
+
+  const reloadTasks = () => {
+        
+    fetchTasks(JSON.parse(localStorage.getItem('userData')).username).then((response) => {
+        const returnResponse = response.data
+        console.log('reloaded')
+        setTasks(returnResponse['tasksData'])
+        setLoading(false)
+    }) 
+  }
+
+  useEffect(() => { 
+      reloadTasks()
+  }, []);
+
+  const [tagCounts, setTagCounts] = useState({
+      School: 0, Work: 0, Life: 0, Exercise: 0
+  })
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();

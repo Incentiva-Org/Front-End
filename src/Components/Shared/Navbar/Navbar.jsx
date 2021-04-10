@@ -164,7 +164,10 @@ const NavBar = (props) => {
                         open={Boolean(anchorEl)}
                         onClose={closeMenu}
                       >
-                          <MenuItem>
+                          <MenuItem onClick={() => {
+                              localStorage.removeItem("userData")
+                              window.location.pathname = "/login"
+                              }}>
                             <ListItemIcon>
                               <ExitToAppIcon fontSize="small" />
                             </ListItemIcon>
@@ -221,7 +224,9 @@ const NavBar = (props) => {
                           </Tooltip>
                           <Typography style={{display: "inline-block", padding: "8px"}}>{JSON.parse(localStorage.getItem("userData")).username}</Typography>
                           <Tooltip title="Logout" placement="top">
-                            <IconButton style={{display: "inline-block"}}>
+                            <IconButton onClick={() => {
+                              localStorage.removeItem("userData")
+                              window.location.pathname = "/tasks"}} style={{display: "inline-block"}}>
                               <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
                             </IconButton>
                           </Tooltip>

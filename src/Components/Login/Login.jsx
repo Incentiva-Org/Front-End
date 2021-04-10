@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 
+import { loginUser } from "../../API/index"
+
 import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
+
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -12,12 +16,16 @@ function Alert(props) {
 }
 
 const Login = () => {
+
+    if(localStorage.getItem('userData')){window.location.pathname = "/tasks"}
+
+
     const [visible, setVisible] = useState(false);
     const toggleVisibility = () => {
         setVisible(!visible);
     }
     const [userData, setUserData] = useState({
-        username: '', password: ''
+        emailOrUsername: '', password: ''
     })
 
     const [alert, setAlert] = useState(false);
@@ -29,27 +37,23 @@ const Login = () => {
     }
     const [severity, setSeverity] = useState("");
     const handleSubmit = () => {
-        var isValid = true;
-        const currData = JSON.parse(localStorage.getItem("userData"))
-        if(userData.username === currData.username && userData.password === currData.password) {
-            console.log("username and password good")
-        }
-        else if(userData.username === currData.email && userData.password === currData.password) {
-            console.log("email and password good")
-        }
-        else {
-            isValid = false;
-            console.log("Error")
-        }
-        if(isValid) {
-            setSeverity("success")
-            setTimeout(1000);
-            window.location.pathname = "/tasks"
-        }
-        else {
-            setSeverity("error")
-        }
-        setAlert(true)
+       
+        loginUser(userData).then((response) => {
+            const returnResponse = response.data['success']
+            const isValid = returnResponse !== false
+            
+
+            if(isValid) {
+                setSeverity("success")
+                localStorage.setItem('userData', JSON.stringify(returnResponse))
+                window.location.pathname = "/tasks"
+                console.log('Valid')
+            }
+            else {
+                setSeverity("error")
+            }
+            setAlert(true)
+        })
     }
     return ( 
         <div>
@@ -61,7 +65,7 @@ const Login = () => {
                             <AccountCircle  style={{marginTop: "12px", height: "30px"}}/>
                         </Grid>
                         <Grid item style={{width: "85%", marginLeft: "5px"}}>
-                            <TextField id="input-with-icon-grid" variant="outlined" label="Username or email" onChange={(e) => setUserData({ ...userData, username: e.target.value })}/>
+                            <TextField id="input-with-icon-grid" variant="outlined" label="Username or email" onChange={(e) => setUserData({ ...userData, emailOrUsername: e.target.value })}/>
                         </Grid>
                     </Grid>
                 </div>
@@ -97,6 +101,7 @@ const Login = () => {
                         Login
                     </Button>
                 </div>
+                
                 <div style={{textAlign: "center"}}>
                     <Typography variant="caption" style={{textAlign: "center"}}>Don't have an account? <Link href="/register" variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Register here</Link></Typography>
                 </div>
@@ -107,7 +112,7 @@ const Login = () => {
             </Paper>
             <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>
                 <Alert onClose={closeAlert} severity={severity}>
-                    {severity === "success" ? ("Logged in successfully!") : "Error logging in!"}
+                    {severity === "success" ? ("Logged in successfully!") : "Incorrect Username/Password!"}
                 </Alert>
             </Snackbar>
         </div>
