@@ -32,14 +32,6 @@ function Alert(props) {
 const Notes = () => {
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setOpen(!open);
-  };
-
   const [mainState, setMainState] = useState("initial")
   const [imageUploaded, setImageUploaded] = useState(0)
   const [selectedFile, setSelectedFile] = useState(null)
@@ -78,7 +70,6 @@ const Notes = () => {
   }
 
   const uploadImage = () => {
-    console.log(encoding)
     setLoading(true);
     axios.post('http://localhost:4000/', {
       imageString: encoding
@@ -88,14 +79,111 @@ const Notes = () => {
       setTextFromImage(res.data);
     })
   }
+
+  const tempData = 
+  [
+    {
+      Title: "Folder 1",
+      Files: [
+        {Title: "File 1", Body: "Body 1"},
+        {Title: "File 2", Body: "Body 2"}
+      ]
+    },
+    {
+      Title: "Folder 2",
+      Files: [
+        {Title: "File 3", Body: "Body 3"},
+        {Title: "File 4", Body: "Body 4"}
+      ]
+    },
+    {
+      Title: "Folder 3",
+      Files: [
+        {Title: "File 5", Body: "Body 5"},
+        {Title: "File 6", Body: "Body 6"}
+      ]
+    },
+    {
+      Title: "Folder 4",
+      Files: [
+        {Title: "File 7", Body: "Body 7"},
+        {Title: "File 8", Body: "Body 8"}
+      ]
+    },
+    {
+      Title: "Folder 5",
+      Files: [
+        {Title: "File 9", Body: "Body 9"},
+        {Title: "File 10", Body: "Body 10"}
+      ]
+    }
+  ]
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [noteData, setNoteData] = useState({
+    Title: "", Body: ""
+  })
+
+  const Layout = ({folder, index}) => {
+
+    const [open, setOpen] = useState(false);
+    const handleListItemClick = (event, index) => {
+      setSelectedIndex(index);
+      setOpen(!open);
+    };
+
+    return(
+      <>
+        <ListItem 
+          button 
+          onClick={(event) => handleListItemClick(event, index)} 
+          selected={selectedIndex === index}
+          style={{
+            width: "350px"
+          }}
+        >
+          <ListItemIcon>
+            <FolderIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary={folder.Title}
+          />
+          {open ? <ExpandLess /> : <ExpandMore />} 
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="delete">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+        {folder.Files.map((file, fileIdx) => (
+          <Collapse in={open} timeout="auto" className={classes.nested}>
+            <List component="div" disablePadding>
+                <ListItem button className={classes.nested} onClick={() => setNoteData({Title: file.Title, Body: file.Body})}>
+                    <ListItemIcon>
+                        <DescriptionIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={file.Title} />
+                    <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="delete">
+                            <DeleteIcon />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+            </List>
+        </Collapse>
+      ))}
+    </>
+    )
+  }
   return (
     <div className={classes.mainContainer}>
         <h1>Notes</h1>
           <div>
              <Grid container
                 direction="row"
+                justify="space-between"
               >
-                <Grid item>
+                <Grid item style={{marginBottom: "20px"}}>
                 <List component="nav" className={classes.folderContainer}>
                     <div style={{textAlign: "right", marginBottom: "10px"}}>
                         <Tooltip title="New Folder" placement="top">
@@ -105,47 +193,16 @@ const Notes = () => {
                             <IconButton><NoteAddIcon /></IconButton>
                         </Tooltip>
                     </div>
-                    <ListItem 
-                        button 
-                        onClick={(event) => handleListItemClick(event, 0)} 
-                        selected={selectedIndex === 0}
-                    >
-                      <ListItemIcon>
-                        <FolderIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Single-line item"
-                      />
-                      {open ? <ExpandLess /> : <ExpandMore />} 
-                      <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
-                          <DeleteIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <Collapse in={open} timeout="auto" unmountOnExit className={classes.nested}>
-                        <List component="div" disablePadding>
-                            <ListItem button className={classes.nested}>
-                                <ListItemIcon>
-                                    <DescriptionIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Starred" />
-                                <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="delete">
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        </List>
-                    </Collapse>
+                    {tempData.map((folder, index) => (
+                      <Layout folder={folder} index={index}/>
+                    ))}
                 </List>
                 </Grid>
-                <Grid item xs={12} sm={10} md={10}>
+                
+                <Grid item xs={12} sm={10} md={8}>
                   <Container>
                     <TextField
-                        id="outlined-multiline-static"
-                        label="Title"
-                        defaultValue="New Note"
+                        defaultValue={noteData.Title}
                         variant="outlined"
                         fullWidth
                         style={{marginBottom: "10px"}}
@@ -156,6 +213,7 @@ const Notes = () => {
                         rows={20}
                         variant="outlined"
                         fullWidth
+                        defaultValue={noteData.Body}
                     >
                       
                     </TextField>
