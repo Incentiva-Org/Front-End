@@ -117,7 +117,7 @@ const Notes = () => {
     })
   }
   const addFile = () => {
-    tempData[selectedIndex].Files.push({Title: "New Note", Body: "New Note"})
+    tempData[selectedIndex].Files.push({Title: "New File", Body: "New Note"})
   }
 
   const deleteFolder = () => {
@@ -149,7 +149,7 @@ const Notes = () => {
           />
           {open ? <ExpandLess /> : <ExpandMore />} 
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={()=> tempData.splice(index)}>
+            <IconButton edge="end" aria-label="delete" onClick={()=> deleteFolder}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -201,7 +201,6 @@ const Notes = () => {
                 <Grid item xs={12} sm={10} md={8}>
                   <Container>
                     <TextField
-                        value={noteData.Title}
                         variant="outlined"
                         fullWidth
                         style={{marginBottom: "10px"}}
@@ -212,7 +211,6 @@ const Notes = () => {
                         rows={20}
                         variant="outlined"
                         fullWidth
-                        value={noteData.Body}
                     >
                       
                     </TextField>
