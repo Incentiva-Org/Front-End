@@ -36,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         marginRight: "auto",
         fontWeight: "bold",
+        width: "95%",
+        borderRadius: "5px"
       },
       '& .MuiTypography-displayBlock': {
         fontWeight: "bold"

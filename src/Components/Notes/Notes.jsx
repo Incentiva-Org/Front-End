@@ -28,6 +28,30 @@ import MuiAlert from '@material-ui/lab/Alert';
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+var tempData = 
+[
+  {
+    Title: "Folder 1",
+    Files: [
+      {Title: "File 1", Body: "Body 1"},
+      {Title: "File 2", Body: "Body 2"}
+    ]
+  },
+  {
+    Title: "Folder 2",
+    Files: [
+      {Title: "File 3", Body: "Body 3"},
+      {Title: "File 4", Body: "Body 4"}
+    ]
+  },
+  {
+    Title: "Folder 3",
+    Files: [
+      {Title: "File 5", Body: "Body 5"},
+      {Title: "File 6", Body: "Body 6"}
+    ]
+  }
+]
 
 const Notes = () => {
   const classes = useStyles();
@@ -79,52 +103,6 @@ const Notes = () => {
       setTextFromImage(res.data);
     })
   }
-
-  const tempData = 
-  [
-    {
-      Title: "Folder 1",
-      Files: [
-        {Title: "File 1", Body: "Body 1"},
-        {Title: "File 2", Body: "Body 2"}
-      ]
-    },
-    {
-      Title: "Folder 2",
-      Files: [
-        {Title: "File 3", Body: "Body 3"},
-        {Title: "File 4", Body: "Body 4"}
-      ]
-    },
-    {
-      Title: "Folder 3",
-      Files: [
-        {Title: "File 5", Body: "Body 5"},
-        {Title: "File 6", Body: "Body 6"}
-      ]
-    },
-    {
-      Title: "Folder 4",
-      Files: [
-        {Title: "File 7", Body: "Body 7"},
-        {Title: "File 8", Body: "Body 8"}
-      ]
-    },
-    {
-      Title: "Folder 5",
-      Files: [
-        {Title: "File 9", Body: "Body 9"},
-        {Title: "File 10", Body: "Body 10"}
-      ]
-    },
-    {
-      Title: "Folder 6",
-      Files: [
-        {Title: "File 11", Body: "Body 11"},
-        {Title: "File 12", Body: "Body 12"}
-      ]
-    }
-  ]
   
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -132,6 +110,19 @@ const Notes = () => {
     Title: "", Body: ""
   })
 
+  const addFolder = () => {
+    tempData.push({
+      Title: "New Folder",
+      Files: []
+    })
+  }
+  const addFile = () => {
+    tempData[selectedIndex].Files.push({Title: "New Note", Body: "New Note"})
+  }
+
+  const deleteFolder = () => {
+    tempData.splice(selectedIndex)
+  }
   const Layout = ({folder, index}) => {
 
     const [open, setOpen] = useState(false);
@@ -158,7 +149,7 @@ const Notes = () => {
           />
           {open ? <ExpandLess /> : <ExpandMore />} 
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete">
+            <IconButton edge="end" aria-label="delete" onClick={()=> tempData.splice(index)}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -195,10 +186,10 @@ const Notes = () => {
                 <List component="nav" className={classes.folderContainer}>
                     <div style={{textAlign: "right", marginBottom: "10px"}}>
                         <Tooltip title="New Folder" placement="top">
-                            <IconButton><CreateNewFolderIcon /></IconButton>
+                            <IconButton onClick={addFolder}><CreateNewFolderIcon /></IconButton>
                         </Tooltip>
                         <Tooltip title="New File" placement="top">
-                            <IconButton><NoteAddIcon /></IconButton>
+                            <IconButton onClick={() => addFile(selectedIndex)}><NoteAddIcon /></IconButton>
                         </Tooltip>
                     </div>
                     {tempData.map((folder, index) => (
@@ -210,7 +201,7 @@ const Notes = () => {
                 <Grid item xs={12} sm={10} md={8}>
                   <Container>
                     <TextField
-                        defaultValue={noteData.Title}
+                        value={noteData.Title}
                         variant="outlined"
                         fullWidth
                         style={{marginBottom: "10px"}}
@@ -221,7 +212,7 @@ const Notes = () => {
                         rows={20}
                         variant="outlined"
                         fullWidth
-                        defaultValue={noteData.Body}
+                        value={noteData.Body}
                     >
                       
                     </TextField>

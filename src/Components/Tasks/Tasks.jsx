@@ -98,6 +98,7 @@ const Tasks = () => {
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
     })
+
     return (
         <div className={classes.mainContainer}>
             <h1>Tasks</h1>
@@ -118,22 +119,44 @@ const Tasks = () => {
                     />
                 </MuiPickersUtilsProvider>
             </div>
-            <div style={{width: "380px", textAlign: "center"}}>
-                <Typography variant="h6" style={{fontWeight:"bold"}}>On Deck:</Typography>
-            </div>
-            <div style={{
-                margin: '0',
-                padding: '0',
-                height: '100%',
-                width: '380px',
-                overflow: 'hidden',
-                userSelect: 'none',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <DraggableList items={filteredTasks} classes={classes} />
-            </div>
+            <Grid container justify="center" spacing={5}>
+                <Grid item>
+                    <div style={{width: "350px", textAlign: "center"}}>
+                        <Typography variant="h6" style={{fontWeight:"bold"}}>On Deck</Typography>
+                    </div>
+                    <div style={{
+                        margin: '0',
+                        padding: '0',
+                        height: '100%',
+                        width: '350px',
+                        overflow: 'hidden',
+                        userSelect: 'none',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <DraggableList items={filteredTasks} classes={classes} />
+                    </div>
+                </Grid>
+                <Grid item>
+                    <div style={{width: "350px", textAlign: "center"}}>
+                        <Typography variant="h6" style={{fontWeight:"bold"}}>Completed</Typography>
+                    </div>
+                    <div style={{
+                        margin: '0',
+                        padding: '0',
+                        height: '100%',
+                        width: '350px',
+                        overflow: 'hidden',
+                        userSelect: 'none',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <DraggableList items={filteredTasks} classes={classes} />
+                    </div>
+                </Grid>
+            </Grid>
             <Form />
             <br></br>
         </div>
