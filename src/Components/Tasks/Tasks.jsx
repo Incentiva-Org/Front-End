@@ -153,7 +153,7 @@ const Tasks = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <DraggableList items={onDeck} classes={classes} />
+                        <DraggableList items={completed} classes={classes} />
                     </div>
                 </Grid>
                 <Grid item>
@@ -171,7 +171,7 @@ const Tasks = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <DraggableList items={completed} classes={classes} />
+                        <DraggableList items={onDeck} classes={classes} />
                     </div>
                 </Grid>
             </Grid>
