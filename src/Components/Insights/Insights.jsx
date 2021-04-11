@@ -155,7 +155,7 @@ const handlePredictClick = () => {
         <Backdrop className={classes.backdrop} open={loading}>
           <CircularProgress color="inherit" />
         </Backdrop>
-        {result ? null :
+        {!result ? null :
           <div style={{width: "100%", marginRight: "auto", marginLeft: "auto"}}>
             <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>{result}</Typography>
             <h2 style={{fontWeight: "bold", fontSize:"20px"}}>Analytics:</h2>

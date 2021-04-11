@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {NavLink} from 'react-router-dom'
 
-import Logo from '../../../Assets/Logo.png'
-import MiniLogo from "../../../Assets/mini-logo.png"
+import Logo from '../../../Assets/Incentiva.png'
+import MiniLogo from "../../../Assets/Incentiva-Mini.png"
 import routes from '../Routes'
 import useStyles from './Styles'
 
@@ -101,7 +101,7 @@ const NavBar = (props) => {
             {mobile? 
                 (
                     <div className={classes.toolbar}>
-                      <MuiLink component={NavLink} onClick={() => {setCurrentPath("/tasks"); handleDrawerToggle()}} to="/tasks">
+                      <MuiLink component={NavLink} onClick={() => {setCurrentPath("/"); handleDrawerToggle()}} to="/">
                         <img
                           className={classes.logo}
                           src={Logo}
@@ -111,7 +111,7 @@ const NavBar = (props) => {
                     </div>     
                 ) 
             : 
-              <MuiLink component={NavLink} onClick={() => {setCurrentPath("/tasks"); handleDrawerToggle()}} to="/tasks">
+              <MuiLink component={NavLink} onClick={() => {setCurrentPath("/"); handleDrawerToggle()}} to="/">
                 <img
                   className={classes.logo}
                   src={Logo}
@@ -272,7 +272,7 @@ const NavBar = (props) => {
             <div className={classes.root} style={{overflowX: "hidden"}}>
               <CssBaseline />
               <AppBar position="fixed" className={classes.appBar} color="inherit">
-                <Toolbar>
+                <Toolbar style={{paddingLeft: "0px"}}>
                     <MuiLink onClick={() => setCurrentPath("/")} href="/">
                         <img
                             className={classes.miniLogo}

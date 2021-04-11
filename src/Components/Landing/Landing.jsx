@@ -74,7 +74,7 @@ const Landing = () => {
     return (
         <div className={classes.mainContainer}>
             <Fade in style={{transitionDuration: "1000ms"}}>
-                <Typography variant="h3" style={{textAlign: "center", fontWeight: "bold", marginTop: "20px", letterSpacing: "0.07em"}}>Incentiva</Typography>
+                <Typography variant="h3" style={{textAlign: "center", fontWeight: "bold", marginTop: "30px", letterSpacing: "0.07em"}}>Incentiva</Typography>
             </Fade>
             <div style={{justifyContent: "space-between", display: "flex"}}>
                 <Fade in mountOnEnter unmountOnExit style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
@@ -85,10 +85,10 @@ const Landing = () => {
                         </Typography>
                         <div style={{marginTop: "20px", textAlign: "right"}}>
                             <MuiLink href="/login" underline="none">
-                                <Button style={{marginRight: "20px"}} color="primary">Login</Button>
+                                <Button style={{marginRight: "20px", fontSize: '18px', textTransform: "none", lineHeight: "40px"}} color="primary">Login</Button>
                             </MuiLink>
-                            <MuiLink href="/register" underline="none">
-                                <Button color="primary" variant="contained">Register</Button>
+                            <MuiLink href="/register"  underline="none">
+                                <Button color="primary" style={{fontSize: '18px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
                             </MuiLink>
                         </div>   
                     </div>

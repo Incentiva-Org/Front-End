@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     },
     miniLogo: {
       width: "120px",
-      margin: "10px"
+      margin: "20px 60px"
     },
 }));
 
