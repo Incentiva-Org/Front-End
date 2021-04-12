@@ -271,78 +271,80 @@ const NavBar = (props) => {
         <ThemeProvider theme={theme}>
             <div className={classes.root} style={{overflowX: "hidden"}}>
               <CssBaseline />
-              <AppBar position="fixed" className={classes.appBar} color="inherit">
-                <Toolbar style={{paddingLeft: "0px"}}>
-                    <MuiLink onClick={() => setCurrentPath("/")} href="/">
-                        <img
-                            className={classes.miniLogo}
-                            src={MiniLogo}
-                            alt="Logo"
-                        />
-                    </MuiLink>
-                    <div style={{textAlign: "right", marginLeft: "auto"}}>
-                        <Grid
-                            container
-                            direction="row"
-                            spacing={5}
-                            style={{lineHeight: "40px"}}
-                        >
-                            <Grid item style={{paddingTop: "23px"}}>
-                                <MuiLink 
-                                    className={classes.landingLink} 
-                                    underline="none"
-                                    onClick={() => setCurrentPath("/about")} 
-                                    href="/about"
-                                    style={{
-                                      color: "inherit"
-                                    }}
-                                >
-                                    About
+              <Hidden smDown implementation="css">
+                <AppBar position="fixed" className={classes.appBar} color="inherit">
+                  <Toolbar style={{paddingLeft: "0px"}}>
+                      <MuiLink onClick={() => setCurrentPath("/")} href="/">
+                          <img
+                              className={classes.miniLogo}
+                              src={MiniLogo}
+                              alt="Logo"
+                          />
+                      </MuiLink>
+                      <div style={{textAlign: "right", marginLeft: "auto"}}>
+                          <Grid
+                              container
+                              direction="row"
+                              spacing={5}
+                              style={{lineHeight: "40px"}}
+                          >
+                              <Grid item style={{paddingTop: "23px"}}>
+                                  <MuiLink 
+                                      className={classes.landingLink} 
+                                      underline="none"
+                                      onClick={() => setCurrentPath("/about")} 
+                                      href="/about"
+                                      style={{
+                                        color: "inherit"
+                                      }}
+                                  >
+                                      About
+                                  </MuiLink>
+                              </Grid>
+                              <Grid item style={{paddingTop: "23px"}}>
+                                  <MuiLink 
+                                      className={classes.landingLink} 
+                                      underline="none"
+                                      onClick={() => setCurrentPath("/contact")} 
+                                      href="/contact"
+                                      style={{
+                                        color: "inherit"
+                                      }}
+                                  >
+                                      Contact
+                                  </MuiLink>
+                              </Grid>
+                              <Grid item style={{paddingTop: "23px"}}>
+                                  <MuiLink 
+                                      className={classes.landingLink} 
+                                      underline="none"
+                                      onClick={() => setCurrentPath("/team")} 
+                                      href="/team"
+                                      style={{
+                                        color: "inherit"
+                                      }}
+                                  >
+                                      Team
+                                  </MuiLink>
+                              </Grid>
+                              <Grid item>
+                                <MuiLink underline="none" onClick={() => setCurrentPath("/login")} href="/login">
+                                  <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
                                 </MuiLink>
-                            </Grid>
-                            <Grid item style={{paddingTop: "23px"}}>
-                                <MuiLink 
-                                    className={classes.landingLink} 
-                                    underline="none"
-                                    onClick={() => setCurrentPath("/contact")} 
-                                    href="/contact"
-                                    style={{
-                                      color: "inherit"
-                                    }}
-                                >
-                                    Contact
-                                </MuiLink>
-                            </Grid>
-                            <Grid item style={{paddingTop: "23px"}}>
-                                <MuiLink 
-                                    className={classes.landingLink} 
-                                    underline="none"
-                                    onClick={() => setCurrentPath("/team")} 
-                                    href="/team"
-                                    style={{
-                                      color: "inherit"
-                                    }}
-                                >
-                                    Team
-                                </MuiLink>
-                            </Grid>
-                            <Grid item>
-                              <MuiLink underline="none" onClick={() => setCurrentPath("/login")} href="/login">
-                                <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
-                              </MuiLink>
-                              <MuiLink href="/register" underline="none" onClick={() => setCurrentPath("/register")}>
-                                <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
-                              </MuiLink> 
-                              <Tooltip title="Dark Mode" placement="bottom">
-                                  <IconButton onClick={handleThemeChange}>
-                                      <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}}/>
-                                  </IconButton>
-                              </Tooltip>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </Toolbar>
-            </AppBar>
+                                <MuiLink href="/register" underline="none" onClick={() => setCurrentPath("/register")}>
+                                  <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
+                                </MuiLink> 
+                                <Tooltip title="Dark Mode" placement="bottom">
+                                    <IconButton onClick={handleThemeChange}>
+                                        <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}}/>
+                                    </IconButton>
+                                </Tooltip>
+                              </Grid>
+                          </Grid>
+                      </div>
+                  </Toolbar>
+              </AppBar>
+            </Hidden>
             <main className={classes.content} style={{padding: "0px"}}>
                 <Toolbar />
                 {props.children}
