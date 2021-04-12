@@ -118,14 +118,14 @@ const Landing = () => {
                 </motion.svg>
             </div>
             <Grid container flex="row" justify="space-between" alignItems="center" spacing={2} style={{width: "92%", marginTop: "10px", marginLeft: "auto", marginRight: "auto"}}>
-                <Grid item xs={12} sm={10} md={12} lg={8} xl={8}>
+                <Grid item xs={12} sm={10} md={12} lg={8} xl={8} style={{margin: "0px 10px"}}>
                     <Fade in mountOnEnter unmountOnExit style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                         <div>
                             <Typography variant="h5" style={{fontSize: "20px", lineHeight: "1.5"}}>
                                 Introducing Incentiva: a platform that gives its users all the tools and motivation they need to succeed in their day-to-day lives.
                                 With tools for simple task management, distraction-free study sessions, sophisticated note-taking, and personalized insights, Incentiva aims to help anyone looking to improve their workflow.
                             </Typography>
-                            <div style={{marginTop: "20px", textAlign: "right"}}>
+                            <div style={{marginTop: "20px", textAlign: "right", marginRight: '10px'}}>
                                 <MuiLink href="/login" underline="none">
                                     <Button style={{marginRight: "20px", fontSize: '18px', textTransform: "none", lineHeight: "40px"}} color="primary">Login</Button>
                                 </MuiLink>
