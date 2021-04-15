@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -24,6 +24,7 @@ import axios from 'axios'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import MuiAlert from '@material-ui/lab/Alert';
+import RichEditor from "./RichEditor"
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -55,7 +56,15 @@ var tempData =
 
 const Notes = () => {
   const classes = useStyles();
-
+  const initialValue = [
+    {
+      type: "paragraph",
+      children: [
+        { text: "" },
+      ]
+    },
+    
+  ]
   const [mainState, setMainState] = useState("initial")
   const [imageUploaded, setImageUploaded] = useState(0)
   const [selectedFile, setSelectedFile] = useState(null)
@@ -64,7 +73,7 @@ const Notes = () => {
   const [textFromImage, setTextFromImage] = useState("")
   const [copied, setCopied] = useState(false)
   const [alert, setAlert] = useState(false);
-
+  const [input, setInput] = useState(initialValue);
   const closeAlert = (event, reason) => {
       if (reason === 'clickaway') {
           return;
@@ -199,80 +208,67 @@ const Notes = () => {
                 </Grid>
                 
                 <Grid item xs={12} sm={10} md={8}>
-                  <Container>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        style={{marginBottom: "10px"}}
-                    />
-                    <TextField
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={20}
-                        variant="outlined"
-                        fullWidth
-                    >
-                      
-                    </TextField>
-                    <div>
-                        <input
-                          accept="image/*"
-                          style={{display: "none"}}
-                          id="contained-button-file"
-                          type="file"
-                          onChange={handleUploadClick}
+                  <div>
+                    <RichEditor value={input} setValue={setInput} />
+                  </div>
+                  <div>
+                      <input
+                        accept="image/*"
+                        style={{display: "none"}}
+                        id="contained-button-file"
+                        type="file"
+                        onChange={handleUploadClick}
+                      />
+                      <label htmlFor="contained-button-file">
+                        <Fab component="span" className={classes.button} style={{marginTop: "5px"}}>
+                          <AddPhotoAlternateIcon />
+                        </Fab>
+                      </label>
+                    <Dialog open={selectedFile !== null} style={{padding: "5px"}}>
+                      <div >
+                        <Button onClick={imageResetHandler} color="primary" style={{width: "50px"}}>Close</Button>
+                      </div>
+                      <CardActionArea style={{textAlign: "center"}}>
+                        <img
+                          width="100%"
+                          className={classes.media}
+                          src={selectedFile}
+                          alt="Upload"
                         />
-                        <label htmlFor="contained-button-file">
-                          <Fab component="span" className={classes.button} style={{marginTop: "5px"}}>
-                            <AddPhotoAlternateIcon />
-                          </Fab>
-                        </label>
-                      <Dialog open={selectedFile !== null} style={{padding: "5px"}}>
-                        <div >
-                          <Button onClick={imageResetHandler} color="primary" style={{width: "50px"}}>Close</Button>
-                        </div>
-                        <CardActionArea style={{textAlign: "center"}}>
-                          <img
-                            width="100%"
-                            className={classes.media}
-                            src={selectedFile}
-                            alt="Upload"
-                          />
-                        </CardActionArea>
-                        <Button variant="contained" color="primary" style={{width: "50%", marginLeft: "auto", marginRight: "auto", marginTop: "5px", marginBottom:"10px"}} onClick={uploadImage}>Upload</Button>
-                        <Container style={{width: "95%"}}>
-                          {loading ? 
-                            (
-                              <LinearProgress variant="indeterminate" style={{marginBottom: "10px"}}/>
-                            )
+                      </CardActionArea>
+                      <Button variant="contained" color="primary" style={{width: "50%", marginLeft: "auto", marginRight: "auto", marginTop: "5px", marginBottom:"10px"}} onClick={uploadImage}>Upload</Button>
+                      <Container style={{width: "95%"}}>
+                        {loading ? 
+                          (
+                            <LinearProgress variant="indeterminate" style={{marginBottom: "10px"}}/>
+                          )
+                            :
+                            <>
+                              {textFromImage ? 
+                              (
+                                <>
+                                  <CopyToClipboard text={textFromImage} style={{float: "right", display: "block"}}
+                                    onCopy={() => {setCopied(true); setAlert(true)}}>
+                                    <Tooltip title="Copy" placement="top">
+                                      <IconButton color="primary">
+                                        <FileCopyIcon />
+                                      </IconButton>
+                                    </Tooltip>
+                                  </CopyToClipboard>
+                                  <Typography style={{fontWeight: "bold"}}>Output:</Typography>
+                                  <Typography>{textFromImage}</Typography>
+                                </>
+                              )
                               :
-                              <>
-                                {textFromImage ? 
-                                (
-                                  <>
-                                    <CopyToClipboard text={textFromImage} style={{float: "right", display: "block"}}
-                                      onCopy={() => {setCopied(true); setAlert(true)}}>
-                                      <Tooltip title="Copy" placement="top">
-                                        <IconButton color="primary">
-                                          <FileCopyIcon />
-                                        </IconButton>
-                                      </Tooltip>
-                                    </CopyToClipboard>
-                                    <Typography style={{fontWeight: "bold"}}>Output:</Typography>
-                                    <Typography>{textFromImage}</Typography>
-                                  </>
-                                )
-                                :
-                                  <></>
-                                }
-                              </>
-                          }
-                          
-                        </Container>
-                      </Dialog>
-                    </div>
-                  </Container>
-                </Grid>
+                                <></>
+                              }
+                            </>
+                        }
+                        
+                      </Container>
+                    </Dialog>
+                  </div>
+              </Grid>
             </Grid>
             <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>
                 <Alert onClose={closeAlert} severity="success">
