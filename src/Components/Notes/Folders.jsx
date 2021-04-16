@@ -1,168 +1,111 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import TreeView from '@material-ui/lab/TreeView';
-import TreeItem from '@material-ui/lab/TreeItem';
-import Typography from '@material-ui/core/Typography';
-import MailIcon from '@material-ui/icons/Mail';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import TreeView from "@material-ui/lab/TreeView";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import TreeItem from "@material-ui/lab/TreeItem";
+import { IconButton } from "@material-ui/core";
+import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Label from '@material-ui/icons/Label';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import InfoIcon from '@material-ui/icons/Info';
-import ForumIcon from '@material-ui/icons/Forum';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
-const useTreeItemStyles = makeStyles((theme) => ({
-  root: {
-    color: theme.palette.text.secondary,
-    '&:hover > $content': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:focus > $content, &$selected > $content': {
-      backgroundColor: `var(--tree-view-bg-color, ${theme.palette.grey[400]})`,
-      color: 'var(--tree-view-color)',
-    },
-    '&:focus > $content $label, &:hover > $content $label, &$selected > $content $label': {
-      backgroundColor: 'none',
-    },
-  },
-  content: {
-    color: theme.palette.text.secondary,
-    borderTopRightRadius: theme.spacing(2),
-    borderBottomRightRadius: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    fontWeight: theme.typography.fontWeightMedium,
-    '$expanded > &': {
-      fontWeight: theme.typography.fontWeightRegular,
-    },
-  },
-  group: {
-    marginLeft: 0,
-    '& $content': {
-      paddingLeft: theme.spacing(2),
-    },
-  },
-  expanded: {},
-  selected: {},
-  label: {
-    fontWeight: 'inherit',
-    color: 'inherit',
-  },
-  labelRoot: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0.5, 0),
-  },
-  labelIcon: {
-    marginRight: theme.spacing(1),
-  },
-  labelText: {
-    fontWeight: 'inherit',
-    flexGrow: 1,
-  },
-}));
-
-function StyledTreeItem(props) {
-  const classes = useTreeItemStyles();
-  const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, ...other } = props;
-
-  return (
-    <TreeItem
-      label={
-        <div className={classes.labelRoot}>
-          <LabelIcon color="inherit" className={classes.labelIcon} />
-          <Typography variant="body2" className={classes.labelText}>
-            {labelText}
-          </Typography>
-          <Typography variant="caption" color="inherit">
-            {labelInfo}
-          </Typography>
-        </div>
-      }
-      style={{
-        '--tree-view-color': color,
-        '--tree-view-bg-color': bgColor,
-      }}
-      classes={{
-        root: classes.root,
-        content: classes.content,
-        expanded: classes.expanded,
-        selected: classes.selected,
-        group: classes.group,
-        label: classes.label,
-      }}
-      {...other}
-    />
-  );
-}
-
-StyledTreeItem.propTypes = {
-  bgColor: PropTypes.string,
-  color: PropTypes.string,
-  labelIcon: PropTypes.elementType.isRequired,
-  labelInfo: PropTypes.string,
-  labelText: PropTypes.string.isRequired,
-};
-
+import DescriptionIcon from '@material-ui/icons/Description';
 const useStyles = makeStyles({
   root: {
-    height: 264,
+    height: 216,
     flexGrow: 1,
-    maxWidth: 400,
-  },
+    maxWidth: 400
+  }
 });
 
+const data = [
+  {
+    id: "f1",
+    title: "Folder 1",
+    children: [
+      {
+        id: "f1a",
+        title: "File 1",
+      },
+      {
+        id: "f1b",
+        title: "File 2"
+      }
+    ]
+  },
+  {
+    id: "f2",
+    title: "Folder 2",
+    children: [
+      {
+        id: "f2a",
+        title: "File 3",
+      },
+      {
+        id: "n1b",
+        title: "File 4"
+      }
+    ]
+  },
+  {
+    id: "f3",
+    title: "Folder 3",
+    children: [
+      {
+        id: "f3a",
+        title: "File 5",
+      },
+      {
+        id: "f3b",
+        title: "File 6"
+      }
+    ]
+  },
+];
+
 const Folders = () => {
+  console.log("rendering");
   const classes = useStyles();
+
+  const [, setState] = useState(1);
+
+  const renderItem = item => (
+    <TreeItem
+      key={item.id}
+      nodeId={item.id}
+      label={
+        <Box>
+            <>
+                {item.title.includes("Folder")? (
+                    <FolderIcon style={{color: "rgba(0, 0, 0, 0.54)"}}/>
+                ) : <DescriptionIcon style={{color: "rgba(0, 0, 0, 0.54)"}}/>
+                }
+                {item.title}
+            </>
+          <IconButton style={{float: "right"}}>
+                <DeleteIcon/>
+            </IconButton>
+        </Box>
+        }
+      onFocus={() => {
+        console.log("focus");
+        setState(Math.random);
+      }}
+    >
+      {item.children && item.children.length > 0
+        ? item.children.map(renderItem)
+        : null}
+    </TreeItem>
+  );
 
   return (
     <TreeView
       className={classes.root}
-      defaultExpanded={['3']}
-      defaultCollapseIcon={<ArrowDropDownIcon />}
-      defaultExpandIcon={<ArrowRightIcon />}
-      defaultEndIcon={<div style={{ width: 24 }} />}
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      style={{width: "340px"}}
     >
-      <StyledTreeItem nodeId="1" labelText="All Mail" labelIcon={MailIcon} />
-      <StyledTreeItem nodeId="2" labelText="Trash" labelIcon={DeleteIcon} />
-      <StyledTreeItem nodeId="3" labelText="Categories" labelIcon={Label}>
-        <StyledTreeItem
-          nodeId="5"
-          labelText="Social"
-          labelIcon={SupervisorAccountIcon}
-          labelInfo="90"
-          color="#1a73e8"
-          bgColor="#e8f0fe"
-        />
-        <StyledTreeItem
-          nodeId="6"
-          labelText="Updates"
-          labelIcon={InfoIcon}
-          labelInfo="2,294"
-          color="#e3742f"
-          bgColor="#fcefe3"
-        />
-        <StyledTreeItem
-          nodeId="7"
-          labelText="Forums"
-          labelIcon={ForumIcon}
-          labelInfo="3,566"
-          color="#a250f5"
-          bgColor="#f3e8fd"
-        />
-        <StyledTreeItem
-          nodeId="8"
-          labelText="Promotions"
-          labelIcon={LocalOfferIcon}
-          labelInfo="733"
-          color="#3c8039"
-          bgColor="#e6f4ea"
-        />
-      </StyledTreeItem>
-      <StyledTreeItem nodeId="4" labelText="History" labelIcon={Label} />
+      {data.map(renderItem)}
     </TreeView>
   );
 }
-export default Folders
+export default Folders;

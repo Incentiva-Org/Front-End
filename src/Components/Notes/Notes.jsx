@@ -25,7 +25,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import MuiAlert from '@material-ui/lab/Alert';
 import RichEditor from "./RichEditor"
-
+import Folders from "./Folders"
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -123,16 +123,16 @@ const Notes = () => {
       Title: "New Folder",
       Files: []
     })
-    setTempData(tempData)
+    setTempData(tempData, tempData)
   }
   const addFile = () => {
     tempData[selectedIndex].Files.push({Title: "New File", Body: "New Note"})
-    setTempData(tempData)
+    setTempData(tempData, tempData)
   }
 
   const deleteFolder = () => {
     tempData.splice(selectedIndex)
-    setTempData(tempData)
+    setTempData(tempData, tempData)
   }
   const Layout = ({folder, index}) => {
 
@@ -203,11 +203,7 @@ const Notes = () => {
                               <IconButton onClick={() => addFile(selectedIndex)}><NoteAddIcon /></IconButton>
                           </Tooltip>
                       </div>
-                      {tempData.map((folder, index) => {
-                        return(
-                          <Layout folder={folder} index={index}/>
-                        )}
-                      )}
+                      <Folders />
                   </List>
                 </Grid>
                 
