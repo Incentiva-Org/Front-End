@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 400,
         position: 'relative',
         overflow: 'auto',
-        maxHeight: 500,
+        maxHeight: 1000,
     },
     nested: {
         paddingLeft: theme.spacing(4),

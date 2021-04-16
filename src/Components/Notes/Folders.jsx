@@ -17,52 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-const data = [
-  {
-    id: "f1",
-    title: "Folder 1",
-    children: [
-      {
-        id: "f1a",
-        title: "File 1",
-      },
-      {
-        id: "f1b",
-        title: "File 2"
-      }
-    ]
-  },
-  {
-    id: "f2",
-    title: "Folder 2",
-    children: [
-      {
-        id: "f2a",
-        title: "File 3",
-      },
-      {
-        id: "n1b",
-        title: "File 4"
-      }
-    ]
-  },
-  {
-    id: "f3",
-    title: "Folder 3",
-    children: [
-      {
-        id: "f3a",
-        title: "File 5",
-      },
-      {
-        id: "f3b",
-        title: "File 6"
-      }
-    ]
-  },
-];
-
-const Folders = () => {
+const Folders = ({data}) => {
   console.log("rendering");
   const classes = useStyles();
 
@@ -74,13 +29,13 @@ const Folders = () => {
       nodeId={item.id}
       label={
         <Box>
-            <>
+            <IconButton>
                 {item.title.includes("Folder")? (
-                    <FolderIcon style={{color: "rgba(0, 0, 0, 0.54)"}}/>
-                ) : <DescriptionIcon style={{color: "rgba(0, 0, 0, 0.54)"}}/>
+                    <FolderIcon />
+                ) : <DescriptionIcon />
                 }
-                {item.title}
-            </>
+            </IconButton>
+            {item.title}
           <IconButton style={{float: "right"}}>
                 <DeleteIcon/>
             </IconButton>

@@ -26,6 +26,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import MuiAlert from '@material-ui/lab/Alert';
 import RichEditor from "./RichEditor"
 import Folders from "./Folders"
+import SaveIcon from '@material-ui/icons/Save';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -52,31 +53,50 @@ const Notes = () => {
   const [copied, setCopied] = useState(false)
   const [alert, setAlert] = useState(false);
   const [equation, setEquation] = useState("y=x");
-  const [tempData, setTempData] = useState( 
-    [
-      {
-        Title: "Folder 1",
-        Files: [
-          {Title: "File 1", Body: "Body 1"},
-          {Title: "File 2", Body: "Body 2"}
-        ]
-      },
-      {
-        Title: "Folder 2",
-        Files: [
-          {Title: "File 3", Body: "Body 3"},
-          {Title: "File 4", Body: "Body 4"}
-        ]
-      },
-      {
-        Title: "Folder 3",
-        Files: [
-          {Title: "File 5", Body: "Body 5"},
-          {Title: "File 6", Body: "Body 6"}
-        ]
-      }
-    ]
-  )
+  const data = [
+    {
+      id: "f1",
+      title: "Folder 1",
+      children: [
+        {
+          id: "f1a",
+          title: "File 1",
+        },
+        {
+          id: "f1b",
+          title: "File 2"
+        }
+      ]
+    },
+    {
+      id: "f2",
+      title: "Folder 2",
+      children: [
+        {
+          id: "f2a",
+          title: "File 3",
+        },
+        {
+          id: "f2b",
+          title: "File 4"
+        }
+      ]
+    },
+    {
+      id: "f3",
+      title: "Folder 3",
+      children: [
+        {
+          id: "f3a",
+          title: "File 5",
+        },
+        {
+          id: "f3b",
+          title: "File 6"
+        }
+      ]
+    },
+  ];
   const closeAlert = (event, reason) => {
       if (reason === 'clickaway') {
           return;
@@ -118,73 +138,6 @@ const Notes = () => {
   
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const addFolder = () => {
-    tempData.push({
-      Title: "New Folder",
-      Files: []
-    })
-    setTempData(tempData, tempData)
-  }
-  const addFile = () => {
-    tempData[selectedIndex].Files.push({Title: "New File", Body: "New Note"})
-    setTempData(tempData, tempData)
-  }
-
-  const deleteFolder = () => {
-    tempData.splice(selectedIndex)
-    setTempData(tempData, tempData)
-  }
-  const Layout = ({folder, index}) => {
-
-    const [open, setOpen] = useState(false);
-    const handleListItemClick = (event, index) => {
-      setSelectedIndex(index);
-      setOpen(!open);
-    };
-
-    return(
-      <>
-        <ListItem 
-          button 
-          onClick={(event) => handleListItemClick(event, index)} 
-          selected={selectedIndex === index}
-          style={{
-            width: "340px"
-          }}
-        >
-          <ListItemIcon>
-            <FolderIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={folder.Title}
-          />
-          {open ? <ExpandLess /> : <ExpandMore />} 
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={deleteFolder}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        {folder.Files.map((file, fileIdx) => (
-          <Collapse in={open} timeout="auto" className={classes.nested}>
-            <List component="div" disablePadding>
-                <ListItem button className={classes.nested} onClick={() => {}}>
-                    <ListItemIcon>
-                        <DescriptionIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={file.Title} />
-                    <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
-                            <DeleteIcon />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-            </List>
-        </Collapse>
-      ))}
-    </>
-    )
-  }
   return (
     <div className={classes.mainContainer}>
         <h1>Notes</h1>
@@ -197,33 +150,36 @@ const Notes = () => {
                     <List component="nav" className={classes.folderContainer}>
                       <div style={{textAlign: "right", marginBottom: "10px"}}>
                           <Tooltip title="New Folder" placement="top">
-                              <IconButton onClick={() => addFolder}><CreateNewFolderIcon /></IconButton>
+                              <IconButton onClick={() => {}}><CreateNewFolderIcon /></IconButton>
                           </Tooltip>
                           <Tooltip title="New File" placement="top">
-                              <IconButton onClick={() => addFile(selectedIndex)}><NoteAddIcon /></IconButton>
+                              <IconButton onClick={() => {}}><NoteAddIcon /></IconButton>
                           </Tooltip>
                       </div>
-                      <Folders />
+
+                      <Folders data={data} className={classes.folderContainer}/>
                   </List>
                 </Grid>
                 
-                <Grid item xs={12} sm={8} md={6} style={{marginLeft: "auto", marginRight: "auto"}}>
-                  <div>
-                    <RichEditor />
-                  </div>
+                <Grid item xs={12} sm={8} md={8} style={{marginLeft: "auto", marginRight: "auto"}}>
+                  <RichEditor />
+                  
                   <div style={{marginLeft: "16px"}}>
-                      <input
-                        accept="image/*"
-                        style={{display: "none"}}
-                        id="contained-button-file"
-                        type="file"
-                        onChange={handleUploadClick}
-                      />
-                      <label htmlFor="contained-button-file">
-                        <Fab component="span" className={classes.button}>
-                          <AddPhotoAlternateIcon />
-                        </Fab>
-                      </label>
+                    <IconButton component="span" className={classes.button} size="small" style={{marginRight: "5px"}}>
+                            <SaveIcon color="primary" />
+                    </IconButton>
+                    <input
+                      accept="image/*"
+                      style={{display: "none"}}
+                      id="contained-button-file"
+                      type="file"
+                      onChange={handleUploadClick}
+                    />
+                    <label htmlFor="contained-button-file">
+                      <IconButton component="span" className={classes.button} size="small">
+                        <AddPhotoAlternateIcon color="primary" />
+                      </IconButton>
+                    </label>
                     <Dialog open={selectedFile !== null} style={{padding: "5px"}}>
                       <div >
                         <Button onClick={imageResetHandler} color="primary" style={{width: "50px"}}>Close</Button>

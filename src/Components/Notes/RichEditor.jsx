@@ -78,7 +78,6 @@ const RichEditor = () => {
           renderLeaf={renderLeaf}
           placeholder="New Note"
           spellCheck
-          autoFocus
           onKeyDown={event => {
             for (const hotkey in HOTKEYS) {
               if (isHotkey(hotkey, event)) {
@@ -143,7 +142,7 @@ const isMarkActive = (editor, format) => {
 const Element = ({ attributes, children, element }) => {
   switch (element.type) {
     case 'block-quote':
-      return <p style={{borderLeft: "2px solid #ccc", marginLeft: "10px"}}><blockquote {...attributes}>{children}</blockquote></p>
+      return <p style={{borderLeft: "2px solid #ccc", marginLeft: "10px"}}><blockquote {...attributes} style={{margin: '10px 20px'}}>{children}</blockquote></p>
     case 'bulleted-list':
       return <ul {...attributes}>{children}</ul>
     case 'heading-one':
@@ -242,9 +241,9 @@ const Toolbar = React.forwardRef(({ className, ...props }, ref) => (
 
 const initialValue = [
   {
-    type: 'paragraph',
+    type: 'heading-two',
     children: [
-      { text: '' }
+      { text: "" }
     ]
   }
 ]
