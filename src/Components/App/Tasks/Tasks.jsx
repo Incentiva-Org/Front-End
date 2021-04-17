@@ -1,13 +1,16 @@
 import React, {useEffect, useState, useRef} from 'react'
 
-import { fetchTasks } from "../../API/index"
+import { fetchTasks } from "../../../API/index"
 
 import Task from './Task/Task'
 import useStyles from "./Styles"
 import Form from "./Form/Form"
 
+import {Grid, Typography, Grow, Tooltip } from "@material-ui/core"
+import IconButton from '@material-ui/core/IconButton';
 
-import {Grid, Typography, Grow } from "@material-ui/core"
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import {format} from 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -120,7 +123,7 @@ const Tasks = () => {
     return (
         <div className={classes.mainContainer}>
             <h1>Tasks</h1>
-            <div style={{marginLeft: "18px", marginBottom: "18px"}}>
+            <div style={{marginLeft: "18px", marginBottom: "18px", marginRight: "10px"}}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                         disableToolbar
@@ -135,6 +138,28 @@ const Tasks = () => {
                             'aria-label': 'change date',
                         }}
                     />
+                    <div style={{marginTop: "20px", display: "inline-block"}}>
+                        <Tooltip title="Yesterday" placement="bottom" onClick={() => {
+                            const date = new Date(selectedDate)
+                            date.setDate(date.getDate() - 1)
+                            setSelectedDate(date)
+
+                        }}>
+                            <IconButton>
+                                <ArrowBackIosIcon fontSize="small" style={{marginLeft: "5px"}}/>
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Tomorrow" placement="bottom" onClick={() => {
+                            const date = new Date(selectedDate)
+                            date.setDate(date.getDate() + 1)
+                            setSelectedDate(date)
+
+                        }}>
+                            <IconButton>
+                                <ArrowForwardIosIcon fontSize="small" style={{marginLeft: "5px"}}/>
+                            </IconButton>
+                        </Tooltip>
+                    </div>
                 </MuiPickersUtilsProvider>
             </div>
             <Grid container justify="center" spacing={5}>

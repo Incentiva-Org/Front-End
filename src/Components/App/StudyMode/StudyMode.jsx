@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
 import useStyles from "./Styles"
-import Alarm from '../../Assets/Sounds/alarm_gentle.wav'
+import Alarm from '../../../Assets/Sounds/alarm_gentle.wav'
 
 import { IconButton, Button, Typography, TextField } from "@material-ui/core"
 import FullScreenIcon from '@material-ui/icons/Fullscreen';

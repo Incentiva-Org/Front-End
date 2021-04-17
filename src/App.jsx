@@ -5,16 +5,17 @@ import { useDispatch } from 'react-redux'
 import { getTasks } from './API/index'
 
 import Navbar from './Components/Shared/Navbar/Navbar.jsx'
-import Insights from './Components/Insights/Insights'
-import StudyMode from './Components/StudyMode/StudyMode'
-import Tasks from './Components/Tasks/Tasks'
-import Notes from './Components/Notes/Notes'
-import Register from './Components/Register/Register'
-import Login from './Components/Login/Login'
-import Landing from './Components/Landing/Landing'
-import About from './Components/About/About'
-import Contact from './Components/Contact/Contact'
-import Team from './Components/Team/Team'
+import Insights from './Components/App/Insights/Insights'
+import StudyMode from './Components/App/StudyMode/StudyMode'
+import Tasks from './Components/App/Tasks/Tasks'
+import Friends from './Components/App/Friends/Friends'
+import Notes from './Components/App/Notes/Notes'
+import Register from './Components/Shared/Register/Register'
+import Login from './Components/Shared/Login/Login'
+import Landing from './Components/Homepage/Landing/Landing'
+import About from './Components/Homepage/About/About'
+import Contact from './Components/Homepage/Contact/Contact'
+import Team from './Components/Homepage/Team/Team'
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
       <Navbar>
         <Route exact path="/tasks" component={Tasks}/>
         <Route exact path="/notes" component={Notes}/>
+        <Route exact path="/friends" component={Friends}/>
         <Route exact path="/study" component={StudyMode}/>
         <Route exact path="/insights" component={Insights}/>
         <Route exact path="/register" component={Register}/>
