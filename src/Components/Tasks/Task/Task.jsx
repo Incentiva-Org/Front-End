@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import { editTask } from "../../../API/index"
 import { deleteTask } from '../../../API/index';
-import { fetchTasks } from '../../../API/index'
 
 import { Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"
@@ -41,7 +40,7 @@ const Task = ({ task, reloadTasks }) => {
         setRaised(!raised);
     }
 
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(taskData.completed);
         
     const clear = () => {
         setTaskData({title: "", description: "", tag: "", predictedTime: "", day: task.day, completed: task.completed});
@@ -86,7 +85,7 @@ const Task = ({ task, reloadTasks }) => {
             color = tags[i].color
         }
     }
-    console.log(color)
+    
     const [alert, setAlert] = useState(false);
     const closeAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -112,9 +111,17 @@ const Task = ({ task, reloadTasks }) => {
         setAlert(true)
         
     }
-    const handleChange = async (event) => {
+    const handleChange = (event) => {
+        event.preventDefault()
         setChecked(event.target.checked);
-        setTaskData({ ...taskData, completed: event.target.checked })
+
+        setTaskData({title: task.title, description: task.description, tag: task.tag, predictedTime: task.predictedTime, day: task.day, completed: event.target.checked})
+
+        editTask(task._id, {title: task.title, description: task.description, tag: task.tag, predictedTime: task.predictedTime, day: task.day, completed: event.target.checked}).then(() => {
+            
+            reloadTasks()
+            setSeverity("success")
+        })
     };
 
     return (

@@ -46,11 +46,11 @@ const Form = (props) => {
     
     
     const [taskData, setTaskData] = useState({
-        title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date"), username: JSON.parse(localStorage.getItem("userData")).username
+        title: "", description: "", tag: "", predictedTime: "", completed: false,  day: localStorage.getItem("selected-date"), username: JSON.parse(localStorage.getItem("userData")).username
     })
 
     const clear = () => {
-        setTaskData({title: "", description: "", tag: "", predictedTime: "", day: localStorage.getItem("selected-date"), username: JSON.parse(localStorage.getItem("userData")).username});
+        setTaskData({title: "", description: "", tag: "", completed: false, predictedTime: "", day: localStorage.getItem("selected-date"), username: JSON.parse(localStorage.getItem("userData")).username});
     }
 
     useEffect(() => {
