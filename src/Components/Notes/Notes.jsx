@@ -1,22 +1,12 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from "./Styles"
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import DescriptionIcon from '@material-ui/icons/Description';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import Tooltip from "@material-ui/core/Tooltip"
 import Grid from '@material-ui/core/Grid';
-import { Container, TextField, Fab, Dialog, Typography, Button, Snackbar } from '@material-ui/core';
+import { Container, Dialog, Typography, Button, Snackbar } from '@material-ui/core';
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import LinearProgress from '@material-ui/core/LinearProgress';

@@ -40,7 +40,6 @@ const RichEditor = () => {
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-
   return (
     <Box p={1} m={2} border={1} borderColor="grey.500" borderRadius={4}>
       <Slate editor={editor} value={value} onChange={value => setValue(value)}>
