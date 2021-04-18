@@ -6,7 +6,7 @@ import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import Tooltip from "@material-ui/core/Tooltip"
 import Grid from '@material-ui/core/Grid';
-import { Container, Dialog, Typography, Button, Snackbar } from '@material-ui/core';
+import { Container, Dialog, Typography, Button, Snackbar, Appbar, Toolbar } from '@material-ui/core';
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -17,6 +17,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import RichEditor from "./RichEditor"
 import Folders from "./Folders"
 import SaveIcon from '@material-ui/icons/Save';
+import CloseIcon from '@material-ui/icons/Close';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -171,8 +172,10 @@ const Notes = () => {
                       </IconButton>
                     </label>
                     <Dialog open={selectedFile !== null} style={{padding: "5px"}}>
-                      <div >
-                        <Button onClick={imageResetHandler} color="primary" style={{width: "50px"}}>Close</Button>
+                      <div style={{padding: "5px"}}>
+                        <IconButton onClick={imageResetHandler} color="primary" style={{width: "50px"}}>
+                          <CloseIcon />
+                        </IconButton>
                       </div>
                       <CardActionArea style={{textAlign: "center"}}>
                         <img
@@ -184,6 +187,7 @@ const Notes = () => {
                       </CardActionArea>
                       <Button variant="contained" color="primary" style={{width: "50%", marginLeft: "auto", marginRight: "auto", marginTop: "5px", marginBottom:"10px"}} onClick={uploadImage}>Upload</Button>
                       <Container style={{width: "95%"}}>
+                        <Typography style={{fontWeight: "bold"}}>Output:</Typography>
                         {loading ? 
                           (
                             <LinearProgress variant="indeterminate" style={{marginBottom: "10px"}}/>
@@ -201,7 +205,6 @@ const Notes = () => {
                                       </IconButton>
                                     </Tooltip>
                                   </CopyToClipboard>
-                                  <Typography style={{fontWeight: "bold"}}>Output:</Typography>
                                   <Typography>{textFromImage}</Typography>
                                 </>
                               )

@@ -81,9 +81,7 @@ const Insights = () => {
   useEffect(() => { 
       reloadTasks()
   }, []);
-  if(!localStorage.getItem("userStats")) {
     localStorage.setItem("userStats", JSON.stringify([]))
-  }
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();
@@ -95,17 +93,16 @@ const Insights = () => {
 
   const getTagCounts = () => {
     const currentDate = format(new Date(), "MM/dd/yyyy")
-    var formData = {Date: currentDate, School: 0, Work: 0, Life: 0, Exercise: 0, Happiness: happiness}
     var isUnique = true;
     const currData = JSON.parse(localStorage.getItem("userStats"))
     console.log(currData)
     for(const i in currData) {
       if(currData[i].Date === currentDate) {
-        currData[i] = {Date: currentDate, School: currData[i].School, Work: currData[i].Work, Life: currData[i].Life, Exercise: currData[i].Exercise, Happiness: happiness}
-        localStorage.setItem("userStats", JSON.stringify(currData))
+        console.log("Hi")
         isUnique = false;
       }
     }
+    var formData = {Date: currentDate, School: 0, Work: 0, Life: 0, Exercise: 0, Happiness: happiness}
     if(isUnique) {
       for(const i in tasks) {
         if(tasks[i].day === currentDate) {
@@ -128,13 +125,7 @@ const Insights = () => {
       currData.push(formData)
       localStorage.setItem("userStats", JSON.stringify(currData))
     }
-    else {
-      for(const i in currData) {
-        if(currData[i].Date === currentDate) {
-          currData[i] = formData
-        }
-      }
-    }
+
     return formData;
   }
   getTagCounts();
