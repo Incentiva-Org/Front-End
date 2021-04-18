@@ -4,8 +4,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "r
 export default function Graphs({data}) {
     return (
           <LineChart
-            width={500}
-            height={250}
+            width={320}
+            height={200}
             data={data}
             margin={{
               top: 5,

@@ -5,8 +5,8 @@ export default function HappinessGraph({data}) {
     console.log(data)
     return (
             <BarChart
-            width={500}
-            height={250}
+            width={320}
+            height={200}
             data={data}
             margin={{
                 top: 5,
