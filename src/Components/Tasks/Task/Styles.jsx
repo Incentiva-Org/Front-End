@@ -15,16 +15,9 @@ export default makeStyles((theme) => ({
   },
   card: {
     borderRadius: '10px',
-    position: 'absolute',
     width: '320px',
     height: '200px',
-    transformOrigin: '50% 50% 0px',
     borderRadius: '10px',
-    touchAction: 'none',
-    transform: 'none',
-    userSelect: "none",
-    padding: '10px',
-    overflow: "hidden"
   },
   grid: {
     display: 'flex',

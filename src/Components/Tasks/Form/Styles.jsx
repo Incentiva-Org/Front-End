@@ -21,7 +21,8 @@ export default makeStyles((theme) => ({
   buttonSubmit: {
     margin: "10px",
     width: "100px",
-    display: "inline-block"
+    display: "inline-block",
+    padding: "8px 0px"
   },
   modal: {
     display: 'flex',
@@ -34,8 +35,8 @@ export default makeStyles((theme) => ({
   fab: {
     margin: 0,
     top: 'auto',
-    right: 50,
-    bottom: 50,
+    right: 30,
+    bottom: 30,
     left: 'auto',
     position: 'fixed',
   },

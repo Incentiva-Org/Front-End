@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 
 import { fetchTasks } from '../../API/index'
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import {Button} from '@material-ui/core'
@@ -17,6 +17,8 @@ import TaskGraph from "./Graphs/TaskGraph"
 import HappinessGraph from "./Graphs/HappinessGraph"
 import {format} from 'date-fns';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,27 +36,53 @@ const useStyles = makeStyles((theme) => ({
 function valuetext(value) {
   return `${value}`;
 }
+const NiceSlider = withStyles({
+  root: {
+    color: 'primary',
+    height: 8,
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
+    marginTop: -8,
+    marginLeft: -12,
+    '&:focus, &:hover, &$active': {
+      boxShadow: 'inherit',
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: 'calc(-50% + 4px)',
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider);
 
 const Insights = () => {
+
   const [tasks, setTasks] = useState()
 
   const reloadTasks = () => {
-        
     fetchTasks(JSON.parse(localStorage.getItem('userData')).username).then((response) => {
         const returnResponse = response.data
         console.log('reloaded')
         setTasks(returnResponse['tasksData'])
         setLoading(false)
-    }) 
+    })
   }
-
   useEffect(() => { 
       reloadTasks()
   }, []);
 
-  const [tagCounts, setTagCounts] = useState({
-      School: 0, Work: 0, Life: 0, Exercise: 0
-  })
+    localStorage.setItem("userStats", JSON.stringify([]))
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();
@@ -63,92 +91,85 @@ const Insights = () => {
   const handleSliderChange = (e, newValue) => {
     setHappiness(newValue);
   }
-const getTagCounts = () => {
-    var school = 0
-    var work = 0
-    var life = 0
-    var exercise = 0
-    for(const i in tasks) {
-        if(tasks[i].day === format(new Date(), "MM/dd/yyyy")) {
+
+  const getTagCounts = () => {
+    const currentDate = format(new Date(), "MM/dd/yyyy")
+    var isUnique = true;
+    for(const i in localStorage.getItem("userStats")) {
+      if(localStorage.getItem("userStats")[i].Date === currentDate) {
+        isUnique = false;
+      }
+    }
+    if(isUnique) {
+      var formData = {Date: currentDate, School: 0, Work: 0, Life: 0, Exercise: 0, Happiness: happiness}
+      for(const i in tasks) {
+        if(tasks[i].day === currentDate) {
+          if(tasks[i].completed === true) {
             if(tasks[i].tag === "School") {
-                school++;
+              formData.School++;
             }
             else if(tasks[i].tag === "Work") {
-                work++;
+              formData.Work++;
             }
             else if(tasks[i].tag === "Life") {
-                life++;
+              formData.Life++;
             }
             else if(tasks[i].tag === "Exercise") {
-                exercise++;
+              formData.Exercise++;
             }
+          }
         }
+      }
+      const currData = JSON.parse(localStorage.getItem("userStats"));
+      currData.push(formData)
+      localStorage.setItem("userStats", JSON.stringify(currData))
     }
-
-  const formData = {
-      "days": [
-          {
-            Date: format(new Date(), "MM/dd/yyyy"),
-            School: school,
-            Work: work,
-            Life: life,
-            Exercise: exercise,
-            Happiness: happiness
-        },
-    ]
+    return formData;
   }
-  return formData;
-}
-const handlePredictClick = () => {
-  const formData = getTagCounts().days;
-  console.log(formData)
-  setLoading(true)
-  fetch('https://incentiva-backend.herokuapp.com/', 
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(response => {
-      setTimeout(() => setLoading(false), 200)
-      setResult(response.result)
-    });
-}
-
+  getTagCounts();
+  const handlePredictClick = () => {
+    getTagCounts();
+    const formData = JSON.parse(localStorage.getItem("userStats"))
+    console.log(formData)
+    setLoading(true)
+    fetch('https://incentiva-backend.herokuapp.com/', 
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(response => {
+        setTimeout(() => setLoading(false), 200)
+        setResult(response.result)
+      });
+  }
   return (
     <div className={classes.mainContainer}>
-        <h1>Tasks</h1>
-        <Button variant="contained" color="primary" style={{marginBottom: "30px"}} onClick={handlePredictClick} endIcon={<EqualizerIcon/>}>
-            Generate Insights (0)
+        <h1>Insights</h1>
+        <Button variant="contained" color="primary" style={{marginBottom: "30px", textTransform: "none", fontWeight: "bold"}} onClick={handlePredictClick} endIcon={<EqualizerIcon/>}>
+            Generate Insights ({JSON.parse(localStorage.getItem("userStats")).length})
         </Button>
-        <br></br>
         <Typography gutterBottom style={{textAlign: "center"}}>
             Indicate your happiness level below for today:
-        </Typography>
-        <br></br>
-        <div style={{margin: "0px auto", textAlign: "center"}}>
-          <div className={classes.root} style={{display: "inline-block"}}>
-            <Slider
-              defaultValue={5}
-              getAriaValueText={valuetext}
-              aria-labelledby="discrete-slider"
-              valueLabelDisplay="auto"
-              step={1}
-              marks
-              min={0}
-              max={10}
-              style={{display: "inline-block", width: "75%"}}
-              onChange={handleSliderChange}
-            />
-            <div style={{width: "100%", justifyContent: "space-between"}}>
-              <SentimentVeryDissatisfiedIcon style={{width: "25%"}}/>
-              <SentimentDissatisfiedIcon style={{width: "25%"}}/>
-              <SentimentSatisfiedIcon style={{width: "25%"}}/>
-              <MoodIcon style={{width: "25%"}}/>
+        </Typography>        
+        <div style={{margin: "0px auto", textAlign: "center", width: "320px"}}>
+          <NiceSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={5} min={0} step={1} max={10} onChange={handleSliderChange} style={{width: "320px"}}/>
+          <div style={{width: "320px", justifyContent: "space-between", justify: "center", display: "flex"}}>
+            <div style={{width: "25%", textAlign: "left"}}>
+              <SentimentVeryDissatisfiedIcon />
+            </div>
+            <div style={{width: "25%"}}>
+              <SentimentDissatisfiedIcon />
+            </div>
+            <div style={{width: "25%"}}>
+              <SentimentSatisfiedIcon />
+            </div>
+            <div style={{width: "25%", textAlign: "right"}}>
+              <MoodIcon />
             </div>
           </div>
         </div>
@@ -156,14 +177,14 @@ const handlePredictClick = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
         {!result ? null :
-          <div style={{width: "100%", marginRight: "auto", marginLeft: "auto"}}>
+          <div style={{width: "90%", marginRight: "auto", marginLeft: "auto"}}>
             <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>{result}</Typography>
             <h2 style={{fontWeight: "bold", fontSize:"20px"}}>Analytics:</h2>
-            <div style={{width: "48%", display: "inline-block", marginRight: "20px"}}>
-              <TaskGraph data={getTagCounts().days}/>
+            <div style={{display: "inline-block", marginRight: "20px"}}>
+              <TaskGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
             </div>
-            <div style={{width: "48%", display: "inline-block", marginLeft: "20px"}}>
-              <HappinessGraph data={getTagCounts().days}/>
+            <div style={{display: "inline-block", marginLeft: "20px"}}>
+              <HappinessGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
             </div>
           </div>
         }

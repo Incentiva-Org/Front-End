@@ -63,6 +63,19 @@ const Tasks = () => {
             </>
         )
     }
+    const ItemList = ({items, classes}) => {
+        return (
+            <>
+                {items.map((task, index) => (
+                    <Grow in style={{ transformOrigin: '0 0 0' }}>
+                        <Grid item>
+                            <Task task={task} reloadTasks={reloadTasks} /> 
+                        </Grid>
+                    </Grow>
+                ))}
+            </>
+        )
+    }
     const classes = useStyles();
     //const mobile = useMediaQuery('(max-width:750px)');
 
@@ -84,12 +97,13 @@ const Tasks = () => {
         for(const i in tasks) {
             if(tasks[i].day === format(selectedDate, "MM/dd/yyyy")) {
                 cnt++;
-                console.log(tasks[i].completed)
+                
                 if(tasks[i].completed === true) {
-                    onDeck.push(tasks[i])
+                    console.log(tasks[i])
+                    completed.push(tasks[i])
                 }
                 else {
-                    completed.push(tasks[i])
+                    onDeck.push(tasks[i])
                 }
             }
         }
@@ -137,43 +151,13 @@ const Tasks = () => {
                     />
                 </MuiPickersUtilsProvider>
             </div>
-            <Grid container justify="center" spacing={5}>
-                <Grid item>
-                    <div style={{width: "360px", textAlign: "center"}}>
-                        <Typography variant="h6" style={{fontWeight:"bold"}}>On Deck</Typography>
-                    </div>
-                    <div style={{
-                        margin: '0',
-                        padding: '0',
-                        height: '100%',
-                        width: '360px',
-                        overflow: 'hidden',
-                        userSelect: 'none',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <DraggableList items={completed} classes={classes} />
-                    </div>
-                </Grid>
-                <Grid item>
-                    <div style={{width: "360px", textAlign: "center"}}>
-                        <Typography variant="h6" style={{fontWeight:"bold"}}>Completed</Typography>
-                    </div>
-                    <div style={{
-                        margin: '0',
-                        padding: '0',
-                        height: '100%',
-                        width: '360px',
-                        overflow: 'hidden',
-                        userSelect: 'none',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <DraggableList items={onDeck} classes={classes} />
-                    </div>
-                </Grid>
+            <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>
+            <Grid container spacing={3} style={{padding: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+                <ItemList items={onDeck} classes={classes}/>
+            </Grid>
+            <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>Completed</Typography>
+            <Grid container spacing={3} style={{padding: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+                <ItemList items={completed} classes={classes}/>
             </Grid>
             <Form reloadTasks={reloadTasks} />
             <br></br>
