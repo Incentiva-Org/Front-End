@@ -6,6 +6,7 @@ import { deleteTask } from '../../../../API/index';
 
 import { Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"
+import {withStyles} from "@material-ui/core/styles"
 import DeleteIcon from "@material-ui/icons/Delete"
 import useStyles from "./Styles"
 import EditIcon from '@material-ui/icons/Edit';
@@ -26,6 +27,14 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+const LightTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: theme.palette.common.white,
+      color: 'rgba(0, 0, 0, 0.87)',
+      boxShadow: theme.shadows[1],
+      fontSize: 15,
+    },
+}))(Tooltip);
 
 const Task = ({ task, reloadTasks }) => {
 
@@ -151,7 +160,11 @@ const Task = ({ task, reloadTasks }) => {
                                 }                            
                             }
                         />
-                        <Typography variant="body2" component="p" style={{marginTop: "10px", height: "40px", width: "100%"}}>{task.description}</Typography>
+                        <LightTooltip title={task.description}>
+                            <IconButton style={{padding: "0px"}}>
+                                <InfoOutlinedIcon />
+                            </IconButton>
+                        </LightTooltip>
                     </div>
                     <Grid container alignItems="center">
                         <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "10px"}}/>

@@ -71,7 +71,7 @@ const Tasks = () => {
             <>
                 {items.map((task, index) => (
                     <Grow in style={{ transformOrigin: '0 0 0' }}>
-                        <Grid item>
+                        <Grid item style={{padding: "6px"}}>
                             <Task task={task} reloadTasks={reloadTasks} /> 
                         </Grid>
                     </Grow>
@@ -177,11 +177,12 @@ const Tasks = () => {
                 </MuiPickersUtilsProvider>
             </div>
             <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>
-            <Grid container spacing={3} style={{padding: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+            <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
                 <ItemList items={onDeck} classes={classes}/>
             </Grid>
+            <br></br>
             <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>Completed</Typography>
-            <Grid container spacing={3} style={{padding: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+            <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
                 <ItemList items={completed} classes={classes}/>
             </Grid>
             <Form reloadTasks={reloadTasks} />
