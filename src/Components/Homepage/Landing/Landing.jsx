@@ -19,7 +19,7 @@ import MuiLink from "@material-ui/core/Link"
 import useStyles from "./Styles"
 
 import Wave from 'react-wavify'
-import MainImg from "../../Assets/landingimage.svg"
+import MainImg from "../../../Assets/landingimage.svg"
 
 import Check from '@material-ui/icons/Check'
 import AccessTime from '@material-ui/icons/AccessTime'

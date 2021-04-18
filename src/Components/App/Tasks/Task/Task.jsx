@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { editTask } from "../../../API/index"
-import { deleteTask } from '../../../API/index';
+import { editTask } from "../../../../API/index"
+import { deleteTask } from '../../../../API/index';
 
 import { Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"

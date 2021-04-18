@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 import Logo from '../../../Assets/Incentiva.png'
 import MiniLogo from "../../../Assets/Incentiva-Mini.png"
-import routes from '../Routes'
+import routes from './Routes'
 import useStyles from './Styles'
 
 import Drawer from '@material-ui/core/Drawer'

@@ -2,6 +2,7 @@ import Check from '@material-ui/icons/Check'
 import AccessTime from '@material-ui/icons/AccessTime'
 import Notes from '@material-ui/icons/Notes'
 import Star from '@material-ui/icons/Star'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 
@@ -25,6 +26,11 @@ const routes = {
     "Insights": {
         icon: <Star />,
         path: "/insights"
+    },
+
+    "Friends": {
+        icon: <AccountCircleIcon />,
+        path: "/friends"
     },
 }
 

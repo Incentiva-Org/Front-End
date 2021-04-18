@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { createUser } from "../../API/index"
+import { createUser } from "../../../API/index"
 
 import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 import AccountCircle from '@material-ui/icons/AccountCircle';
