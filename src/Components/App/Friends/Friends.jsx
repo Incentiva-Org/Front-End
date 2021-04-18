@@ -1,9 +1,10 @@
 import React from 'react'
+import {Typography} from "@material-ui/core"
 
 const Friends = () => {
     return (
         <div>
-            Hello
+            <h1>Friends</h1>
         </div>
     )
 }

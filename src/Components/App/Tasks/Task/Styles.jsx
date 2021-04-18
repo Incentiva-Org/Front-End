@@ -16,7 +16,7 @@ export default makeStyles((theme) => ({
   card: {
     borderRadius: '10px',
     width: '320px',
-    height: '200px',
+    height: '190px',
     borderRadius: '10px',
   },
   grid: {

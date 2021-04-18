@@ -2,8 +2,7 @@ import Check from '@material-ui/icons/Check'
 import AccessTime from '@material-ui/icons/AccessTime'
 import Notes from '@material-ui/icons/Notes'
 import Star from '@material-ui/icons/Star'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
+import GroupIcon from '@material-ui/icons/Group';
 
 
 const routes = {
@@ -29,7 +28,7 @@ const routes = {
     },
 
     "Friends": {
-        icon: <AccountCircleIcon />,
+        icon: <GroupIcon />,
         path: "/friends"
     },
 }

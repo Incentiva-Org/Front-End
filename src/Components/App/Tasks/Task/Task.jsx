@@ -61,22 +61,22 @@ const Task = ({ task, reloadTasks }) => {
         {
             value: 'School',
             label: 'School',
-            color: "#FF8042"
+            color: "FF8042"
         },
         {
             value: 'Work',
             label: 'Work',
-            color: "#FFBB28"
+            color: "FFBB28"
         },
         {
             value: 'Life',
             label: 'Life',
-            color: "#00C49F"
+            color: "00C49F"
         },
         {
             value: 'Exercise',
             label: 'Exercise',
-            color: "#0088FE"
+            color: "0088FE"
         },
     ];
     var color = ""
@@ -120,7 +120,6 @@ const Task = ({ task, reloadTasks }) => {
         editTask(task._id, {title: task.title, description: task.description, tag: task.tag, predictedTime: task.predictedTime, day: task.day, completed: event.target.checked}).then(() => {
             
             reloadTasks()
-            setSeverity("success")
         })
     };
 
@@ -155,7 +154,7 @@ const Task = ({ task, reloadTasks }) => {
                         <Typography variant="body2" component="p" style={{marginTop: "10px", height: "40px", width: "100%"}}>{task.description}</Typography>
                     </div>
                     <Grid container alignItems="center">
-                        <Chip label={task.tag} classname={classes.chip} color={color} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block"}}/>
+                        <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "10px"}}/>
                         <Typography variant="body2" style={{display: "inline-block", margin: "4px"}}>{task.predictedTime} mins</Typography>
                     </Grid>
                 </CardContent>

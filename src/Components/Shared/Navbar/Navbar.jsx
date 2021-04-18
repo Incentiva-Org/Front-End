@@ -90,7 +90,15 @@ const NavBar = (props) => {
     const closeMenu = () => {
       setAnchorEl(null);
     };
+    const [acctAnchor, setAcctAnchor] = useState(null);
 
+    const openAcctMenu = (event) => {
+      setAcctAnchor(event.currentTarget);
+    };
+
+    const closeAcctMenu = () => {
+      setAcctAnchor(null);
+    };
     useEffect(() => {
       window.matchMedia("(prefers-color-scheme: dark)").matches && handleThemeChange()
 
@@ -122,8 +130,14 @@ const NavBar = (props) => {
             <List>
                 {Object.keys(routes).map((item) => (
                     <MuiLink underline="none" className={classes.link} component={NavLink} onClick={() => {setCurrentPath(routes[item].path); handleDrawerToggle()}} to={routes[item].path}>
-                        <ListItem selected={routes[item].path === currentPath} button key={item}> 
-                        <ListItemIcon>{routes[item].icon}</ListItemIcon>
+                        <ListItem selected={routes[item].path === currentPath} button key={item}>
+                        {routes[item].path === currentPath ? (
+                          <ListItemIcon style={{color: "inherit"}}>{routes[item].icon}</ListItemIcon>
+                        )
+                        :
+                          <ListItemIcon style={{color: primaryText}}>{routes[item].icon}</ListItemIcon>
+                        }
+                        
                         <ListItemText primary={item} style={{color: primaryText}}/>
                         </ListItem>
                     </MuiLink>
@@ -132,7 +146,7 @@ const NavBar = (props) => {
         </div>
     );
 
-    if(path === "/tasks" || path === "/study" || path === "/notes" || path === "/insights") {
+    if(path === "/tasks" || path === "/study" || path === "/notes" || path === "/insights" || path === "/friends") {
       return (
         <ThemeProvider theme={theme}>
           <div className={classes.root}>
@@ -151,9 +165,21 @@ const NavBar = (props) => {
                       <MenuIcon />
                   </IconButton>
                   <div style={{marginLeft: "auto"}}>
-                      <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit">
+                      <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit" aria-controls="acct-menu" aria-haspopup="true" onClick={openAcctMenu}>
                           <AccountCircleIcon />
                       </IconButton>
+                      <Menu
+                        id="acct-menu"
+                        anchorEl={acctAnchor}
+                        keepMounted
+                        open={Boolean(acctAnchor)}
+                        onClose={closeAcctMenu}
+                      >
+                        <MenuItem>
+                          <AccountCircleIcon fontSize="small" />
+                          <Typography variant="inherit" style={{margin: "0px 5px"}}>{JSON.parse(localStorage.getItem("userData")).username}</Typography>
+                        </MenuItem>
+                      </Menu>
                       <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu} >
                           <MoreVertIcon />
                       </IconButton>
