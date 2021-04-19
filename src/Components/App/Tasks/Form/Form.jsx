@@ -22,7 +22,7 @@ function Alert(props) {
 const Form = (props) => {
 
 
-    const CHARACTER_LIMIT = 50;
+    const CHARACTER_LIMIT = 150;
     const tags = [
         {
             value: 'School',
@@ -115,7 +115,7 @@ const Form = (props) => {
                         <MuiDialogContent dividers>
                             <Typography>{taskData.day}</Typography>
                             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                                <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
+                                <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} inputProps={{ maxLength: 25 }} helperText={`${taskData.title.length}/25`} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
                                 <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description}onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
                                 <TextField name="tag" 
                                     variant="outlined" 

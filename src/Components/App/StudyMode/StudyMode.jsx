@@ -133,9 +133,9 @@ const StudyMode = () => {
         }
 
 
-            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "348px", fontSize: '35px', marginBottom: '20px'}}>
+            <div style={{marginLeft: "auto", marginRight: "auto", display: "block", textAlign: "center", width: "330px", fontSize: '35px', marginBottom: '20px', padding: '0px'}}>
                 <Box position="relative" display="inline-flex">
-                    <CircularProgress variant="determinate" value={normalise()} thickness={1.8} color="primary" style={{width: "348px", height: "348px"}}/>
+                    <CircularProgress variant="determinate" value={normalise()} thickness={1.8} color="primary" style={{width: "330px", height: "330px"}}/>
                     <Box
                         top={0}
                         left={0}

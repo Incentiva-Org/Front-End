@@ -6,7 +6,7 @@ import { fetchTasks } from '../../../API/index'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import {Button} from '@material-ui/core'
+import {Button, Grid, Paper} from '@material-ui/core'
 import MoodIcon from '@material-ui/icons/Mood';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
@@ -15,10 +15,12 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TaskGraph from "./Graphs/TaskGraph"
 import HappinessGraph from "./Graphs/HappinessGraph"
+import TaskPie from "./Graphs/TaskPie"
 import {format} from 'date-fns';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
+import TrendingDown from '@material-ui/icons/TrendingDown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,7 +97,6 @@ const Insights = () => {
     const currentDate = format(new Date(), "MM/dd/yyyy")
     var isUnique = true;
     const currData = JSON.parse(localStorage.getItem("userStats"))
-    console.log(currData)
     for(const i in currData) {
       if(currData[i].Date === currentDate) {
         console.log("Hi")
@@ -125,8 +126,6 @@ const Insights = () => {
       currData.push(formData)
       localStorage.setItem("userStats", JSON.stringify(currData))
     }
-
-    return formData;
   }
   getTagCounts();
   const handlePredictClick = () => {
@@ -134,7 +133,7 @@ const Insights = () => {
     const formData = JSON.parse(localStorage.getItem("userStats"))
     console.log(formData)
     setLoading(true)
-    fetch('https://incentiva-backend.herokuapp.com/', 
+    fetch('http://127.0.0.1:5000/', 
       {
         headers: {
           'Accept': 'application/json',
@@ -147,6 +146,8 @@ const Insights = () => {
       .then(response => {
         setTimeout(() => setLoading(false), 200)
         setResult(response.result)
+        console.log(response.result)
+        console.log(JSON.parse(response.result))
       });
   }
   return (
@@ -179,16 +180,42 @@ const Insights = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
         {!result ? null :
-          <div style={{width: "90%", marginRight: "auto", marginLeft: "auto"}}>
-            <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center"}}>{result}</Typography>
-            <h2 style={{fontWeight: "bold", fontSize:"20px"}}>Analytics:</h2>
-            <div style={{display: "inline-block", marginRight: "20px"}}>
-              <TaskGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
-            </div>
-            <div style={{display: "inline-block", marginLeft: "20px"}}>
-              <HappinessGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
-            </div>
-          </div>
+          <>
+            <h2 style={{fontWeight: "bold", fontSize:"20px", textAlign: "center"}}>Analytics</h2>
+            <Grid container justify="center" spacing={6}>
+              <Grid item>
+                <TaskGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
+              </Grid>
+              <Grid item>
+                <HappinessGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
+              </Grid>
+            </Grid>
+            <Grid container spacing={10} justify="center" style={{marginTop: "10px"}}>
+              <Grid item>
+                <TaskPie data={JSON.parse(localStorage.getItem("userStats"))} />
+              </Grid>
+              <Grid item>
+                <Grid container spacing={3}> 
+                  <Grid item>
+                    <Paper style={{width: "140px", height: "145px", textAlign: "center", padding: "10px", borderRadius: "5px" }} elevation={4}>
+                      <Typography variant="h3" style={{fontWeight: "bold", fontSize: "18px", marginBottom: "5px"}}>{Object.keys(JSON.parse(result))[0]}</Typography>
+                      <TrendingUpIcon style={{color: "rgb(42, 219, 94)", margin: "10px 0px"}} fontSize="large"/>
+                      <br></br>
+                      <Typography style={{color: "rgb(42, 219, 94)", border: "1px solid rgb(42, 219, 94)", width: "50px", marginLeft: "auto", marginRight: "auto"}}>+{Object.values(JSON.parse(result))[0]}</Typography>
+                    </Paper>
+                  </Grid>
+                  <Grid item>
+                    <Paper style={{width: "140px", height: "145px", textAlign: "center", padding: "10px", borderRadius: "5px"}} elevation={4}>
+                      <Typography variant="h6" style={{fontWeight: "bold", fontSize: "18px", marginBottom: "5px"}}>{Object.keys(JSON.parse(result))[1]}</Typography>
+                      <TrendingDownIcon style={{color: "red", margin: "7px 0px"}} fontSize="large"/>
+                      <br></br>
+                      <Typography style={{color: "red", border: "1px solid red", width: "50px", marginLeft: "auto", marginRight: "auto"}}>{Object.values(JSON.parse(result))[1]}</Typography>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </>
         }
     </div>
 

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { editTask } from "../../../../API/index"
 import { deleteTask } from '../../../../API/index';
 
-import { Typography } from '@material-ui/core'
+import { Paper, Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"
 import {withStyles} from "@material-ui/core/styles"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -23,6 +23,8 @@ import MuiDialogActions from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiAlert from '@material-ui/lab/Alert';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import Popper from '@material-ui/core/Popper';
+import Fade from '@material-ui/core/Fade';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -64,8 +66,16 @@ const Task = ({ task, reloadTasks }) => {
     const handleClose = () => {
         setOpen(false);
     };
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const CHARACTER_LIMIT = 50;
+    const handleDescClick = (event) => {
+      setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+  
+    const descOpen = Boolean(anchorEl);
+    const id = descOpen ? 'transitions-popper' : undefined;
+
+    const CHARACTER_LIMIT = 150;
     const tags = [
         {
             value: 'School',
@@ -131,7 +141,7 @@ const Task = ({ task, reloadTasks }) => {
             reloadTasks()
         })
     };
-
+    
     return (
         <>
             <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
@@ -153,21 +163,33 @@ const Task = ({ task, reloadTasks }) => {
                             label={
                                 {...checked ? 
                                     (
-                                    <Typography variant="h6" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through"}}>{task.title}</Typography>
+                                    <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px"}}>
+                                        {task.title}
+                                        <IconButton style={{padding: "0px", marginLeft:"5px"}} aria-describedby={id} onClick={handleDescClick}>
+                                            <InfoOutlinedIcon />
+                                        </IconButton>
+                                    </Typography>
                                     )
                                     :
-                                    <Typography variant="h6" className={classes.title} style={{fontWeight: "bold"}}>{task.title}</Typography>
+                                    <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>
+                                        {task.title}
+                                        <IconButton style={{padding: "0px", marginLeft:"5px"}} aria-describedby={id} onClick={handleDescClick}>
+                                            <InfoOutlinedIcon />
+                                        </IconButton>
+                                    </Typography>
                                 }                            
                             }
                         />
-                        <LightTooltip title={task.description}>
-                            <IconButton style={{padding: "0px"}}>
-                                <InfoOutlinedIcon />
-                            </IconButton>
-                        </LightTooltip>
+                        <Popper id={id} open={descOpen} anchorEl={anchorEl} transition>
+                            {({ TransitionProps }) => (
+                            <Fade {...TransitionProps} timeout={350}>
+                                <Paper style={{padding: "10px"}} elevation={8}>{task.description}</Paper>
+                            </Fade>
+                            )}
+                        </Popper>
                     </div>
                     <Grid container alignItems="center">
-                        <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "6px 0px", height: "30px", top: 0, display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "10px"}}/>
+                        <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "4px 0px", height: "25px", top: 0, display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
                         <Typography variant="body2" style={{display: "inline-block", margin: "4px"}}>{task.predictedTime} mins</Typography>
                     </Grid>
                 </CardContent>
@@ -205,7 +227,7 @@ const Task = ({ task, reloadTasks }) => {
                         <MuiDialogContent dividers>
                             <Typography>{taskData.day}</Typography>
                             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                                <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
+                                <TextField name="title" variant="outlined" label="Title" fullWidth value={taskData.title} inputProps={{ maxLength: 25 }} helperText={`${taskData.title.length}/25`} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}/>
                                 <TextField name="description" variant="outlined" label="Description" inputProps={{ maxLength: CHARACTER_LIMIT }} helperText={`${taskData.description.length}/${CHARACTER_LIMIT}`} multiline rowsMax={4} fullWidth value={taskData.description} onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}/>
                                 <TextField name="tag" 
                                     variant="outlined" 

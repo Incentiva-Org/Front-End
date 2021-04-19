@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
   },
   card: {
     borderRadius: '10px',
-    width: '290px',
+    width: '284px',
     height: '140px',
     borderRadius: '10px',
   },
@@ -32,7 +32,8 @@ export default makeStyles((theme) => ({
   },
   cardActions: {
     display: 'flex',
-    paddingTop: "0px"
+    paddingTop: "0px",
+    paddingBottom: "20px"
   },
   chip: {
   },

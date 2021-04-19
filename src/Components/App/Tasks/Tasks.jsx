@@ -181,12 +181,13 @@ const Tasks = () => {
                 <ItemList items={onDeck} classes={classes}/>
             </Grid>
             <br></br>
-            <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>Completed</Typography>
+            <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>Completed</Typography>
             <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
                 <ItemList items={completed} classes={classes}/>
             </Grid>
             <Form reloadTasks={reloadTasks} />
             <br></br>
+            <div style={{height: "150px"}}></div>
         </div>
     )
 }
