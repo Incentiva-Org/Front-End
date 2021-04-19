@@ -29,14 +29,6 @@ import Fade from '@material-ui/core/Fade';
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-const LightTooltip = withStyles((theme) => ({
-    tooltip: {
-      backgroundColor: theme.palette.common.white,
-      color: 'rgba(0, 0, 0, 0.87)',
-      boxShadow: theme.shadows[1],
-      fontSize: 15,
-    },
-}))(Tooltip);
 
 const Task = ({ task, reloadTasks }) => {
 
@@ -120,7 +112,7 @@ const Task = ({ task, reloadTasks }) => {
             editTask(task._id, taskData).then(() => {
                 reloadTasks()
                 handleClose();
-                setTimeout(2000);
+                setTimeout(1000);
                 setSeverity("success")
             })
         }
@@ -173,9 +165,11 @@ const Task = ({ task, reloadTasks }) => {
                                     :
                                     <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>
                                         {task.title}
-                                        <IconButton style={{padding: "0px", marginLeft:"5px"}} aria-describedby={id} onClick={handleDescClick}>
-                                            <InfoOutlinedIcon />
-                                        </IconButton>
+                                        <Tooltip title="Description" placement="top">
+                                            <IconButton style={{padding: "0px", marginLeft:"5px"}} aria-describedby={id} onClick={handleDescClick}>
+                                                <InfoOutlinedIcon />
+                                            </IconButton>
+                                        </Tooltip>
                                     </Typography>
                                 }                            
                             }

@@ -67,31 +67,34 @@ const Tasks = () => {
         )
     }
     const ItemList = ({items, classes}) => {
-        return (
-            <>
-                {items.map((task, index) => (
-                    <Grow in style={{ transformOrigin: '0 0 0' }}>
-                        <Grid item style={{padding: "6px"}}>
-                            <Task task={task} reloadTasks={reloadTasks} /> 
-                        </Grid>
-                    </Grow>
-                ))}
-            </>
-        )
+        if(items) {
+            return (
+                <>
+                    {items.map((task, index) => (
+                        <Grow in style={{ transformOrigin: '0 0 0' }}>
+                            <Grid item style={{padding: "6px"}}>
+                                <Task task={task} reloadTasks={reloadTasks} /> 
+                            </Grid>
+                        </Grow>
+                    ))}
+                </>
+            )
+        }
+        else {
+            return <Skeletons numItems={items.length} />
+        }
     }
     const classes = useStyles();
     //const mobile = useMediaQuery('(max-width:750px)');
 
     const [tasks, setTasks] = useState()
 
-
-
     const [selectedDate, setSelectedDate] = useState(new Date());
     const handleDateChange = (date) => {
         setSelectedDate(date);
         console.log(format(date, 'MM/dd/yyyy'))
     };
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     
     var onDeck = []
     var completed = []
@@ -128,10 +131,16 @@ const Tasks = () => {
 
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
-        
-        reloadTasks()
+        reloadTasks();
     }, []);
-    
+    useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+        // Cancel the timer while unmounting
+        return () => clearTimeout(timer);
+    }, []);
     
 
     return (
@@ -177,14 +186,22 @@ const Tasks = () => {
                 </MuiPickersUtilsProvider>
             </div>
             <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>
-            <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
-                <ItemList items={onDeck} classes={classes}/>
-            </Grid>
+            {loading && <Skeletons numItems={onDeck.length} />}
+            {!loading && 
+                <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+                    <ItemList items={onDeck} classes={classes}/>
+                </Grid>
+            }
+            
             <br></br>
             <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>Completed</Typography>
-            <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
-                <ItemList items={completed} classes={classes}/>
-            </Grid>
+            {loading && <Skeletons numItems={completed.length} />}
+            {!loading && 
+                <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+                    <ItemList items={completed} classes={classes}/>
+                </Grid>
+            }
+
             <Form reloadTasks={reloadTasks} />
             <br></br>
             <div style={{height: "150px"}}></div>

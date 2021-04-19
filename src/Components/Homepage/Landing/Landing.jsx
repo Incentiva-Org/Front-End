@@ -127,7 +127,7 @@ const Landing = () => {
                             </Typography>
                             <div style={{marginTop: "20px", textAlign: "right", marginRight: '10px'}}>
                                 <MuiLink href="/login" underline="none">
-                                    <Button style={{marginRight: "20px", fontSize: '18px', textTransform: "none", lineHeight: "40px"}} color="primary">Login</Button>
+                                    <Button style={{marginRight: "10px", fontSize: '18px', textTransform: "none", lineHeight: "40px", padding: "0px 10px",}} color="primary">Login</Button>
                                 </MuiLink>
                                 <MuiLink href="/register"  underline="none">
                                     <Button color="primary" style={{fontSize: '18px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
