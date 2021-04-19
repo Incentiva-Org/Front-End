@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 
-
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
+  
     root: {
       display: 'flex',
       overflowX: "hidden"
@@ -86,9 +85,14 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "5px",
       textTransform: "none"
     },
+    
     landingLink: {
       fontSize: "18px",
-      color: "inherit"
+      color: "inherit",
+      opacity: "0.6",
+      "&.active": {
+        opacity: "1"
+      },
     },
     miniLogo: {
       width: "120px",

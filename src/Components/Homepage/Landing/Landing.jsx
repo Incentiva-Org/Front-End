@@ -172,6 +172,7 @@ const Landing = () => {
                     <Typography style={{bottom: "0px", position: "absolute", textAlign: "center"}}>Incentiva 2021 All Rights Reserved</Typography>
                 </div>
             </div>
+            
         </div>
     )
 }

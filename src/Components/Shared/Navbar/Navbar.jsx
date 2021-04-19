@@ -38,6 +38,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button";
 
+import {motion} from "framer-motion"
+
 const NavBar = (props) => {
     
     var path = window.location.pathname
@@ -314,45 +316,78 @@ const NavBar = (props) => {
                               spacing={5}
                               style={{lineHeight: "40px"}}
                           >
-                              <Grid item style={{paddingTop: "23px"}}>
-                                  <MuiLink 
-                                      className={classes.landingLink} 
-                                      underline="none"
-                                      onClick={() => setCurrentPath("/about")} 
-                                      href="/about"
-                                      style={{
-                                        color: "inherit"
-                                      }}
-                                  >
-                                      About
-                                  </MuiLink>
-                              </Grid>
-                              <Grid item style={{paddingTop: "23px"}}>
-                                  <MuiLink 
-                                      className={classes.landingLink} 
-                                      underline="none"
-                                      onClick={() => setCurrentPath("/contact")} 
-                                      href="/contact"
-                                      style={{
-                                        color: "inherit"
-                                      }}
-                                  >
-                                      Contact
-                                  </MuiLink>
-                              </Grid>
-                              <Grid item style={{paddingTop: "23px"}}>
-                                  <MuiLink 
-                                      className={classes.landingLink} 
-                                      underline="none"
-                                      onClick={() => setCurrentPath("/team")} 
-                                      href="/team"
-                                      style={{
-                                        color: "inherit"
-                                      }}
-                                  >
-                                      Team
-                                  </MuiLink>
-                              </Grid>
+                            <Grid item style={{paddingTop: "23px"}}>
+                              <motion.a
+                                  initial={{ opacity: 0.6, color: "black", y: 0 }}
+                                  whileHover={{
+                                    opacity: 1,
+                                    scale: 1.1,
+                                    color: "black",
+                                    y: 5
+                                  }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                <MuiLink 
+                                    className={classes.landingLink} 
+                                    underline="none"
+                                    onClick={() => setCurrentPath("/about")} 
+                                    href="/about"
+                                    style={{
+                                      color: "inherit"
+                                    }}
+                                >
+                                    About
+                                </MuiLink>
+                              </motion.a>
+                            </Grid>
+                            <Grid item style={{paddingTop: "23px"}}>
+                              <motion.a
+                                  initial={{ opacity: 0.6, color: "black", y: 0 }}
+                                  whileHover={{
+                                      opacity: 1,
+                                      scale: 1.1,
+                                      color: "black",
+                                      y: 5
+                                  }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                <MuiLink 
+                                    className={classes.landingLink} 
+                                    underline="none"
+                                    onClick={() => setCurrentPath("/contact")} 
+                                    href="/contact"
+                                    style={{
+                                      color: "inherit"
+                                    }}
+                                >
+                                    Contact
+                                </MuiLink>
+                              </motion.a>
+                            </Grid>
+                            <Grid item style={{paddingTop: "23px"}}>
+                              <motion.a
+                                  initial={{ opacity: 0.6, color: "black", y: 0 }}
+                                  whileHover={{
+                                    opacity: 1,
+                                    scale: 1.1,
+                                    color: "black",
+                                    y: 5
+                                }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                <MuiLink 
+                                    className={classes.landingLink} 
+                                    underline="none"
+                                    onClick={() => setCurrentPath("/team")} 
+                                    href="/team"
+                                    style={{
+                                      color: "inherit"
+                                    }}
+                                >
+                                    Team
+                                </MuiLink>
+                              </motion.a>
+                            </Grid>
                               <Grid item>
                                 <MuiLink underline="none" onClick={() => setCurrentPath("/login")} href="/login">
                                   <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
