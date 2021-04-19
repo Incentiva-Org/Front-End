@@ -133,7 +133,7 @@ const Insights = () => {
     const formData = JSON.parse(localStorage.getItem("userStats"))
     console.log(formData)
     setLoading(true)
-    fetch('http://127.0.0.1:5000/', 
+    fetch('https://incentiva-server.herokuapp.com/', 
       {
         headers: {
           'Accept': 'application/json',
