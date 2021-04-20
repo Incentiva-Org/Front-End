@@ -95,7 +95,6 @@ const Tasks = () => {
         console.log(format(date, 'MM/dd/yyyy'))
     };
     const [loading, setLoading] = useState(false);
-    
     var onDeck = []
     var completed = []
     const getCount = () => {
@@ -113,11 +112,11 @@ const Tasks = () => {
                 }
             }
         }
-        return cnt;
+        return [onDeck.length, completed.length];
     }
 
     getCount()
-
+    
     const reloadTasks = () => {
 
         fetchTasks(JSON.parse(localStorage.getItem('userData')).username).then((response) => {
@@ -131,12 +130,13 @@ const Tasks = () => {
 
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
-        reloadTasks();
     }, []);
     useEffect(() => {
         setLoading(true);
+        reloadTasks();
         const timer = setTimeout(() => {
           setLoading(false);
+          
         }, 1000);
         // Cancel the timer while unmounting
         return () => clearTimeout(timer);
@@ -186,7 +186,7 @@ const Tasks = () => {
                 </MuiPickersUtilsProvider>
             </div>
             <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>
-            {loading && <Skeletons numItems={onDeck.length} />}
+            {loading && <Skeletons numItems={completed.length} />}
             {!loading && 
                 <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
                     <ItemList items={onDeck} classes={classes}/>
@@ -195,7 +195,7 @@ const Tasks = () => {
             
             <br></br>
             <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>Completed</Typography>
-            {loading && <Skeletons numItems={completed.length} />}
+            {loading && <Skeletons numItems={getCount()[1]} />}
             {!loading && 
                 <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
                     <ItemList items={completed} classes={classes}/>

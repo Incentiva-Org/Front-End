@@ -26,6 +26,9 @@ import AccessTime from '@material-ui/icons/AccessTime'
 import Notes from '@material-ui/icons/Notes'
 import Star from '@material-ui/icons/Star'
 import {motion, useMotionValue, useTransform} from "framer-motion"
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const imageVariants = {
     loaded: {pathLength: 1},
@@ -37,7 +40,18 @@ const Landing = () => {
     const [loaded, setLoaded] = useState(false);
     const pathLength = useMotionValue(0);
     const opacity = useTransform(pathLength, [0, 1], [0, 1]);
+    
+    const [open, setOpen] = useState(true);
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    }
+    
+
+    
     const cards = [
         {
             title: "Tasks",
@@ -84,6 +98,7 @@ const Landing = () => {
 
     return (
         <div className={classes.mainContainer}>
+            
             <Fade in style={{transitionDuration: "1000ms"}}>
                 <Typography variant="h3" style={{textAlign: "center", fontWeight: "bold", marginTop: "30px", letterSpacing: "0.07em"}}>Incentiva</Typography>
             </Fade>
@@ -172,7 +187,22 @@ const Landing = () => {
                     <Typography style={{bottom: "0px", position: "absolute", textAlign: "center"}}>Incentiva 2021 All Rights Reserved</Typography>
                 </div>
             </div>
-            
+            <Snackbar
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+                }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message="Incentiva is currently in beta, and therefore isn't a complete website yet. While it's mostly complete, we still have lots of work to do. Thanks for your patience."
+                action={
+                    <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+                style={{width: "350px", color: "white"}}
+            />
         </div>
     )
 }
