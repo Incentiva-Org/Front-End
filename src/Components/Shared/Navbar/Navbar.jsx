@@ -323,10 +323,10 @@ const NavBar = (props) => {
                                   }}
                                   transition={{ duration: 0.2 }}>
                                 <motion.a
-                                    initial={{ opacity: 0.6, color: "inherit", y: 0 }}
+                                    initial={{ opacity: 0.7, color: "inherit", y: 0 }}
                                     whileHover={{
                                       opacity: 1,
-                                      y: 5
+                                      y: 5,
                                     }}
                                     transition={{ duration: 0.2 }}
                                   >
@@ -351,7 +351,7 @@ const NavBar = (props) => {
                                   }}
                                   transition={{ duration: 0.2 }}>
                                 <motion.a
-                                    initial={{ opacity: 0.6, color: "inherit", y: 0 }}
+                                    initial={{ opacity: 0.7, color: "inherit", y: 0 }}
                                     whileHover={{
                                       opacity: 1,
                                       y: 5
@@ -379,7 +379,7 @@ const NavBar = (props) => {
                                   }}
                                   transition={{ duration: 0.2 }}>
                                 <motion.a
-                                    initial={{ opacity: 0.6, color: "inherit", y: 0 }}
+                                    initial={{ opacity: 0.7, color: "inherit", y: 0 }}
                                     whileHover={{
                                       opacity: 1,
                                       y: 5
