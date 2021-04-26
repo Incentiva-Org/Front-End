@@ -18,6 +18,7 @@ import RichEditor from "./RichEditor"
 import Folders from "./Folders"
 import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
+import QuillEditor from "./QuillEditor"
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;

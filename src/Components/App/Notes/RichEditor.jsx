@@ -24,6 +24,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import Divider from "@material-ui/core/Divider";
 import FunctionsIcon from '@material-ui/icons/Functions';
 import LinkIcon from '@material-ui/icons/Link';
+import Tooltip from "@material-ui/core/Tooltip"
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -181,39 +182,52 @@ const Leaf = ({ attributes, children, leaf }) => {
 
 const BlockButton = ({ format, children }) => {
   const editor = useSlate();
+  var formattedTitle = format.split("-")
+  var newTitle = ""
+  for(const i in formattedTitle) {
+    newTitle += formattedTitle[i].charAt(0).toUpperCase() + formattedTitle[i].slice(1)
+    if(i != formattedTitle.length - 1) {
+      newTitle += " "
+    }
+  }
   return (
-    <Box ml={1} mt={1}>
-      <ToggleButton
-        value={format}
-        selected={isBlockActive(editor, format)}
-        onMouseDown={event => {
-          event.preventDefault();
-          toggleBlock(editor, format);
-        }}
-        style={{ lineHeight: 1, width: "25px", height: "25px", border: "none" }}
-      >
-        {children}
-      </ToggleButton>
-    </Box>
+    <Tooltip title={newTitle} placement="top">
+      <Box ml={1} mt={1}>
+        <ToggleButton
+          value={format}
+          selected={isBlockActive(editor, format)}
+          onMouseDown={event => {
+            event.preventDefault();
+            toggleBlock(editor, format);
+          }}
+          style={{ lineHeight: 1, width: "25px", height: "25px", border: "none" }}
+        >
+          {children}
+        </ToggleButton>
+      </Box>
+    </Tooltip>
   );
 };
 
 const MarkButton = ({ format, children }) => {
+  var newTitle = format.charAt(0).toUpperCase() + format.slice(1)
   const editor = useSlate();
   return (
-    <Box ml={1} mt={1}>
-      <ToggleButton
-        value={format}
-        selected={isMarkActive(editor, format)}
-        onMouseDown={event => {
-          event.preventDefault();
-          toggleMark(editor, format);
-        }}
-        style={{ lineHeight: 1, width: "25px", height: "25px", border: "none" }}
-      >
-        {children}
-      </ToggleButton>
-    </Box>
+    <Tooltip title={newTitle} placement="top">
+      <Box ml={1} mt={1}>
+        <ToggleButton
+          value={format}
+          selected={isMarkActive(editor, format)}
+          onMouseDown={event => {
+            event.preventDefault();
+            toggleMark(editor, format);
+          }}
+          style={{ lineHeight: 1, width: "25px", height: "25px", border: "none" }}
+        >
+          {children}
+        </ToggleButton>
+      </Box>
+    </Tooltip>
   );
 };
 

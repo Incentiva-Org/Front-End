@@ -11,7 +11,8 @@ import {
     Slide,
     Zoom,
     Fab,
-    Link
+    Link,
+    Toolbar
 } from "@material-ui/core"
 
 import MuiLink from "@material-ui/core/Link"
@@ -20,6 +21,7 @@ import useStyles from "./Styles"
 
 import Wave from 'react-wavify'
 import MainImg from "../../../Assets/landingimage.svg"
+import Logo from "../../../Assets/Incentiva-Mini.png"
 
 import Check from '@material-ui/icons/Check'
 import AccessTime from '@material-ui/icons/AccessTime'
@@ -31,9 +33,15 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 const imageVariants = {
-    loaded: {pathLength: 1},
-    notLoaded: {pathLength: 0},
-}
+    hover: {
+      scale: 1.05,
+  
+      transition: {
+        duration: 0.5,
+        yoyo: Infinity
+      }
+    }
+  };
 
 const Landing = () => {
     const classes = useStyles();
@@ -98,40 +106,18 @@ const Landing = () => {
 
     return (
         <div className={classes.mainContainer}>
-            
-            <Fade in style={{transitionDuration: "1000ms"}}>
-                <Typography variant="h3" style={{textAlign: "center", fontWeight: "bold", marginTop: "30px", letterSpacing: "0.07em"}}>Incentiva</Typography>
-            </Fade>
-            <div style={{marginLeft:"auto", marginRight:"auto", width: "240px"}}>
-                <motion.svg
-                    initial="notLoaded"
-                    animate={loaded ? "loaded" : "notLoaded"}
-                    width="240"
-                    height="100"
-                    style={{paddingLeft: "30px"}}
-                >
-                    <motion.path
-                        d="M 114.367188 51.34375 L 168.539062 105.042969 L 176.53125 105.042969 L 114.367188 42.617188 L 95.449219 61.769531 L 70.765625 37.046875 L 0.457031 105.042969 L 8.792969 105.042969 L 70.765625 45.394531 L 91.28125 65.945312 L 81.199219 76.039062 L 69.945312 64.769531 L 28.1875 105.042969 L 36.441406 105.042969 L 69.945312 72.84375 L 93.066406 96 L 93.078125 96.015625 L 94.984375 97.921875 L 98.320312 94.578125 L 102.722656 90.171875 L 119.734375 105.042969 L 127.984375 105.042969 L 127.800781 105.042969 L 106.285156 85.664062 L 113.894531 78.046875 L 143.109375 105.042969 L 151.179688 105.042969 L 113.894531 69.96875 L 94.515625 89.378906 L 85.554688 80.398438 Z M 114.367188 51.34375 "
-                        fill="rgba(128, 90, 213, 1.0)"
-                        strokeWidth="3"
-                        stroke="rgba(128, 90, 213, 0.5)"
-                        variants={imageVariants}
-                        style={{ pathLength, opacity }}
-                        custom={loaded}
-                        transition={{duration: 2}}
-                    />
-                    <motion.path
-                        d="M 49.253906 105.042969 L 57.851562 105.042969 L 69.3125 95.417969 L 80.773438 105.042969 L 89.371094 105.042969 L 69.3125 86.804688 Z M 49.253906 105.042969"
-                        fill="rgba(128, 90, 213, 1.0)"
-                        strokeWidth="3"
-                        stroke="rgba(128, 90, 213, 0.5)"
-                        variants={imageVariants}
-                        style={{ pathLength, opacity }}
-                        custom={loaded}
-                        transition={{duration: 2}}
-                    />
-                </motion.svg>
-            </div>
+            <Grid container style={{margin: "10px auto", width: "350px"}}>
+                <Grid item>
+                    <Fade in style={{transitionDuration: "1000ms"}}>
+                        <Typography variant="h3" style={{fontWeight: "bold", marginTop: "30px", letterSpacing: "0.07em", marginRight: "15px"}}>Incentiva</Typography>
+                    </Fade>
+                </Grid>
+                <Grid item>
+                    <div style={{width: "240px", height: "100px"}}>
+                        <motion.img src={Logo} style={{width: "100%"}} initial={{y: -50, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 1}} variants={imageVariants} whileHover="hover"/>
+                    </div>
+                </Grid>
+            </Grid>
             <Grid container flex="row" justify="space-between" alignItems="center" spacing={2} style={{width: "92%", marginTop: "10px", marginLeft: "auto", marginRight: "auto"}}>
                 <Grid item xs={12} sm={10} md={12} lg={8} xl={8} style={{margin: "0px 10px"}}>
                     <Fade in mountOnEnter unmountOnExit style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
