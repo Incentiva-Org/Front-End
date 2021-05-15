@@ -87,16 +87,11 @@ const useStyles = makeStyles((theme) => ({
     },
     
     landingLink: {
-      fontSize: "18px",
-      color: "inherit",
-      opacity: "0.6",
-      "&.active": {
-        opacity: "1"
-      },
+      fontSize: "18px"
     },
     miniLogo: {
       width: "120px",
-      margin: "20px 60px"
+      margin: "20px 30px"
     },
 }));
 

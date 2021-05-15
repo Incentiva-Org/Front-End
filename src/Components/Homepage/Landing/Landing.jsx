@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core"
 
 import MuiLink from "@material-ui/core/Link"
+import {NavLink} from 'react-router-dom'
 
 import useStyles from "./Styles"
 
@@ -88,7 +89,7 @@ const Landing = () => {
     const ContentCard = ({props}) => {
         const [opened, setOpened] = useState(false);
         return (
-            <Card elevation={6} onMouseOver={(e) => setOpened(true)} onMouseLeave={(e) => setOpened(false)} className={classes.card}>
+            <Card elevation={6} onMouseOver={(e) => setOpened(true)} onMouseLeave={(e) => setOpened(false)} className={classes.card} style={{margin: "0px auto"}}>
                 <CardContent>
                     <Fab size="lg" style={{marginBottom:"10px"}} color="primary">
                         {props.image}
@@ -106,42 +107,39 @@ const Landing = () => {
 
     return (
         <div className={classes.mainContainer}>
-            <Grid container style={{margin: "10px auto", width: "350px"}}>
-                <Grid item>
-                    <Fade in style={{transitionDuration: "1000ms"}}>
-                        <Typography variant="h3" style={{fontWeight: "bold", marginTop: "30px", letterSpacing: "0.07em", marginRight: "15px"}}>Incentiva</Typography>
-                    </Fade>
-                </Grid>
-                <Grid item>
-                    <div style={{width: "240px", height: "100px"}}>
-                        <motion.img src={Logo} style={{width: "100%"}} initial={{y: -50, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 1}} variants={imageVariants} whileHover="hover"/>
-                    </div>
-                </Grid>
-            </Grid>
-            <Grid container flex="row" justify="space-between" alignItems="center" spacing={2} style={{width: "92%", marginTop: "10px", marginLeft: "auto", marginRight: "auto"}}>
-                <Grid item xs={12} sm={10} md={12} lg={8} xl={8} style={{margin: "0px 10px"}}>
+            <div style={{alignItems: "center"}}>
+                <br></br>
+                <Fade in style={{transitionDuration: "1000ms"}}>
+                    <Typography variant="h3" style={{fontWeight: "bold", marginTop: "30px", letterSpacing: "0.07em", textAlign: "center"}}>Incentiva</Typography>
+                </Fade>
+                <div style={{width: "240px", height: "100px", margin: "0px auto"}}>
+                    <motion.img src={Logo} style={{width: "100%"}} initial={{y: -50, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{duration: 1}} variants={imageVariants} whileHover="hover"/>
+                </div>
+            </div>
+            <Grid container flex="row" justify="space-between" alignItems="center" spacing={2} style={{width: "90%", margin: "10px auto"}}>
+                <Grid item sm={8} style={{margin: "10px auto"}}>
                     <Fade in mountOnEnter unmountOnExit style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                         <div>
                             <Typography variant="h5" style={{fontSize: "20px", lineHeight: "1.5"}}>
                                 Introducing Incentiva: a platform that gives its users all the tools and motivation they need to succeed in their day-to-day lives.
                                 With tools for simple task management, distraction-free study sessions, sophisticated note-taking, and personalized insights, Incentiva aims to help anyone looking to improve their workflow.
                             </Typography>
-                            <div style={{marginTop: "20px", textAlign: "right", marginRight: '10px'}}>
-                                <MuiLink href="/login" underline="none">
+                            <div style={{textAlign: "right", margin: "10px 0px"}}>
+                                <MuiLink to="/login" component={NavLink} underline="none">
                                     <Button style={{marginRight: "10px", fontSize: '18px', textTransform: "none", lineHeight: "40px", padding: "0px 10px",}} color="primary">Login</Button>
                                 </MuiLink>
-                                <MuiLink href="/register"  underline="none">
+                                <MuiLink to="/register" component={NavLink} underline="none">
                                     <Button color="primary" style={{fontSize: '18px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
                                 </MuiLink>
                             </div>   
                         </div>
                     </Fade>
                 </Grid>
-                <Grid item style={{width: "400px", marginLeft: "auto", marginRight: "auto"}}>
+                <Grid item style={{width: "320px", marginLeft: "auto", marginRight: "auto"}}>
                     <Slide in direction="left" mountOnEnter unmountOnExit>
                         <img 
                             src={MainImg}
-                            width="400px"
+                            width="320px"
                             alt="MainImg"
                         />
                     </Slide>
@@ -160,10 +158,10 @@ const Landing = () => {
                 <Fade in style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                     <Typography variant="h4" style={{textAlign: "center", fontWeight: "bold", marginBottom: "20px"}}>Features</Typography>
                 </Fade>
-                <Grid container flex="row" spacing={5} justify="center" alignItems="center" style={{padding: "10px 0px"}}>
+                <Grid container spacing={4} style={{padding: "10px 0px"}} alignItems="center">
                     {cards.map((card, index) => (
                         <Zoom in style={{transitionDelay: `${index * 250}ms`, transitionDuration: "500ms"}}>
-                            <Grid item key={card.title}>
+                            <Grid item key={card.title} style={{margin: "0px auto"}}>
                                 {<ContentCard props={card}/>}
                             </Grid>
                         </Zoom>
@@ -181,14 +179,13 @@ const Landing = () => {
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
-                message="Incentiva is currently in beta, and therefore isn't a complete website yet. While it's mostly complete, we still have lots of work to do. Thanks for your patience."
-                action={
-                    <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-                        <CloseIcon fontSize="small" />
-                    </IconButton>
-                }
+                message=""
                 style={{width: "350px", color: "white"}}
-            />
+            >
+                <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                    <CloseIcon fontSize="small" />
+                </IconButton>
+            </Snackbar>
         </div>
     )
 }

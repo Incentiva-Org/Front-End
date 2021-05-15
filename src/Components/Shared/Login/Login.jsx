@@ -4,7 +4,7 @@ import { loginUser } from "../../../API/index"
 
 import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 
-
+import {NavLink} from "react-router-dom"
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -58,7 +58,7 @@ const Login = () => {
     return ( 
         <div>
             <Paper elevation={3} style={{width: "350px", height: "350px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "15px"}}>
-                <Typography variant="h5" style={{fontWeight: "bold", textAlign: "center"}}>Login</Typography>
+                <Typography variant="h5" style={{fontWeight: "bold", textAlign: "center", marginBottom: "15px"}}>Login</Typography>
                 <div style={{width: "90%", marginRight: "auto", marginLeft: "auto", marginBottom: "10px", marginTop: "10px"}}>
                     <Grid container spacing={1} style={{width: "80%", marginRight: "auto", marginLeft: "auto"}}>
                         <Grid item style={{width: "10%"}}>
@@ -85,29 +85,30 @@ const Login = () => {
                         </Grid>
                     </Grid>
                 </div>
-                <div style={{width: "20%", marginRight: "auto", marginLeft: "auto", marginTop: "20px", marginBottom: "15px"}}>
+                <div style={{width: "100px", marginRight: "auto", marginLeft: "auto", marginTop: "20px", marginBottom: "15px"}}>
                     <Button 
                         variant="contained" 
                         color="primary" 
                         type="submit" 
                         component={motion.div}
                         whileHover={{
-                            scale: 1.02,
+                            scale: 1.05,
                             transition: { duration: 0.1 }
                         }}
-                        whileTap={{ scale: 0.98 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => {handleSubmit()}}
+                        style={{borderRadius: "15px", width:"100%", textTransform: "none"}}
                     >
                         Login
                     </Button>
                 </div>
                 
                 <div style={{textAlign: "center"}}>
-                    <Typography variant="caption" style={{textAlign: "center"}}>Don't have an account? <Link href="/register" variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Register here</Link></Typography>
+                    <Typography variant="caption" style={{textAlign: "center"}}>Don't have an account? <Link to="/register" component={NavLink} variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Register here</Link></Typography>
                 </div>
                 <br></br>
                 <div style={{textAlign: "center"}}>
-                    <Typography variant="caption" style={{textAlign: "center"}}><Link href="#" variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Forgot Password?</Link></Typography>
+                    <Typography variant="caption" style={{textAlign: "center"}}><Link to="#" component={NavLink} variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Forgot Password?</Link></Typography>
                 </div>
             </Paper>
             <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>

@@ -302,7 +302,7 @@ const NavBar = (props) => {
               <Hidden smDown implementation="css">
                 <AppBar position="fixed" className={classes.appBar} color="inherit">
                   <Toolbar style={{paddingLeft: "0px"}}>
-                      <MuiLink onClick={() => setCurrentPath("/")} href="/">
+                      <MuiLink onClick={() => setCurrentPath("/")} component={NavLink} to="/">
                           <img
                               className={classes.miniLogo}
                               src={MiniLogo}
@@ -317,108 +317,135 @@ const NavBar = (props) => {
                               style={{lineHeight: "40px"}}
                           >
                             <Grid item style={{paddingTop: "23px"}}>
-                            <motion.div
-                                initial={{borderBottom: "none", width: "0%"}}
+                              <motion.div
+                                initial={{width: "0%", borderBottom: "none"}}
                                 style={{height: "38px"}}
                                 whileHover={{
-                                    borderBottom: "2px solid",
                                     width: "100%",
-                                  }}
-                                  transition={{ duration: 0.2 }}>
+                                    borderBottom:"2px solid"
+                                }}
+                                transition={{ duration: 0.2 }}
+                              >
                                 <motion.a
-                                    initial={{ opacity: 0.7 }}
-                                    whileHover={{
-                                      opacity: 1,
+                                  initial={{ opacity: 0.6 }}
+                                  whileHover={{
+                                    opacity: 1,
+                                  }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <MuiLink
+                                    className={classes.landingLink}  
+                                    component={NavLink}
+                                    to="/about"
+                                    onClick={() => setCurrentPath("/about")}
+                                    style={{
+                                      textDecoration: "none",
+                                      color: primaryText,
                                     }}
-                                    transition={{ duration: 0.2 }}
                                   >
-                                  <MuiLink 
-                                      className={classes.landingLink} 
-                                      underline="none"
-                                      onClick={() => setCurrentPath("/about")}
-                                      style={{color: primaryText}}
-                                      href="/about"
-
-                                  >
-                                      About
+                                    About
                                   </MuiLink>
                                 </motion.a>
                               </motion.div>
                             </Grid>
                             <Grid item style={{paddingTop: "23px"}}>
-                            <motion.div
-                                initial={{borderBottom: "none", width: "0%"}}
+                              <motion.div
+                                initial={{width: "0%", borderBottom: "none"}}
                                 style={{height: "38px"}}
                                 whileHover={{
-                                    borderBottom: "2px solid",
                                     width: "100%",
-                                  }}
-                                  transition={{ duration: 0.2 }}>
+                                    borderBottom:"2px solid"
+                                }}
+                                transition={{ duration: 0.2 }}
+                              >
                                 <motion.a
-                                    initial={{ opacity: 0.7 }}
-                                    whileHover={{
-                                      opacity: 1,
+                                  initial={{ opacity: 0.6 }}
+                                  whileHover={{
+                                    opacity: 1,
+                                  }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <MuiLink
+                                    className={classes.landingLink}  
+                                    component={NavLink}
+                                    to="/contact"
+                                    onClick={() => setCurrentPath("/contact")}
+                                    style={{
+                                      textDecoration: "none",
+                                      color: primaryText,
                                     }}
-                                    transition={{ duration: 0.2 }}
                                   >
-                                  <MuiLink 
-                                      className={classes.landingLink} 
-                                      underline="none"
-                                      onClick={() => setCurrentPath("/contact")}
-                                      style={{color: primaryText}}
-                                      href="/contact"
-
-                                  >
-                                      Contact
+                                    Contact
                                   </MuiLink>
                                 </motion.a>
                               </motion.div>
                             </Grid>
                             <Grid item style={{paddingTop: "23px"}}>
-                            <motion.div
-                                initial={{borderBottom: "none", width: "0%"}}
+                              <motion.div
+                                initial={{width: "0%", borderBottom: "none"}}
                                 style={{height: "38px"}}
                                 whileHover={{
-                                    borderBottom: "2px solid",
                                     width: "100%",
-                                  }}
-                                  transition={{ duration: 0.2 }}>
+                                    borderBottom:"2px solid"
+                                }}
+                                transition={{ duration: 0.2 }}
+                              >
                                 <motion.a
-                                    initial={{ opacity: 0.7 }}
-                                    whileHover={{
-                                      opacity: 1,
+                                  initial={{ opacity: 0.6 }}
+                                  whileHover={{
+                                    opacity: 1,
+                                  }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <MuiLink
+                                    className={classes.landingLink}  
+                                    component={NavLink}
+                                    to="/team"
+                                    onClick={() => setCurrentPath("/team")}
+                                    style={{
+                                      textDecoration: "none",
+                                      color: primaryText,
                                     }}
-                                    transition={{ duration: 0.2 }}
                                   >
-                                  <MuiLink 
-                                      className={classes.landingLink} 
-                                      underline="none"
-                                      onClick={() => setCurrentPath("/team")}
-                                      style={{color: primaryText}}
-                                      href="/team"
-
-                                  >
-                                      Team
+                                    Team
                                   </MuiLink>
                                 </motion.a>
                               </motion.div>
                             </Grid>
-                              <Grid item>
-                                <MuiLink underline="none" onClick={() => setCurrentPath("/login")} href="/login">
-                                  <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
-                                </MuiLink>
-                                <MuiLink href="/register" underline="none" onClick={() => setCurrentPath("/register")}>
-                                  <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
-                                </MuiLink> 
-                                <Tooltip title="Dark Mode" placement="bottom">
-                                    <IconButton onClick={handleThemeChange}>
-                                        <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}}/>
-                                    </IconButton>
-                                </Tooltip>
-                              </Grid>
+                            <Grid item>
+                              <MuiLink underline="none" component={NavLink} onClick={() => setCurrentPath("/login")} to="/login">
+                                <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
+                              </MuiLink>
+                              <MuiLink underline="none" component={NavLink} onClick={() => setCurrentPath("/register")} to="/register">
+                                <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
+                              </MuiLink> 
+                              <Tooltip title="Dark Mode" placement="bottom">
+                                  <IconButton onClick={handleThemeChange}>
+                                      <NightsStayIcon fontSize="small" style={{marginLeft: "5px"}}/>
+                                  </IconButton>
+                              </Tooltip>
+                            </Grid>
                           </Grid>
                       </div>
                   </Toolbar>
+              </AppBar>
+            </Hidden>
+            <Hidden smUp implementation="css">
+              <AppBar position="fixed" className={classes.appBar} color="inherit">
+                <Toolbar style={{paddingLeft: "0px"}}>
+                  <MuiLink onClick={() => setCurrentPath("/")} href="/">
+                      <img
+                          className={classes.miniLogo}
+                          src={MiniLogo}
+                          alt="Logo"
+                      />
+                  </MuiLink>
+                  <div style={{textAlign: "right", marginLeft: "auto"}}>
+                    <IconButton onClick={() => handleDrawerToggle}>
+                      <MenuIcon />
+                    </IconButton>
+                  </div>
+                </Toolbar>
               </AppBar>
             </Hidden>
             <main className={classes.content} style={{padding: "0px"}}>

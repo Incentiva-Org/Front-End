@@ -25,10 +25,20 @@ import MuiAlert from '@material-ui/lab/Alert';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+        backgroundColor: '#f5f5f9',
+        color: 'rgba(0, 0, 0, 0.87)',
+        maxWidth: 220,
+        fontSize: theme.typography.pxToRem(12),
+    },
+}))(Tooltip);
 
 const Task = ({ task, reloadTasks }) => {
 
@@ -133,7 +143,16 @@ const Task = ({ task, reloadTasks }) => {
             reloadTasks()
         })
     };
-    
+    const [tooltipOpen, setTooltipOpen] = useState(false);
+
+    const handleTooltipClose = () => {
+        setTooltipOpen(false);
+    };
+
+    const handleTooltipOpen = () => {
+        setTooltipOpen(true);
+    };
+
     return (
         <>
             <Card className={classes.card} onMouseOver={toggleRaised} onMouseOut={toggleRaised} raised={raised}>
@@ -157,19 +176,58 @@ const Task = ({ task, reloadTasks }) => {
                                     (
                                     <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px"}}>
                                         {task.title}
-                                        <IconButton style={{padding: "0px", marginLeft:"5px"}} aria-describedby={id} onClick={handleDescClick}>
-                                            <InfoOutlinedIcon />
-                                        </IconButton>
+                                        <ClickAwayListener onClickAway={handleTooltipClose}>
+                                            <div style={{display: "inline-block"}}>
+                                                <HtmlTooltip
+                                                    PopperProps={{
+                                                    disablePortal: true,
+                                                    }}
+                                                    onClose={handleTooltipClose}
+                                                    open={tooltipOpen}
+                                                    disableFocusListener
+                                                    disableHoverListener
+                                                    disableTouchListener
+                                                    title={
+                                                        <React.Fragment>
+                                                        <Typography color="inherit">{task.description}</Typography>
+                                                        </React.Fragment>
+                                                    }
+                                                >
+                                                    <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleTooltipOpen}>
+                                                        <InfoOutlinedIcon />
+                                                    </IconButton>
+                                                </HtmlTooltip>
+                                            </div>
+                                        </ClickAwayListener>
                                     </Typography>
                                     )
                                     :
                                     <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>
                                         {task.title}
-                                        <Tooltip title="Description" placement="top">
-                                            <IconButton style={{padding: "0px", marginLeft:"5px"}} aria-describedby={id} onClick={handleDescClick}>
-                                                <InfoOutlinedIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                        <ClickAwayListener onClickAway={handleTooltipClose}>
+                                            <div style={{display: "inline-block"}}>
+                                                <HtmlTooltip
+                                                    PopperProps={{
+                                                    disablePortal: true,
+                                                    }}
+                                                    onClose={handleTooltipClose}
+                                                    open={tooltipOpen}
+                                                    disableFocusListener
+                                                    disableHoverListener
+                                                    disableTouchListener
+                                                    title={
+                                                        <React.Fragment>
+                                                        <Typography color="inherit">{task.description}</Typography>
+                                                        </React.Fragment>
+                                                    }
+                                                >
+                                                    <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleTooltipOpen}>
+                                                        <InfoOutlinedIcon />
+                                                    </IconButton>
+                                                </HtmlTooltip>
+                                            </div>
+                                        </ClickAwayListener>
+                                            
                                     </Typography>
                                 }                            
                             }
@@ -177,7 +235,7 @@ const Task = ({ task, reloadTasks }) => {
                         <Popper id={id} open={descOpen} anchorEl={anchorEl} transition>
                             {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={350}>
-                                <Paper style={{padding: "10px"}} elevation={8}>{task.description}</Paper>
+                                <Paper style={{padding: "10px"}} elevation={8}></Paper>
                             </Fade>
                             )}
                         </Popper>
