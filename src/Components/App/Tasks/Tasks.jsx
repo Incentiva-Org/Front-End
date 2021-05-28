@@ -202,7 +202,7 @@ const Tasks = () => {
                 </Grid>
             }
 
-            {onDeck.length == 0 && completed.length == 0 && <Typography variant="h4" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>No tasks found... try adding one!</Typography>}
+            {onDeck.length == 0 && completed.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>No tasks found... try adding one!</Typography>}
 
             <Form reloadTasks={reloadTasks} />
             <br></br>

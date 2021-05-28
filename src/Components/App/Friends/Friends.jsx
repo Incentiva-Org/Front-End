@@ -11,8 +11,12 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
+
 const Friends = () => {
 
+    const [friends, setFriends] = useState([
+        {username: "chris123", requestSent: false, requestAccepted: false}
+    ])
     const friendData = [
         "chris123",
         "nick123",
@@ -24,7 +28,7 @@ const Friends = () => {
     const [search, setSearch] = useState("")
     const [result, setResult] = useState()
     const classes = useStyles();
-    const [friendList, setFriendList] = useState([])
+    const [requests, setRequests] = useState([])
     const [tab, setTab] = useState(0)
     const handleTabChange = (event, newValue) => {
         setTab(newValue)
@@ -51,14 +55,17 @@ const Friends = () => {
             setRaised(!raised)
         }
         const [added, setAdded] = useState(false)
-        const toggleAdded = () => {
-            setAdded(!added)
+        const addFriend = () => {
+            setAdded(true)
+            var temp = requests
+            temp.push(friend)
+            setRequests(temp)
         }
         return (
             <Card style={{width:"300px", padding: '10px', borderRadius: '10px', margin: "8px 0px"}} elevation={3}>
                 <Grid container spacing={2}>
                     <Grid item>
-                        <IconButton color="primary" onClick={toggleAdded}>{added ? <RemoveIcon /> : <PersonAddIcon />}</IconButton>
+                        {!added ? (<IconButton color="primary" onClick={addFriend}> <PersonAddIcon /> </IconButton>) : <CheckIcon color="primary" />}
                     </Grid>
                     <Grid item>
                         <Typography style={{lineHeight: '48px'}}>{friend}</Typography>
@@ -77,41 +84,53 @@ const Friends = () => {
                     indicatorColor="primary"
                     textColor="primary"
                     centered
-                    disableTouchRipple={true}
                 >
                     <Tab label="Add Friends" style={{textTransform: "none"}} />
                     <Tab label="Friend List" style={{textTransform: "none"}} />
                 </Tabs>
             </div>
             <br></br>
-            <div>
-                <Paper className={classes.root}>
-                    <InputBase
-                        className={classes.input}
-                        placeholder="Search a username"
-                        inputProps={{ 'aria-label': 'search a username' }}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <IconButton className={classes.iconButton} aria-label="search" onClick={handleSubmit}>
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
-                <br></br>
-                {result ? 
-                    (
-                        <>
-                            <Typography style={{fontSize: "20px", fontWeight: "bold"}}>Add Friends ({result.length}):</Typography>
-                            {result.map((friend) => (
-                                <Fade in>
-                                    <FriendCard friend={friend} />
-                                </Fade>
-                            ))}
-                        </>
-                    )
-                    :
-                    <></>
-                }
-            </div>
+            {tab === 0 ?
+                (
+                    <div>
+                        <Paper className={classes.root}>
+                            <InputBase
+                                className={classes.input}
+                                placeholder="Search a username"
+                                inputProps={{ 'aria-label': 'search a username' }}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                            <IconButton className={classes.iconButton} aria-label="search" onClick={handleSubmit}>
+                                <SearchIcon />
+                            </IconButton>
+                        </Paper>
+                        <br></br>
+                        {result ? 
+                            (
+                                <>
+                                    <Typography style={{fontSize: "20px", fontWeight: "bold"}}>Add Friends ({result.length}):</Typography>
+                                    {result.map((friend) => (
+                                        <Fade in>
+                                            <FriendCard friend={friend} />
+                                        </Fade>
+                                    ))}
+                                </>
+                            )
+                            :
+                            <></>
+                        }
+                    </div>
+                )
+                :
+                <div>
+                    <Typography variant="h5" style={{fontWeight: "bold"}}>My Friends:</Typography>
+                    <Typography variant="h5" style={{fontWeight: "bold"}}>Requests:</Typography>
+                    {requests.map((request, index) => (
+                        <Paper>{request}</Paper>
+                    ))}
+                </div>
+            }
+            
         </div>
     )
 }

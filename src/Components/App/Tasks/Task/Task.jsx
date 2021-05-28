@@ -7,7 +7,7 @@ import { deleteTask } from '../../../../API/index';
 import { Paper, Typography } from '@material-ui/core'
 import {Card, CardActions, CardContent, Chip, IconButton, Grid, Snackbar, TextField, MenuItem, Button, Zoom } from "@material-ui/core"
 import {withStyles} from "@material-ui/core/styles"
-import DeleteIcon from "@material-ui/icons/Delete"
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import useStyles from "./Styles"
 import EditIcon from '@material-ui/icons/Edit';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -26,6 +26,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
+import {red} from "@material-ui/core/colors"
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -174,7 +176,7 @@ const Task = ({ task, reloadTasks }) => {
                             label={
                                 {...checked ? 
                                     (
-                                    <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px"}}>
+                                    <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px", lineHeight: "42px"}}>
                                         {task.title}
                                         <ClickAwayListener onClickAway={handleTooltipClose}>
                                             <div style={{display: "inline-block"}}>
@@ -255,10 +257,17 @@ const Task = ({ task, reloadTasks }) => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete" placement="top">
-                            <IconButton size="small" aria-label="delete" color="primary"onClick={() => {
+                            <IconButton 
+                                size="small" 
+                                aria-label="delete" 
+                                style={{
+                                    color: red[400]
+                                }}
+                                onClick={() => {
                                     deleteTask(task._id).then(() => reloadTasks())                                    
-                                }}>
-                                <DeleteIcon fontSize="medium" />
+                                }}
+                            >
+                                <DeleteOutlineOutlinedIcon fontSize="medium" />
                             </IconButton>
                         </Tooltip>
                     </div>

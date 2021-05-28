@@ -16,8 +16,10 @@ export default makeStyles((theme) => ({
   card: {
     borderRadius: '10px',
     width: '284px',
-    height: '140px',
+    height: '130px',
     borderRadius: '10px',
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   grid: {
     display: 'flex',
@@ -32,8 +34,7 @@ export default makeStyles((theme) => ({
   },
   cardActions: {
     display: 'flex',
-    paddingTop: "0px",
-    paddingBottom: "20px"
+    padding: "0px 16px 10px 16px"
   },
   chip: {
   },

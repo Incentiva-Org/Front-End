@@ -21,7 +21,6 @@ export default function TaskPie({data}) {
             outerRadius={140}
             labelLine={false}
             fill="#8884d8"
-            paddingAngle={5}
             startAngle={180}
             endAngle={0}
             dataKey="value"

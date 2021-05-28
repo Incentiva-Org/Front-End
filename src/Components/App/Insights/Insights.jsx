@@ -20,7 +20,6 @@ import {format} from 'date-fns';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
-import TrendingDown from '@material-ui/icons/TrendingDown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,8 +81,10 @@ const Insights = () => {
   }
   useEffect(() => { 
       reloadTasks()
+      console.log(tasks)
   }, []);
-    localStorage.setItem("userStats", JSON.stringify([]))
+
+  localStorage.setItem("userStats", JSON.stringify([]))
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();
