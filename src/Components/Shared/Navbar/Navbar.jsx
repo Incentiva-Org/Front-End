@@ -70,6 +70,13 @@ const NavBar = (props) => {
           primary: primaryText
         }
       },
+      props: {
+        // Name of the component ⚛️
+        MuiButtonBase: {
+          // The default props to change
+          disableRipple: true, // No more ripple, on the whole application 💣!
+        },
+      },
     });
 
     const handleThemeChange = () => {
@@ -132,7 +139,7 @@ const NavBar = (props) => {
             <List>
                 {Object.keys(routes).map((item) => (
                     <MuiLink underline="none" className={classes.link} component={NavLink} onClick={() => {setCurrentPath(routes[item].path); handleDrawerToggle()}} to={routes[item].path}>
-                        <ListItem selected={routes[item].path === currentPath} button key={item}>
+                        <ListItem selected={routes[item].path === currentPath} button key={item} disableRipple>
                         {routes[item].path === currentPath ? (
                           <ListItemIcon style={{color: "inherit"}}>{routes[item].icon}</ListItemIcon>
                         )

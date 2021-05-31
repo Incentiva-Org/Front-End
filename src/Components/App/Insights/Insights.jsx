@@ -132,7 +132,7 @@ const Insights = () => {
   const handlePredictClick = () => {
     getTagCounts();
     const formData = JSON.parse(localStorage.getItem("userStats"))
-    console.log(formData)
+    console.log(JSON.stringify(formData))
     setLoading(true)
     fetch('https://incentiva-backend.herokuapp.com/', 
       {
