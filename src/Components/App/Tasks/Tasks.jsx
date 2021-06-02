@@ -1,12 +1,14 @@
 import React, {useEffect, useState, useRef} from 'react'
 
 import { fetchTasks } from "../../../API/index"
+import { resendVerification } from "../../../API/Auth/AuthProvider"
 
 import Task from './Task/Task'
 import useStyles from "./Styles"
 import Form from "./Form/Form"
 
-import {Grid, Typography, Grow, Tooltip } from "@material-ui/core"
+import {Grid, Typography, Grow, Tooltip, Button, Snackbar } from "@material-ui/core"
+import { Alert } from '@material-ui/lab';
 import IconButton from '@material-ui/core/IconButton';
 
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -44,6 +46,8 @@ const Tasks = () => {
             setSprings(fn(newOrder, active, originalIndex, curIndex, y)) // Feed springs new style data, they'll animate the view without causing a single render
             if (!active) order.current = newOrder
         })
+
+
         return (
             <>
                 <div className={classes.dragListContent} style={{ height: items.length * 220 }}>
@@ -85,7 +89,6 @@ const Tasks = () => {
         }
     }
     const classes = useStyles();
-    //const mobile = useMediaQuery('(max-width:750px)');
 
     const [tasks, setTasks] = useState()
 
@@ -118,8 +121,9 @@ const Tasks = () => {
     getCount()
     
     const reloadTasks = () => {
-
-        fetchTasks(JSON.parse(localStorage.getItem('userData')).username).then((response) => {
+        
+        fetchTasks(JSON.parse(localStorage.getItem('userData')).uid).then((response) => {
+            
             const returnResponse = response.data
             console.log('reloaded')
             setTasks(returnResponse['tasksData'])
@@ -131,6 +135,9 @@ const Tasks = () => {
     useEffect(() => {
         localStorage.setItem("selected-date", format(selectedDate, 'MM/dd/yyyy'))
     }, []);
+
+    const emailVerified = JSON.parse(localStorage.getItem('userData')).emailVerified
+
     useEffect(() => {
         setLoading(true);
         reloadTasks();
@@ -143,8 +150,31 @@ const Tasks = () => {
     }, []);
     
 
+    
+    const [emailSuccess, setEmailSuccess] = React.useState(false);
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setEmailSuccess(false);
+    };
+
     return (
         <div className={classes.mainContainer}>
+            {!emailVerified &&
+                <Alert variant="outlined" severity="warning">
+                    <div >
+                        <Typography>Your email is unverified! Please check your email to verify it as soon as possible.</Typography>
+                        <Button onClick={() => {
+                            resendVerification()
+                            setEmailSuccess(true)
+                        }} style={{marginTop:"5px"}} variant="outlined">Resend Verification Email</Button>
+
+                    </div>
+                    
+                </Alert>
+            }
             <h1>Tasks</h1>
             <div style={{marginLeft: "18px", marginBottom: "18px", marginRight: "10px"}}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -207,6 +237,11 @@ const Tasks = () => {
             <Form reloadTasks={reloadTasks} />
             <br></br>
             <div style={{height: "150px"}}></div>
+            <Snackbar open={emailSuccess} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    Email Sent!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import {Route, Switch} from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-
-import { getTasks } from './API/index'
+import {auth} from "./API/Auth/Firebase"
+import {reloadUser} from "./API/Auth/AuthProvider"
 
 import Navbar from './Components/Shared/Navbar/Navbar.jsx'
 import Insights from './Components/App/Insights/Insights'
@@ -20,11 +19,22 @@ import Team from './Components/Homepage/Team/Team'
 
 const App = () => {
  
-  const needLogIn = ["/tasks", "/notes", "/study", "insights"]
+  const needLogIn = ["/tasks", "/notes", "/study", "/insights"]
 
   if(needLogIn.includes(window.location.pathname)){
     if(!localStorage.getItem("userData")){ window.location.pathname = "/login" }
   }
+
+  useEffect(() => {
+    reloadUser()
+    const unsubscribe = auth.onAuthStateChanged(user => {if(user.email){localStorage.setItem('userData', JSON.stringify(user))}})
+    return unsubscribe
+  }, [])
+  
+  if(JSON.parse(localStorage.getItem('userData')) == null){
+    localStorage.removeItem('userData')
+  }
+
 
   return (
     <Switch>

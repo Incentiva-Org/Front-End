@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import {  useHistory } from "react-router-dom"
 
-import { createUser } from "../../../API/index"
+import { createUser } from "../../../API/Auth/AuthProvider"
 
 import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 
@@ -20,7 +21,7 @@ const Register = () => {
 
     if(localStorage.getItem('userData')){window.location.pathname = "/tasks"}
     
-    const CHARACTER_LIMIT = 50;
+    const CHARACTER_LIMIT = 15;
     const [visible, setVisible] = useState(false);
     const toggleVisibility = () => {
         setVisible(!visible);
@@ -32,7 +33,7 @@ const Register = () => {
     const [emailErrors, setEmailErrors] = useState("")
     const [passwordErrors, setPasswordErrors] = useState("")
     const [confirmPasswordErrors, setConfirmPasswordErrors] = useState("")
-
+    const history = useHistory()
     const [alert, setAlert] = useState(false);
     const closeAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -40,23 +41,21 @@ const Register = () => {
           }
           setAlert(false);
     }
+    const [accError, setAccError] = useState(false);
+    const [accSeverity, setAccSeverity] = useState("")
+    const closeAccAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+          }
+          setAccError(false);
+    }
 
     
 
     const [severity, setSeverity] = useState("");
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         var isValid = true;
         
-        if (typeof userData.username !== "undefined") {
-            var username_pattern = new RegExp(/^\S*$/);
-            if(userData.username.length < 5 || !username_pattern.test(userData.username)){
-                setUsernameErrors("*Please enter valid username")
-                isValid = false;
-            }
-            else {
-                setUsernameErrors("")
-            }
-        }
 
         if (typeof userData.email !== "undefined") {
             var email_pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -88,20 +87,34 @@ const Register = () => {
             }
         }
         if(isValid) {
-            setUsernameErrors("")
-            setEmailErrors("")
-            setPasswordErrors("")
-            setConfirmPasswordErrors("")
-            setSeverity("success")
             
-            createUser(userData).then(() => {window.location.pathname = "/login"})
+            
+            try {
+                await createUser(userData.email, userData.password, userData.username)
+
+                
+                setEmailErrors("")
+                setPasswordErrors("")
+                setConfirmPasswordErrors("")
+                
+                setSeverity("success")
+                setAlert(true)
+                window.location.pathname = "/tasks"
+                
+            } catch (err) {
+                
+                setAccError(true)
+                setAccSeverity(err.message)
+                
+            }
             
             
         }
         else {
             setSeverity("error")
+            setAlert(true)
         }
-        setAlert(true)
+        
     }
     return ( 
         <div>
@@ -187,6 +200,11 @@ const Register = () => {
             <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>
                 <Alert onClose={closeAlert} severity={severity}>
                     {severity === "success" ? ("Account created successfully!") : "Error creating account!"}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={accError} autoHideDuration={2000} onClose={closeAccAlert}>
+                <Alert onClose={closeAccAlert} severity="error">
+                    {accSeverity}
                 </Alert>
             </Snackbar>
         </div>

@@ -5,6 +5,7 @@ import Logo from '../../../Assets/Incentiva.png'
 import MiniLogo from "../../../Assets/Incentiva-Mini.png"
 import routes from './Routes'
 import useStyles from './Styles'
+import { logoutUser } from "../../../API/Auth/AuthProvider"
 
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
@@ -41,7 +42,8 @@ import Button from "@material-ui/core/Button";
 import {motion} from "framer-motion"
 
 const NavBar = (props) => {
-    
+  //if(JSON.parse(localStorage.getItem('userData')) == null){localStorage.removeItem('userData')}
+
     var path = window.location.pathname
     if(!localStorage.getItem("userData")) {
       path = '/'
@@ -201,6 +203,7 @@ const NavBar = (props) => {
                       >
                           <MenuItem onClick={() => {
                               localStorage.removeItem("userData")
+                              logoutUser()
                               window.location.pathname = "/login"
                               }}>
                             <ListItemIcon>
@@ -257,10 +260,11 @@ const NavBar = (props) => {
                               <AccountCircleIcon fontSize="medium" color="primary" />
                             </IconButton>
                           </Tooltip>
-                          <Typography style={{display: "inline-block", padding: "8px"}}>{JSON.parse(localStorage.getItem("userData")).username}</Typography>
+                          <Typography style={{display: "inline-block", padding: "8px"}}>{JSON.parse(localStorage.getItem("userData")).displayName}</Typography>
                           <Tooltip title="Logout" placement="top">
                             <IconButton onClick={() => {
                               localStorage.removeItem("userData")
+                              logoutUser()
                               window.location.pathname = "/tasks"}} style={{display: "inline-block"}}>
                               <ExitToAppIcon fontSize="small" style={{marginRight: "5px"}} style={{display: "inline-block"}}/>
                             </IconButton>

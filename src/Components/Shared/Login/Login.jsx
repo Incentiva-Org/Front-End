@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { loginUser } from "../../../API/index"
+import { loginUser } from "../../../API/Auth/AuthProvider"
 
 import { Typography, Paper, TextField, Grid, IconButton, Button, Link, Snackbar } from "@material-ui/core"
 
@@ -25,7 +25,7 @@ const Login = () => {
         setVisible(!visible);
     }
     const [userData, setUserData] = useState({
-        emailOrUsername: '', password: ''
+        email: '', password: ''
     })
 
     const [alert, setAlert] = useState(false);
@@ -36,24 +36,29 @@ const Login = () => {
           setAlert(false);
     }
     const [severity, setSeverity] = useState("");
-    const handleSubmit = () => {
-       
-        loginUser(userData).then((response) => {
-            const returnResponse = response.data['success']
-            const isValid = returnResponse !== false
-            
+    const [accError, setAccError] = useState(false);
+    const [accSeverity, setAccSeverity] = useState("")
+    const closeAccAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+          }
+          setAccError(false);
+    }
+    const handleSubmit = async () => {
+        try {
+            console.log(userData.email)
+            await loginUser(userData.email, userData.password)
 
-            if(isValid) {
-                setSeverity("success")
-                localStorage.setItem('userData', JSON.stringify(returnResponse))
-                window.location.pathname = "/tasks"
-                console.log('Valid')
-            }
-            else {
-                setSeverity("error")
-            }
+            setSeverity("success")
             setAlert(true)
-        })
+            window.location.pathname = "/tasks"
+            console.log('Valid')
+            
+        } catch (err) {
+            console.log(err)
+            setAccSeverity(err.message)
+            setAccError("error")
+        }
     }
     return ( 
         <div>
@@ -65,7 +70,7 @@ const Login = () => {
                             <AccountCircle  style={{marginTop: "12px", height: "30px"}}/>
                         </Grid>
                         <Grid item style={{width: "85%", marginLeft: "5px"}}>
-                            <TextField id="input-with-icon-grid" variant="outlined" label="Username or email" onChange={(e) => setUserData({ ...userData, emailOrUsername: e.target.value })}/>
+                            <TextField id="input-with-icon-grid" variant="outlined" label="Email" onChange={(e) => setUserData({ ...userData, email: e.target.value })}/>
                         </Grid>
                     </Grid>
                 </div>
@@ -114,6 +119,11 @@ const Login = () => {
             <Snackbar open={alert} autoHideDuration={2000} onClose={closeAlert}>
                 <Alert onClose={closeAlert} severity={severity}>
                     {severity === "success" ? ("Logged in successfully!") : "Incorrect Username/Password!"}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={accError} autoHideDuration={2000} onClose={closeAccAlert}>
+                <Alert onClose={closeAccAlert} severity="error">
+                    {accSeverity}
                 </Alert>
             </Snackbar>
         </div>

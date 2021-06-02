@@ -21,6 +21,7 @@
     "draft-convert": "^2.1.10",
     "draft-js": "^0.11.7",
     "equation-editor-react": "^0.0.6",
+    "firebase": "^8.6.3",
     "fontsource-roboto": "^4.0.0",
     "framer-motion": "^4.0.3",
     "google-auth-library": "^7.0.4",

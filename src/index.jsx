@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+//import { AuthProvider } from "./API/Auth/AuthProvider"
 
 import './index.css'
 import App from './App'
@@ -8,6 +9,7 @@ import App from './App'
 
 ReactDOM.render(
 
+  
   <BrowserRouter>
     <App />
   </BrowserRouter>,
