@@ -32,3 +32,7 @@ export function reloadUser() {
 export function resendVerification() {
     auth.currentUser.sendEmailVerification()
 }
+
+export function forgotPassword(email) {
+    return auth.sendPasswordResetEmail(email)
+}
