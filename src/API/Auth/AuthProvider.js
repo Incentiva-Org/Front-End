@@ -1,5 +1,5 @@
 import { auth } from "./Firebase"
-
+import { createUserUid } from "../index"
 
 
 export function createUser(email, password, username) {
@@ -19,6 +19,7 @@ export function loginUser(email, password) {
 }
 
 export function logoutUser() {
+    localStorage.removeItem('recordedUser')
     localStorage.removeItem('userData')
     return auth.signOut()
 }

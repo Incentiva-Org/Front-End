@@ -202,6 +202,7 @@ const NavBar = (props) => {
                         onClose={closeMenu}
                       >
                           <MenuItem onClick={() => {
+                              localStorage.removeItem("recordedUser")
                               localStorage.removeItem("userData")
                               logoutUser()
                               window.location.pathname = "/login"
