@@ -35,12 +35,27 @@ const Tasks = () => {
         if(!localStorage.getItem('recordedUser')){
             const uid = JSON.parse(localStorage.getItem('userData')).uid
             const username = JSON.parse(localStorage.getItem('userData')).displayName
-            createUserUid(uid, username).then((res) => {
-                if(res.data.success){
-                    localStorage.setItem("recordedUser", true)
-                    console.log(res.data.success)
-                }
-            })
+
+            if(username){
+
+                createUserUid(uid, username).then((res) => {
+                    if(res.data.success){
+                        localStorage.setItem("recordedUser", true)
+                        console.log(res.data.success)
+                    }
+                })
+            }else{
+                const username = localStorage.getItem('tempUsername')
+                
+                createUserUid(uid, username).then((res) => {
+                    if(res.data.success){
+                        localStorage.setItem("recordedUser", true)
+                        console.log(res.data.success)
+                        localStorage.removeItem('tempUsername')
+                    }
+                })
+
+            }
         }
 
     }, [])

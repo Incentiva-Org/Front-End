@@ -99,7 +99,10 @@ const Register = () => {
                 
                 setSeverity("success")
                 setAlert(true)
-                window.location.pathname = "/tasks"
+                localStorage.setItem('tempUsername', userData.username).then(() => {
+
+                    window.location.pathname = "/tasks"
+                })
                 
             } catch (err) {
                 
