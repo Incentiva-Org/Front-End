@@ -154,7 +154,6 @@ const Insights = () => {
         console.log(JSON.parse(response.result))
       });
   }
-  console.log(getTagCounts())
   return (
     <div className={classes.mainContainer}>
         <h1>Insights</h1>
