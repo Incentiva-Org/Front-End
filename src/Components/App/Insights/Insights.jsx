@@ -20,6 +20,7 @@ import {format} from 'date-fns';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
+import CheckIcon from "@material-ui/icons/Check"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,19 +73,18 @@ const Insights = () => {
   const [tasks, setTasks] = useState()
 
   const reloadTasks = () => {
-    fetchTasks(JSON.parse(localStorage.getItem('userData')).username).then((response) => {
+    fetchTasks(JSON.parse(localStorage.getItem('userData')).uid).then((response) => {
         const returnResponse = response.data
         console.log('reloaded')
         setTasks(returnResponse['tasksData'])
-        setLoading(false)
     })
-  }
+
+}
   useEffect(() => { 
       reloadTasks()
-      console.log(tasks)
   }, []);
 
-  localStorage.setItem("userStats", JSON.stringify([]))
+  localStorage.setItem("happinessScores", JSON.stringify([{Day: "06/03/2021", Happiness: 8}, {Day: "06/13/2021", Happiness: 6}, {Day: "06/21/2021", Happiness: 7}, {Day: "06/29/2021", Happiness: 5}, {Day: "06/30/2021", Happiness: 8}, {Day: "07/03/2021", Happiness: 9}]))
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();
@@ -93,45 +93,48 @@ const Insights = () => {
   const handleSliderChange = (e, newValue) => {
     setHappiness(newValue);
   }
-
+  
   const getTagCounts = () => {
-    const currentDate = format(new Date(), "MM/dd/yyyy")
-    var isUnique = true;
-    const currData = JSON.parse(localStorage.getItem("userStats"))
-    for(const i in currData) {
-      if(currData[i].Date === currentDate) {
-        console.log("Hi")
-        isUnique = false;
+    var temp = tasks;
+    var sorted = temp.reduce(function (r, a) {
+      r[a.day] = r[a.day] || [];
+      r[a.day].push(a);
+      return r;
+    }, Object.create(null));
+
+    var insightsData = []
+    var cnt = 0;
+    for(var i in sorted) {
+      var dataPoint = {Day: "", Work: 0, School: 0, Life: 0, Exercise: 0, Happiness: JSON.parse(localStorage.getItem("happinessScores"))[cnt].Happiness}
+      cnt++;
+      for(var j in sorted[i]) {
+        dataPoint.Day = sorted[i][j].day
+        const tag = sorted[i][j].tag
+        dataPoint[tag]++
+      }
+      insightsData.push(dataPoint)
+    }
+    return insightsData
+  }
+
+  const confirmHappiness = () => {
+    var currData = JSON.parse(localStorage.getItem("happinessScores"))
+    const currHappiness = happiness;
+    var newDay = true;
+    for(var i in currData) {
+      if(currData[i].Day === localStorage.getItem('selected-date')){
+        currData[i].Happiness = currHappiness
+        localStorage.setItem('happinessScores', JSON.stringify(currData))
+        break;
       }
     }
-    var formData = {Date: currentDate, School: 0, Work: 0, Life: 0, Exercise: 0, Happiness: happiness}
-    if(isUnique) {
-      for(const i in tasks) {
-        if(tasks[i].day === currentDate) {
-          if(tasks[i].completed === true) {
-            if(tasks[i].tag === "School") {
-              formData.School++;
-            }
-            else if(tasks[i].tag === "Work") {
-              formData.Work++;
-            }
-            else if(tasks[i].tag === "Life") {
-              formData.Life++;
-            }
-            else if(tasks[i].tag === "Exercise") {
-              formData.Exercise++;
-            }
-          }
-        }
-      }
-      currData.push(formData)
-      localStorage.setItem("userStats", JSON.stringify(currData))
+    if(newDay === false) {
+      localStorage.setItem("happinessScores", JSON.stringify(currData.push({Day: localStorage.getItem('selected-date'), Happiness: currHappiness})))
     }
   }
-  getTagCounts();
+  
   const handlePredictClick = () => {
-    getTagCounts();
-    const formData = JSON.parse(localStorage.getItem("userStats"))
+    const formData = getTagCounts();
     console.log(JSON.stringify(formData))
     setLoading(true)
     fetch('https://incentiva-backend.herokuapp.com/', 
@@ -151,11 +154,12 @@ const Insights = () => {
         console.log(JSON.parse(response.result))
       });
   }
+  console.log(getTagCounts())
   return (
     <div className={classes.mainContainer}>
         <h1>Insights</h1>
         <Button variant="contained" color="primary" style={{marginBottom: "30px", textTransform: "none", fontWeight: "bold"}} onClick={handlePredictClick} endIcon={<EqualizerIcon/>}>
-            Generate Insights ({JSON.parse(localStorage.getItem("userStats")).length})
+            Generate Insights
         </Button>
         <Typography gutterBottom style={{textAlign: "center"}}>
             Indicate your happiness level below for today:
@@ -176,6 +180,8 @@ const Insights = () => {
               <MoodIcon />
             </div>
           </div>
+          <br></br>
+          <Button color="primary" variant="contained" style={{textTransform: "none", fontWeight: "bold"}} endIcon={<CheckIcon/>} onClick={confirmHappiness}>Confirm</Button>
         </div>
         <Backdrop className={classes.backdrop} open={loading}>
           <CircularProgress color="inherit" />
@@ -185,15 +191,15 @@ const Insights = () => {
             <h2 style={{fontWeight: "bold", fontSize:"20px", textAlign: "center"}}>Analytics</h2>
             <Grid container justify="center" spacing={6}>
               <Grid item>
-                <TaskGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
+                <TaskGraph data={getTagCounts()}/>
               </Grid>
               <Grid item>
-                <HappinessGraph data={JSON.parse(localStorage.getItem("userStats"))}/>
+                <HappinessGraph data={getTagCounts()}/>
               </Grid>
             </Grid>
             <Grid container spacing={10} justify="center" style={{marginTop: "10px"}}>
               <Grid item>
-                <TaskPie data={JSON.parse(localStorage.getItem("userStats"))} />
+                <TaskPie data={getTagCounts()} />
               </Grid>
               <Grid item>
                 <Grid container spacing={3}> 
