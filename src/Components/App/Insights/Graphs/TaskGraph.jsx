@@ -18,7 +18,7 @@ export default function Graphs({data}) {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="Date" />
+          <XAxis dataKey="Day" />
           <YAxis  />
           <Tooltip />
           <Legend />

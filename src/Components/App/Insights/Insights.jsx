@@ -84,7 +84,6 @@ const Insights = () => {
       reloadTasks()
   }, []);
 
-  localStorage.setItem("happinessScores", JSON.stringify([{Day: "06/03/2021", Happiness: 8}, {Day: "06/13/2021", Happiness: 6}, {Day: "06/21/2021", Happiness: 7}, {Day: "06/29/2021", Happiness: 5}, {Day: "06/30/2021", Happiness: 8}, {Day: "07/03/2021", Happiness: 9}]))
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(false);
   const classes = useStyles();
@@ -110,7 +109,9 @@ const Insights = () => {
       for(var j in sorted[i]) {
         dataPoint.Day = sorted[i][j].day
         const tag = sorted[i][j].tag
-        dataPoint[tag]++
+        if(sorted[i][j].completed === true) {
+          dataPoint[tag]++
+        }
       }
       insightsData.push(dataPoint)
     }
@@ -135,7 +136,6 @@ const Insights = () => {
   
   const handlePredictClick = () => {
     const formData = getTagCounts();
-    console.log(JSON.stringify(formData))
     setLoading(true)
     fetch('https://incentiva-backend.herokuapp.com/', 
       {
@@ -150,8 +150,6 @@ const Insights = () => {
       .then(response => {
         setTimeout(() => setLoading(false), 200)
         setResult(response.result)
-        console.log(response.result)
-        console.log(JSON.parse(response.result))
       });
   }
   return (
