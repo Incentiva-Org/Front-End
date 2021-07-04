@@ -68,6 +68,8 @@ const NiceSlider = withStyles({
   },
 })(Slider);
 
+localStorage.setItem("happinessScores", JSON.stringify([{Day: "06/03/2021", Happiness: 8}, {Day: "06/13/2021", Happiness: 6}, {Day: "06/21/2021", Happiness: 7}, {Day: "06/29/2021", Happiness: 5}, {Day: "06/30/2021", Happiness: 8}, {Day: "07/03/2021", Happiness: 9}]))
+
 const Insights = () => {
 
   const [tasks, setTasks] = useState()
@@ -126,11 +128,13 @@ const Insights = () => {
       if(currData[i].Day === localStorage.getItem('selected-date')){
         currData[i].Happiness = currHappiness
         localStorage.setItem('happinessScores', JSON.stringify(currData))
+        newDay = false;
         break;
       }
     }
-    if(newDay === false) {
-      localStorage.setItem("happinessScores", JSON.stringify(currData.push({Day: localStorage.getItem('selected-date'), Happiness: currHappiness})))
+    if(newDay === true) {
+      currData.push({Day: localStorage.getItem('selected-date'), Happiness: currHappiness})
+      localStorage.setItem("happinessScores", JSON.stringify(currData))
     }
   }
   
