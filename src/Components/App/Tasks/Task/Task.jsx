@@ -167,7 +167,7 @@ const Task = ({ task, reloadTasks }) => {
                                 onChange={handleChange}
                                 className={classes.checkBox}
                                 icon={<CheckBoxOutlineBlankIcon fontSize="medium" />}
-                                checkedIcon={<CheckBoxIcon fontSize="medium" />}
+                                checkedIcon={<Fade in><CheckBoxIcon fontSize="medium" /></Fade>}
                                 color="primary"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                                 style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms"}}
@@ -178,27 +178,11 @@ const Task = ({ task, reloadTasks }) => {
                                     (
                                     <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px", lineHeight: "42px"}}>
                                         {task.title}
-                                        <ClickAwayListener onClickAway={handleTooltipClose}>
+                                        <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
                                             <div style={{display: "inline-block"}}>
-                                                <HtmlTooltip
-                                                    PopperProps={{
-                                                    disablePortal: true,
-                                                    }}
-                                                    onClose={handleTooltipClose}
-                                                    open={tooltipOpen}
-                                                    disableFocusListener
-                                                    disableHoverListener
-                                                    disableTouchListener
-                                                    title={
-                                                        <React.Fragment>
-                                                        <Typography color="inherit">{task.description}</Typography>
-                                                        </React.Fragment>
-                                                    }
-                                                >
-                                                    <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleTooltipOpen}>
-                                                        <InfoOutlinedIcon />
-                                                    </IconButton>
-                                                </HtmlTooltip>
+                                                <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleDescClick}>
+                                                    <InfoOutlinedIcon />
+                                                </IconButton>
                                             </div>
                                         </ClickAwayListener>
                                     </Typography>
@@ -206,27 +190,11 @@ const Task = ({ task, reloadTasks }) => {
                                     :
                                     <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>
                                         {task.title}
-                                        <ClickAwayListener onClickAway={handleTooltipClose}>
+                                        <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
                                             <div style={{display: "inline-block"}}>
-                                                <HtmlTooltip
-                                                    PopperProps={{
-                                                    disablePortal: true,
-                                                    }}
-                                                    onClose={handleTooltipClose}
-                                                    open={tooltipOpen}
-                                                    disableFocusListener
-                                                    disableHoverListener
-                                                    disableTouchListener
-                                                    title={
-                                                        <React.Fragment>
-                                                        <Typography color="inherit">{task.description}</Typography>
-                                                        </React.Fragment>
-                                                    }
-                                                >
-                                                    <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleTooltipOpen}>
-                                                        <InfoOutlinedIcon />
-                                                    </IconButton>
-                                                </HtmlTooltip>
+                                                <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleDescClick}>
+                                                    <InfoOutlinedIcon />
+                                                </IconButton>
                                             </div>
                                         </ClickAwayListener>
                                             
@@ -237,7 +205,7 @@ const Task = ({ task, reloadTasks }) => {
                         <Popper id={id} open={descOpen} anchorEl={anchorEl} transition>
                             {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={350}>
-                                <Paper style={{padding: "10px"}} elevation={8}></Paper>
+                                <Paper style={{padding: "10px", maxWidth: "400px"}} elevation={8}>{task.description}</Paper>
                             </Fade>
                             )}
                         </Popper>
