@@ -17,7 +17,7 @@ export default function HappinessGraph({data}) {
                 bottom: 5
               }}
             >
-                <XAxis dataKey="Date" />
+                <XAxis dataKey="Day" />
                 <YAxis interval={[0, 10]}/>
                 <Tooltip />
                 <Legend />

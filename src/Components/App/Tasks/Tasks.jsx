@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react'
 
-import { fetchTasks } from "../../../API/index"
+import { fetchTasks, createUserUid } from "../../../API/index"
 import { resendVerification } from "../../../API/Auth/AuthProvider"
 
 import Task from './Task/Task'
@@ -30,6 +30,35 @@ import { useSprings, animated, useTransition } from 'react-spring'
 
 
 const Tasks = () => {
+
+    useEffect(() => {
+        if(!localStorage.getItem('recordedUser')){
+            const uid = JSON.parse(localStorage.getItem('userData')).uid
+            const username = JSON.parse(localStorage.getItem('userData')).displayName
+
+            if(username){
+
+                createUserUid(uid, username).then((res) => {
+                    if(res.data.success){
+                        localStorage.setItem("recordedUser", true)
+                        console.log(res.data.success)
+                    }
+                })
+            }else{
+                const username = localStorage.getItem('tempUsername')
+                
+                createUserUid(uid, username).then((res) => {
+                    if(res.data.success){
+                        localStorage.setItem("recordedUser", true)
+                        console.log(res.data.success)
+                        localStorage.removeItem('tempUsername')
+                    }
+                })
+
+            }
+        }
+
+    }, [])
 
     const fn = (order, active, originalIndex, curIndex, y) => (index) =>
     active && index === originalIndex

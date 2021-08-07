@@ -1,0 +1,23 @@
+Layout of data:
+data = [
+    {Work: 1, School: 2, Life: 1, Exercise: 1, Happiness: 6},
+    .
+    .
+    .
+    etc
+]
+
+how to get this data tho?
+
+What we know:
+1. User completes tasks every day, and it's easy to retrieve that data
+2. User should also be completing a happiness poll every day
+3. These 2 different sources of data are to be combined into a single data point
+
+Potential approaches:
+1. Store the happiness scores in localstorage along with the date.
+- With this approach, it would have to be able to store multiple datapoints by accounting for the passing of 1 day to the next
+- Basically what you did in the old version of Incentiva, except the task data comes from an actual database instead of localstorage
+- Once you figure out how to store datapoints in localstorage with all of the nuances accounted for, including the user updating their score on the same day, you must now combine that data w task data
+when user hits "Generate Insights"
+- An easy way to do this would be to iterate through happiness score data, check 

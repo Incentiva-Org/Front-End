@@ -188,7 +188,7 @@ const NavBar = (props) => {
                       >
                         <MenuItem>
                           <AccountCircleIcon fontSize="small" />
-                          <Typography variant="inherit" style={{margin: "0px 5px"}}>{JSON.parse(localStorage.getItem("userData")).username}</Typography>
+                          <Typography variant="inherit" style={{margin: "0px 5px"}}>{JSON.parse(localStorage.getItem("userData")).displayName}</Typography>
                         </MenuItem>
                       </Menu>
                       <IconButton variant="h6" style={{display: "inline-block", padding: "6px"}} color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu} >
@@ -202,6 +202,7 @@ const NavBar = (props) => {
                         onClose={closeMenu}
                       >
                           <MenuItem onClick={() => {
+                              localStorage.removeItem("recordedUser")
                               localStorage.removeItem("userData")
                               logoutUser()
                               window.location.pathname = "/login"

@@ -10,6 +10,7 @@ import Tasks from './Components/App/Tasks/Tasks'
 import Friends from './Components/App/Friends/Friends'
 import Notes from './Components/App/Notes/Notes'
 import Register from './Components/Shared/Register/Register'
+import ForgotPassword from './Components/Shared/ForgotPassword/ForgotPassword'
 import Login from './Components/Shared/Login/Login'
 import Landing from './Components/Homepage/Landing/Landing'
 import About from './Components/Homepage/About/About'
@@ -40,6 +41,7 @@ const App = () => {
     <Switch>
       <Navbar>
         <Route exact path="/tasks" component={Tasks}/>
+        <Route exact path="/forgotpassword" component={ForgotPassword}/>
         <Route exact path="/notes" component={Notes}/>
         <Route exact path="/friends" component={Friends}/>
         <Route exact path="/study" component={StudyMode}/>
