@@ -104,11 +104,9 @@ const Tasks = () => {
             return (
                 <>
                     {items.map((task, index) => (
-                        <Grow in style={{ transformOrigin: '0 0 0' }}>
-                            <Grid item style={{padding: "6px"}}>
-                                <Task task={task} reloadTasks={reloadTasks} /> 
-                            </Grid>
-                        </Grow>
+                        <Grid item>
+                            <Task task={task} reloadTasks={reloadTasks} /> 
+                        </Grid>
                     ))}
                 </>
             )
@@ -247,7 +245,7 @@ const Tasks = () => {
             {!onDeck.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>}
             {loading && <Skeletons numItems={onDeck.length} />}
             {!loading && 
-                <Grid container spacing={3} style={{margin: "10px 0px"}}>
+                <Grid container spacing={3} style={{justifyContent: 'center'}}>
                     <ItemList items={onDeck} classes={classes} />
                 </Grid>
             }
@@ -256,12 +254,10 @@ const Tasks = () => {
             {!completed.length == 0 &&  <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>Completed</Typography>}
             {loading && <Skeletons numItems={completed.length} />}
             {!loading && 
-                <Grid container spacing={3} style={{margin: "10px 0px"}}>
+                <Grid container spacing={3} style={{justifyContent: 'center'}}>
                     <ItemList items={completed} classes={classes} />
                 </Grid>
             }
-
-            {onDeck.length == 0 && completed.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>No tasks found... try adding one!</Typography>}
 
             <Form reloadTasks={reloadTasks} />
             <br></br>

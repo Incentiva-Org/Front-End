@@ -288,7 +288,8 @@ const Task = ({ task, reloadTasks }) => {
                                         whileTap={{ scale: 0.95 }}
                                         onClick={(e) => {handleSubmit(e)}}
                                         style={{
-                                            padding: "8px 0px"
+                                            padding: "8px 0px",
+                                            textTransform: "none"
                                         }}
                                     >
                                         Confirm
@@ -307,7 +308,8 @@ const Task = ({ task, reloadTasks }) => {
                                         whileTap={{ scale: 0.95 }}
                                         onClick={clear}
                                         style={{
-                                            padding: "8px 0px"
+                                            padding: "8px 0px",
+                                            textTransform: "none"
                                         }}
                                     >
                                         Clear
