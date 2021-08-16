@@ -7,7 +7,7 @@ import Task from './Task/Task'
 import useStyles from "./Styles"
 import Form from "./Form/Form"
 
-import {Grid, Typography, Grow, Tooltip, Button, Snackbar } from "@material-ui/core"
+import {Grid, Typography, Grow, Tooltip, Button, Snackbar, Container } from "@material-ui/core"
 import { Alert } from '@material-ui/lab';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -245,23 +245,19 @@ const Tasks = () => {
                 </MuiPickersUtilsProvider>
             </div>
             {!onDeck.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>}
-            {loading && <Skeletons numItems={onDeck.length} />}
             {!loading && 
-                <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+                <Container maxWidth="sm">
                     <ItemList items={onDeck} classes={classes}/>
-                </Grid>
+                </Container>
             }
             
             <br></br>
             {!completed.length == 0 &&  <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>Completed</Typography>}
-            {loading && <Skeletons numItems={completed.length} />}
             {!loading && 
-                <Grid container spacing={3} style={{paddingTop: "20px", marginRight: "auto", marginLeft: "auto", width: "90%"}}>
+                <Container maxWidth="sm">
                     <ItemList items={completed} classes={classes}/>
-                </Grid>
+                </Container>
             }
-
-            {onDeck.length == 0 && completed.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>No tasks found... try adding one!</Typography>}
 
             <Form reloadTasks={reloadTasks} />
             <br></br>

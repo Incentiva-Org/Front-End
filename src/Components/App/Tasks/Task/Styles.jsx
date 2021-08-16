@@ -15,9 +15,6 @@ export default makeStyles((theme) => ({
   },
   card: {
     borderRadius: '10px',
-    width: '284px',
-    height: '130px',
-    borderRadius: '10px',
     marginLeft: "auto",
     marginRight: "auto"
   },

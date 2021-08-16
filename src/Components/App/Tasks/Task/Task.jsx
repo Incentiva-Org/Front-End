@@ -170,81 +170,63 @@ const Task = ({ task, reloadTasks }) => {
                                 checkedIcon={<CheckBoxIcon fontSize="medium" />}
                                 color="primary"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
-                                style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms"}}
+                                style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms", borderRadius: "50%"}}
                             />
                             }
                             label={
                                 {...checked ? 
                                     (
-                                    <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px", lineHeight: "42px"}}>
-                                        {task.title}
-                                        <ClickAwayListener onClickAway={handleTooltipClose}>
-                                            <div style={{display: "inline-block"}}>
-                                                <HtmlTooltip
-                                                    PopperProps={{
-                                                    disablePortal: true,
-                                                    }}
-                                                    onClose={handleTooltipClose}
-                                                    open={tooltipOpen}
-                                                    disableFocusListener
-                                                    disableHoverListener
-                                                    disableTouchListener
-                                                    title={
-                                                        <React.Fragment>
-                                                        <Typography color="inherit">{task.description}</Typography>
-                                                        </React.Fragment>
-                                                    }
-                                                >
-                                                    <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleTooltipOpen}>
-                                                        <InfoOutlinedIcon />
-                                                    </IconButton>
-                                                </HtmlTooltip>
-                                            </div>
-                                        </ClickAwayListener>
-                                    </Typography>
+                                        <Grid container>
+                                            <Grid item>
+                                                <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px"}}>{task.title}</Typography>
+                                            </Grid>
+                                            <Grid item>
+                                                <Chip label={task.tag} classname={classes.chip} style={{lineHeight:"21px", marginLeft: "10px", padding: "4px 0px", height: "30px", display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
+                                            </Grid>
+                                            <Grid item>
+                                                <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
+                                                        <IconButton style={{padding: "3px", marginLeft:"5px"}} onClick={handleDescClick}>
+                                                            <InfoOutlinedIcon />
+                                                        </IconButton>
+                                                </ClickAwayListener>
+                                            </Grid>
+                                        </Grid>
                                     )
                                     :
-                                    <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>
-                                        {task.title}
-                                        <ClickAwayListener onClickAway={handleTooltipClose}>
-                                            <div style={{display: "inline-block"}}>
-                                                <HtmlTooltip
-                                                    PopperProps={{
-                                                    disablePortal: true,
-                                                    }}
-                                                    onClose={handleTooltipClose}
-                                                    open={tooltipOpen}
-                                                    disableFocusListener
-                                                    disableHoverListener
-                                                    disableTouchListener
-                                                    title={
-                                                        <React.Fragment>
-                                                        <Typography color="inherit">{task.description}</Typography>
-                                                        </React.Fragment>
-                                                    }
-                                                >
-                                                    <IconButton style={{padding: "0px", marginLeft:"5px"}} onClick={handleTooltipOpen}>
-                                                        <InfoOutlinedIcon />
-                                                    </IconButton>
-                                                </HtmlTooltip>
-                                            </div>
-                                        </ClickAwayListener>
+                                        <Grid container>
+
+                                            <Grid item style={{lineHeight: "30px"}}>
+                                                <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>{task.title}</Typography>
+                                            </Grid>
+
+                                            <Grid item>
+                                                <Chip label={task.tag} classname={classes.chip} style={{lineHeight:"21px", marginLeft: "10px", padding: "4px 0px", height: "30px", display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
+                                            </Grid>
+                                            <Grid item>
+                                                <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
+                                                        <IconButton style={{padding: "3px", marginLeft:"5px"}} onClick={handleDescClick}>
+                                                            <InfoOutlinedIcon />
+                                                        </IconButton>
+                                                </ClickAwayListener>
+                                            </Grid>
                                             
-                                    </Typography>
+                                        </Grid>
                                 }                            
                             }
                         />
                         <Popper id={id} open={descOpen} anchorEl={anchorEl} transition>
                             {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={350}>
-                                <Paper style={{padding: "10px"}} elevation={8}></Paper>
+                                <Paper style={{padding: "10px"}} elevation={8}>
+                                    <Typography color="inherit"><strong>Description: </strong>{task.description}</Typography>
+                                    <Typography color="inherit"><strong>Time: </strong>{task.predictedTime} mins</Typography>
+                                </Paper>
                             </Fade>
                             )}
                         </Popper>
                     </div>
                     <Grid container alignItems="center">
-                        <Chip label={task.tag} classname={classes.chip} style={{margin: "4px", marginLeft: "0px", padding: "4px 0px", height: "25px", top: 0, display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
-                        <Typography variant="body2" style={{display: "inline-block", margin: "4px"}}>{task.predictedTime} mins</Typography>
+                        
                     </Grid>
                 </CardContent>
                 

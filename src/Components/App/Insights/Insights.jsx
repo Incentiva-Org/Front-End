@@ -68,7 +68,7 @@ const NiceSlider = withStyles({
   },
 })(Slider);
 
-localStorage.setItem("happinessScores", JSON.stringify([{Day: "06/03/2021", Happiness: 8}, {Day: "06/13/2021", Happiness: 6}, {Day: "06/21/2021", Happiness: 7}, {Day: "06/29/2021", Happiness: 5}, {Day: "06/30/2021", Happiness: 8}, {Day: "07/03/2021", Happiness: 9}]))
+localStorage.setItem("happinessScores", JSON.stringify([{Day: "06/03/2021", Happiness: 8}, {Day: "06/13/2021", Happiness: 6}, {Day: "06/21/2021", Happiness: 7}, {Day: "06/29/2021", Happiness: 5}, {Day: "06/30/2021", Happiness: 8}, {Day: "07/03/2021", Happiness: 9}, {Day: "07/04/2021", Happiness: 7}, {Day: "07/05/2021", Happiness: 9}, {Day: "07/10/2021", Happiness: 6}]))
 
 const Insights = () => {
 
@@ -137,7 +137,7 @@ const Insights = () => {
       localStorage.setItem("happinessScores", JSON.stringify(currData))
     }
   }
-  
+
   const handlePredictClick = () => {
     const formData = getTagCounts();
     setLoading(true)
