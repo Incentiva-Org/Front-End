@@ -50,12 +50,14 @@ const Login = () => {
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async () => {
+        setLoading(true)
         try {
             
             await loginUser(userData.email, userData.password)
             setLoading(true)
             setSeverity("success")
             setAlert(true)
+            setLoading(false)
             window.location.pathname = "/tasks"
             console.log('Valid')
             
@@ -64,6 +66,7 @@ const Login = () => {
             setAccSeverity(err.message)
             setAccError("error")
         }
+        setLoading(false)
     }
 
     const classes = useStyles()
@@ -78,7 +81,7 @@ const Login = () => {
                             id="username"
                             placeholder="Username/Email" 
                             onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-                            style={{marginBottom: "10px", borderRadius: "30px", textAlign: "center"}}
+                            style={{marginBottom: "10px", textAlign: "center", marginBottom: "15px"}}
                             fullWidth
                             endAdornment={
                                 <InputAdornment position="end">
@@ -93,7 +96,7 @@ const Login = () => {
                             placeholder="Password"
                             type={visible ? "" : "password"} 
                             onChange={(e) => setUserData({ ...userData, password: e.target.value })}
-                            style={{margin: "0px auto", borderRadius: "30px", textAlign: "center"}}
+                            style={{margin: "0px auto", textAlign: "center"}}
                             fullWidth
                             endAdornment={
                                 <InputAdornment position="end">
@@ -106,7 +109,7 @@ const Login = () => {
                     </FormControl>
                 </div>
 
-                <div style={{width: "200px", marginRight: "auto", marginLeft: "auto", marginTop: "20px", marginBottom: "10px"}}>
+                <div style={{width: "200px", marginRight: "auto", marginLeft: "auto", marginTop: "25px", marginBottom: "10px"}}>
                     <Button 
                         variant="contained" 
                         color="primary" 
@@ -121,10 +124,9 @@ const Login = () => {
                         onClick={() => {handleSubmit()}}
                         style={{borderRadius: "5px", width:"100%", textTransform: "none"}}
                     >
-                        {loading ? <CircularProgress /> : "Login"}
+                        {loading ? <CircularProgress style={{width: "20px", height: "20px", color: "white"}}/> : "Login"}
                     </Button>
                 </div>
-                <br></br>
                 <div style={{textAlign: "center"}}>
                     <Typography variant="caption" style={{textAlign: "center"}}>Need an account? <Link to="/register" component={NavLink} variant="caption" style={{textAlign: "center", textDecoration: "none"}}>Register here</Link></Typography>
                 </div>

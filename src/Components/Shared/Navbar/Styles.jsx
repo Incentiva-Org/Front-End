@@ -91,11 +91,11 @@ const useStyles = makeStyles((theme) => ({
     },
     
     landingLink: {
-      fontSize: "18px"
+      fontSize: "16px"
     },
     miniLogo: {
       width: "120px",
-      margin: "20px 30px"
+      margin: "10px 30px"
     },
 }));
 

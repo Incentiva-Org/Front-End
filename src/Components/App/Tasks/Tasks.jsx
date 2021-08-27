@@ -7,7 +7,7 @@ import Task from './Task/Task'
 import useStyles from "./Styles"
 import Form from "./Form/Form"
 
-import {Grid, Typography, Grow, Tooltip, Button, Snackbar, Container } from "@material-ui/core"
+import {Grid, Typography, Grow, Tooltip, Button, Snackbar, Container, CircularProgress } from "@material-ui/core"
 import { Alert } from '@material-ui/lab';
 import IconButton from '@material-ui/core/IconButton';
 
@@ -258,7 +258,12 @@ const Tasks = () => {
                     <ItemList items={completed} classes={classes}/>
                 </Container>
             }
-
+            
+            {loading && 
+                <div style={{width: "40px", height:"40px", marginLeft:"auto", marginRight: "auto"}}>
+                    <CircularProgress color="primary" style={{width: "40px", height:"40px"}}/>
+                </div>
+            }
             <Form reloadTasks={reloadTasks} />
             <br></br>
             <div style={{height: "150px"}}></div>

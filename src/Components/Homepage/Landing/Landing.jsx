@@ -126,10 +126,10 @@ const Landing = () => {
                             </Typography>
                             <div style={{textAlign: "right", margin: "10px 0px"}}>
                                 <MuiLink to="/login" component={NavLink} underline="none">
-                                    <Button style={{marginRight: "10px", fontSize: '18px', textTransform: "none", lineHeight: "40px", padding: "0px 10px",}} color="primary">Login</Button>
+                                    <Button style={{marginRight: "10px", fontSize: '16px', textTransform: "none", lineHeight: "40px", padding: "0px 10px",}} color="primary">Login</Button>
                                 </MuiLink>
                                 <MuiLink to="/register" component={NavLink} underline="none">
-                                    <Button color="primary" style={{fontSize: '18px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
+                                    <Button color="primary" style={{fontSize: '16px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
                                 </MuiLink>
                             </div>   
                         </div>

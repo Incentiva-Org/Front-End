@@ -76,7 +76,7 @@ const NavBar = (props) => {
         // Name of the component ⚛️
         MuiButtonBase: {
           // The default props to change
-          disableRipple: true, // No more ripple, on the whole application 💣!
+          disableRipple: false, // No more ripple, on the whole application 💣!
         },
       },
     });
@@ -426,10 +426,10 @@ const NavBar = (props) => {
                             </Grid>
                             <Grid item>
                               <MuiLink underline="none" component={NavLink} onClick={() => setCurrentPath("/login")} to="/login">
-                                <Button className={classes.navButton} color="primary" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
+                                <Button className={classes.navButton} color="primary" style={{fontSize: "16px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
                               </MuiLink>
                               <MuiLink underline="none" component={NavLink} onClick={() => setCurrentPath("/register")} to="/register">
-                                <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "18px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
+                                <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "16px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
                               </MuiLink> 
                               <Tooltip title="Dark Mode" placement="bottom">
                                   <IconButton onClick={handleThemeChange}>
