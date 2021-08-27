@@ -32,6 +32,7 @@ import {motion, useMotionValue, useTransform} from "framer-motion"
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import GroupIcon from '@material-ui/icons/Group';
 
 const imageVariants = {
     hover: {
@@ -81,6 +82,11 @@ const Landing = () => {
             title: "Insights",
             image: <Star />,
             description: "You thought the AI stuff was done? Here with Insights, data from both your happiness scores and tasks are gathered, analyzed by our backend AI model, and outputs which type of task contributes the most to your happiness."
+        },
+        {
+            title: "Friends",
+            image: <GroupIcon />,
+            description: "Under construction :)"
         }
     ];
 
@@ -158,10 +164,10 @@ const Landing = () => {
                 <Fade in style={{transitionDelay: "100ms", transitionDuration: "1000ms"}}>
                     <Typography variant="h4" style={{textAlign: "center", fontWeight: "bold", marginBottom: "20px"}}>Features</Typography>
                 </Fade>
-                <Grid container spacing={4} style={{padding: "10px 0px"}} alignItems="center">
+                <Grid container spacing={4} style={{justifyContent: "center"}}>
                     {cards.map((card, index) => (
                         <Zoom in style={{transitionDelay: `${index * 250}ms`, transitionDuration: "500ms"}}>
-                            <Grid item key={card.title} style={{margin: "0px auto"}}>
+                            <Grid item key={card.title}>
                                 {<ContentCard props={card}/>}
                             </Grid>
                         </Zoom>
