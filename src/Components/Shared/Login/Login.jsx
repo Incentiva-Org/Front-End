@@ -57,7 +57,6 @@ const Login = () => {
             setLoading(true)
             setSeverity("success")
             setAlert(true)
-            setLoading(false)
             window.location.pathname = "/tasks"
             console.log('Valid')
             
@@ -73,7 +72,7 @@ const Login = () => {
 
     return ( 
         <div>
-            <Paper elevation={3} style={{width: "350px", height: "350px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "15px", justifyContent: "center"}}>
+            <Paper elevation={3} style={{width: "350px", height: "350px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "5px", justifyContent: "center"}}>
                 <Typography variant="h6" style={{fontWeight: "bold", textAlign: "center", marginBottom: "15px"}}>Login</Typography>
                 <div style={{width: "280px", marginLeft: "auto", marginRight: "auto"}}>
                     <FormControl fullWidth>

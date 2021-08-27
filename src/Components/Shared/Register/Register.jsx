@@ -126,7 +126,7 @@ const Register = () => {
     }
     return ( 
         <div>
-            <Paper elevation={3} style={{width: "350px", height: "500px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "15px", justifyContent: "center"}}>
+            <Paper elevation={3} style={{width: "350px", height: "500px", position: 'absolute', left: '50%', top: '50%',transform: 'translate(-50%, -50%)', padding: "20px 10px", borderRadius: "5px", justifyContent: "center"}}>
                 <Typography variant="h5" style={{fontWeight: "bold", textAlign: "center", marginBottom: "15px"}}>Register</Typography>
 
                 <div style={{width: "280px", marginLeft: "auto", marginRight: "auto"}}>

@@ -16,7 +16,8 @@ export default makeStyles((theme) => ({
   card: {
     borderRadius: '10px',
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
+    marginBottom: "15px"
   },
   grid: {
     display: 'flex',
