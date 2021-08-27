@@ -167,7 +167,7 @@ const Task = ({ task, reloadTasks }) => {
                                 onChange={handleChange}
                                 className={classes.checkBox}
                                 icon={<CheckBoxOutlineBlankIcon fontSize="medium" />}
-                                checkedIcon={<CheckBoxIcon fontSize="medium" />}
+                                checkedIcon={<Fade in><CheckBoxIcon fontSize="medium" /></Fade>}
                                 color="primary"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                                 style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms", borderRadius: "50%"}}
@@ -302,7 +302,8 @@ const Task = ({ task, reloadTasks }) => {
                                         whileTap={{ scale: 0.95 }}
                                         onClick={(e) => {handleSubmit(e)}}
                                         style={{
-                                            padding: "8px 0px"
+                                            padding: "8px 0px",
+                                            textTransform: "none"
                                         }}
                                     >
                                         Confirm
@@ -321,7 +322,8 @@ const Task = ({ task, reloadTasks }) => {
                                         whileTap={{ scale: 0.95 }}
                                         onClick={clear}
                                         style={{
-                                            padding: "8px 0px"
+                                            padding: "8px 0px",
+                                            textTransform: "none"
                                         }}
                                     >
                                         Clear

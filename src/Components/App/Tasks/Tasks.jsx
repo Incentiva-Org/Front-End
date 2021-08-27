@@ -104,11 +104,9 @@ const Tasks = () => {
             return (
                 <>
                     {items.map((task, index) => (
-                        <Grow in style={{ transformOrigin: '0 0 0' }}>
-                            <Grid item style={{padding: "6px"}}>
-                                <Task task={task} reloadTasks={reloadTasks} /> 
-                            </Grid>
-                        </Grow>
+                        <Grid item>
+                            <Task task={task} reloadTasks={reloadTasks} /> 
+                        </Grid>
                     ))}
                 </>
             )

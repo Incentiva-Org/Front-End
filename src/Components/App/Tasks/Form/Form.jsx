@@ -146,6 +146,9 @@ const Form = (props) => {
                                         }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={handleSubmit}
+                                        style={{
+                                            textTransform: "none"
+                                        }}
                                     >
                                         Create
                                     </Button>
@@ -162,6 +165,9 @@ const Form = (props) => {
                                         }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={clear}
+                                        style={{
+                                            textTransform: "none"
+                                        }}
                                     >
                                         Clear
                                     </Button>
