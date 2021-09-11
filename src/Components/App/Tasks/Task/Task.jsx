@@ -28,6 +28,7 @@ import Fade from '@material-ui/core/Fade';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import {red} from "@material-ui/core/colors"
+import { CheckCircle, RadioButtonUnchecked } from '@material-ui/icons';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -166,60 +167,38 @@ const Task = ({ task, reloadTasks }) => {
                                 checked={checked}
                                 onChange={handleChange}
                                 className={classes.checkBox}
-                                icon={<CheckBoxOutlineBlankIcon fontSize="medium" />}
-                                checkedIcon={<Fade in><CheckBoxIcon fontSize="medium" /></Fade>}
+                                icon={<RadioButtonUnchecked fontSize="medium" />}
+                                checkedIcon={<CheckCircle fontSize="medium" />}
                                 color="primary"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                                 style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms", borderRadius: "50%"}}
                             />
                             }
-                            label={
-                                {...checked ? 
-                                    (
-                                        <Grid container>
-                                            <Grid item>
-                                                <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "18px"}}>{task.title}</Typography>
-                                            </Grid>
-                                            <Grid item>
-                                                <Chip label={task.tag} classname={classes.chip} style={{lineHeight:"21px", marginLeft: "10px", padding: "4px 0px", height: "30px", display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
-                                            </Grid>
-                                            <Grid item>
-                                                <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
-                                                        <IconButton style={{padding: "3px", marginLeft:"5px"}} onClick={handleDescClick}>
-                                                            <InfoOutlinedIcon />
-                                                        </IconButton>
-                                                </ClickAwayListener>
-                                            </Grid>
-                                        </Grid>
-                                    )
-                                    :
-                                        <Grid container>
-
-                                            <Grid item style={{lineHeight: "30px"}}>
-                                                <Typography variant="h7" className={classes.title} style={{fontWeight: "bold", fontSize: "18px"}}>{task.title}</Typography>
-                                            </Grid>
-
-                                            <Grid item>
-                                                <Chip label={task.tag} classname={classes.chip} style={{lineHeight:"21px", marginLeft: "10px", padding: "4px 0px", height: "30px", display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
-                                            </Grid>
-                                            <Grid item>
-                                                <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
-                                                        <IconButton style={{padding: "3px", marginLeft:"5px"}} onClick={handleDescClick}>
-                                                            <InfoOutlinedIcon />
-                                                        </IconButton>
-                                                </ClickAwayListener>
-                                            </Grid>
-                                            
-                                        </Grid>
-                                }                            
+                            label=
+                            {
+                                <Grid container style={{lineHeight: "40px"}}>
+                                    <Grid item alignItems="center">
+                                        {checked ? <Typography className={classes.title} style={{fontWeight: "bold", textDecoration: "line-through", fontSize: "16px", lineHeight: "42px"}}>{task.title}</Typography> : <Typography className={classes.title} style={{fontWeight: "bold", fontSize: "16px", lineHeight: "42px"}}>{task.title}</Typography>}
+                                    </Grid>
+                                    <Grid item>
+                                        <Chip label={task.tag} classname={classes.chip} style={{lineHeight: "23px", marginLeft: "10px", padding: "4px 0px", height: "30px", display: "inline-block", color: `#${color}`, background: `#${color}33`, borderRadius: "8px"}}/>
+                                    </Grid>
+                                    <Grid item>
+                                        <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
+                                                <IconButton style={{padding: "3px", marginLeft:"5px"}} onClick={handleDescClick}>
+                                                    <InfoOutlinedIcon />
+                                                </IconButton>
+                                        </ClickAwayListener>
+                                    </Grid>
+                                </Grid>
                             }
                         />
                         <Popper id={id} open={descOpen} anchorEl={anchorEl} transition>
                             {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={350}>
-                                <Paper style={{padding: "10px"}} elevation={8}>
-                                    <Typography color="inherit"><strong>Description: </strong>{task.description}</Typography>
-                                    <Typography color="inherit"><strong>Time: </strong>{task.predictedTime} mins</Typography>
+                                <Paper style={{padding: "20px", maxWidth: "250px"}} elevation={8}>
+                                    <Typography color="inherit" style={{marginBottom: "5px"}}><strong>Description</strong><br></br>{task.description}</Typography>
+                                    <Typography color="inherit"><strong>Time </strong>{task.predictedTime} mins</Typography>
                                 </Paper>
                             </Fade>
                             )}
@@ -231,7 +210,7 @@ const Task = ({ task, reloadTasks }) => {
                 </CardContent>
                 
                 <CardActions className={classes.cardActions}>
-                    <Typography variant="subtitle2" gutterBottom style={{marginLeft: "5px", float: "left", width: "68px" }}>{task.day}</Typography>
+                    <Typography variant="subtitle2" gutterBottom style={{marginLeft: "5px", float: "left", width: "68px", opacity: "0.6"}}>{task.day}</Typography>
                     <div style={{marginLeft: "auto"}}>
                         <Tooltip title="Edit" placement="top">
                             <IconButton size="small" aria-label="edit" color="primary" onClick={handleOpen}>

@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "auto",
         marginRight: "auto",
         fontWeight: "bold",
+        width: "96%",
+        marginBottom: "5px",
+        borderRadius: "8px"
 
       },
       '& .MuiTypography-displayBlock': {
@@ -46,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.active': {
         '& .MuiListItem-root': {
-          background: 'rgba(128, 90, 213, 0.1)',
+          background: 'rgba(128, 90, 213, 0.2)',
         },
         '& .MuiListItemIcon-root': {
           color: 'rgb(128, 90, 213)',
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.hover': {
         '& .MuiListItem-root': {
-          background: "none"
+          background: "rgba(128, 90, 213, 0.2)"
         },
         '& .MuiListItemIcon-root': {
           color: 'rgb(128, 90, 213)',
@@ -66,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
           color: 'rgb(128, 90, 213)',
         },
         '.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover': {
-          backgroundColor: "rgba(128, 90, 213, 0.1)"
+          backgroundColor: "rgba(128, 90, 213, 0.2)"
         },
       }, 
     },
@@ -95,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     },
     miniLogo: {
       width: "120px",
-      margin: "10px 30px"
+      margin: "20px 40px"
     },
 }));
 

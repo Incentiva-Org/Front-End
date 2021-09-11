@@ -105,7 +105,7 @@ const Tasks = () => {
                 <>
                     {items.map((task, index) => (
                         <Grid item>
-                            <Task task={task} reloadTasks={reloadTasks} /> 
+                            <Task task={task} reloadTasks={reloadTasks} key={index} /> 
                         </Grid>
                     ))}
                 </>

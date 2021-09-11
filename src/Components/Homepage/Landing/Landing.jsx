@@ -12,7 +12,8 @@ import {
     Zoom,
     Fab,
     Link,
-    Toolbar
+    Toolbar,
+    Paper
 } from "@material-ui/core"
 
 import MuiLink from "@material-ui/core/Link"
@@ -135,7 +136,7 @@ const Landing = () => {
                                     <Button style={{marginRight: "10px", fontSize: '16px', textTransform: "none", lineHeight: "40px", padding: "0px 10px",}} color="primary">Login</Button>
                                 </MuiLink>
                                 <MuiLink to="/register" component={NavLink} underline="none">
-                                    <Button color="primary" style={{fontSize: '16px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
+                                    <Button color="primary" disableElevation style={{fontSize: '16px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}} variant="contained">Register</Button>
                                 </MuiLink>
                             </div>   
                         </div>
@@ -186,11 +187,14 @@ const Landing = () => {
                 autoHideDuration={6000}
                 onClose={handleClose}
                 message=""
-                style={{width: "350px", color: "white"}}
+                style={{width: "300px", color: "white"}}
             >
-                <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-                    <CloseIcon fontSize="small" />
-                </IconButton>
+                <Paper style={{padding: "20px"}}>
+                    <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                    <Typography style={{marginTop: "10px", fontSize: "14px", opacity: "0.7"}}>Incentiva is currently still being worked on and therefore some features aren't fully functional yet. We appreciate your patience and are happy to take any feedback you have!</Typography>
+                </Paper>
             </Snackbar>
         </div>
     )

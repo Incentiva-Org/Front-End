@@ -57,6 +57,9 @@ const NavBar = (props) => {
     const palletType = darkState ? "dark" : "light";
     const primaryText = darkState ? "#fff": "rgba(0, 0, 0, 0.87)"
 
+    const background = darkState ? "#1f1f1f" : "#fafafa"
+    const paperBackground = darkState ? "#333333" : "#fff"
+
     const theme = createMuiTheme({
       palette: {
         type: palletType,
@@ -70,6 +73,10 @@ const NavBar = (props) => {
         },
         text: {
           primary: primaryText
+        },
+        background: {
+          default: background,
+          paper: paperBackground
         }
       },
       props: {
@@ -240,6 +247,7 @@ const NavBar = (props) => {
                   ModalProps={{
                     keepMounted: true, 
                   }}
+                  elevation={4}
                 >
                   {drawer}
                 </Drawer>
@@ -251,6 +259,7 @@ const NavBar = (props) => {
                   }}
                   variant="permanent"
                   open
+                  elevation={4}
                 >
                   {drawer}
                   {!mobile ? 
@@ -430,7 +439,7 @@ const NavBar = (props) => {
                                 <Button className={classes.navButton} color="primary" style={{fontSize: "16px", textTransform: "none",  lineHeight: "40px", padding: "0px", marginRight: "5px"}}>Login</Button>
                               </MuiLink>
                               <MuiLink underline="none" component={NavLink} onClick={() => setCurrentPath("/register")} to="/register">
-                                <Button className={classes.navButton} color="primary" variant="contained" style={{fontSize: "16px", textTransform: "none",  lineHeight: "40px", padding: "0px 10px"}}>Register</Button>
+                                <Button className={classes.navButton} color="primary" variant="contained" disableElevation style={{fontSize: '16px', textTransform: "none", padding: "0px 10px", lineHeight: "40px"}}>Register</Button>
                               </MuiLink> 
                               <Tooltip title="Dark Mode" placement="bottom">
                                   <IconButton onClick={handleThemeChange}>
