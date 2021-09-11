@@ -30,6 +30,8 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import {red} from "@material-ui/core/colors"
 import { CheckCircle, RadioButtonUnchecked } from '@material-ui/icons';
 
+import ToggleIcon from 'material-ui-toggle-icon';
+
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -163,16 +165,16 @@ const Task = ({ task, reloadTasks }) => {
                     <div className={classes.header}>
                         <FormControlLabel
                             control={
-                            <Checkbox
-                                checked={checked}
-                                onChange={handleChange}
-                                className={classes.checkBox}
-                                icon={<RadioButtonUnchecked fontSize="medium" />}
-                                checkedIcon={<CheckCircle fontSize="medium" />}
-                                color="primary"
-                                inputProps={{ 'aria-label': 'primary checkbox' }}
-                                style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms", borderRadius: "50%"}}
-                            />
+                                <Checkbox
+                                    checked={checked}
+                                    onChange={handleChange}
+                                    className={classes.checkBox}
+                                    icon={<RadioButtonUnchecked fontSize="medium" />}
+                                    checkedIcon={<motion.div initial={{opacity: 0, scale: 0}} animate={{opacity: 1, scale: 1}} transition={{duration: 0.2}} style={{width: "24px", height: "24px"}}><CheckCircle fontSize="medium" /></motion.div>}
+                                    color="primary"
+                                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                                    style={{display: "inline-block", left: 0, top: 0, transitionDuration: "1000ms", borderRadius: "50%"}}
+                                />
                             }
                             label=
                             {
