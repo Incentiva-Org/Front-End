@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.active': {
         '& .MuiListItem-root': {
-          background: 'rgba(128, 90, 213, 0.2)',
+          background: 'rgba(128, 90, 213, 0.1)',
         },
         '& .MuiListItemIcon-root': {
           color: 'rgb(128, 90, 213)',
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       },
       '&.hover': {
         '& .MuiListItem-root': {
-          background: "rgba(128, 90, 213, 0.2)"
+          background: "rgba(128, 90, 213, 0.1)"
         },
         '& .MuiListItemIcon-root': {
           color: 'rgb(128, 90, 213)',
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
           color: 'rgb(128, 90, 213)',
         },
         '.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover': {
-          backgroundColor: "rgba(128, 90, 213, 0.2)"
+          backgroundColor: "rgba(128, 90, 213, 0.1)"
         },
       }, 
     },
