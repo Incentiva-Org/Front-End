@@ -21,6 +21,7 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import CheckIcon from "@material-ui/icons/Check"
+import Chatbot from "./Chatbot/Chatbot"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -225,6 +226,7 @@ const Insights = () => {
             </Grid>
           </>
         }
+        <Chatbot  />
     </div>
 
   );

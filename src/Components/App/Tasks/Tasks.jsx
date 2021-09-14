@@ -244,7 +244,7 @@ const Tasks = () => {
             </div>
             {!onDeck.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>}
             {!loading && 
-                <Container maxWidth="sm">
+                <Container style={{maxWidth: "800px"}}>
                     <ItemList items={onDeck} classes={classes}/>
                 </Container>
             }

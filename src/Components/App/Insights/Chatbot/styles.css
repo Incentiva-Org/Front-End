@@ -1,0 +1,28 @@
+.from-me, .from-them {
+    max-width: 255px;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+    line-height: 24px;
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 25px;
+}
+
+.from-me:before, .from-me:after, .from-them:before, .from-them:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+}
+  
+.from-me {
+    color: white; 
+    background: #805AD5;
+    align-self: flex-end;
+}
+
+.from-them {
+    background: rgb(204, 204, 204);
+    color: black;
+    align-self: flex-start;
+}
