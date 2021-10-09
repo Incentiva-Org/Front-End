@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
       },
       card: {
         textAlign: "center",
-        width: "325px",
+        width: "300px",
         borderRadius: "15px",
       }
 }));
