@@ -84,11 +84,13 @@ const Landing = () => {
             image: <Star />,
             description: "You thought the AI stuff was done? Here with Insights, data from both your happiness scores and tasks are gathered, analyzed by our backend AI model, and outputs which type of task contributes the most to your happiness."
         },
+        /*
         {
             title: "Friends",
             image: <GroupIcon />,
             description: "Under construction :)"
         }
+        */
     ];
 
     setTimeout(() => {setLoaded(true)}, 500)

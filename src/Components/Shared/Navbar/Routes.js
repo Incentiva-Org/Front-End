@@ -26,12 +26,14 @@ const routes = {
         icon: <Star />,
         path: "/insights"
     },
+
+    /*
     "Friends": {
         icon: <GroupIcon />,
         path: "/friends"
     },
-
-    
+    */
+   
 }
 
 export default routes
