@@ -52,7 +52,7 @@ const ChatbotAvatar = () => {
                 horizontal: 'right',
             }}
             variant="dot"
-            style={{borderRadius: "50%", background: "inherit", border: "2px solid rgb(150, 150, 150)", display: "inline-block"}}
+            style={{borderRadius: "50%", background: "rgba(0, 0, 0, 0.3)", display: "inline-block"}}
         >
             <Avatar alt="Chatbot" src={ChatbotImg} />
         </StyledBadge>

@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react'
 
 import { fetchTasks } from '../../../API/index'
@@ -21,7 +20,6 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import CheckIcon from "@material-ui/icons/Check"
-import Chatbot from "./Chatbot/Chatbot"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,11 +67,23 @@ const NiceSlider = withStyles({
   },
 })(Slider);
 
-localStorage.setItem("happinessScores", JSON.stringify([{Day: "06/03/2021", Happiness: 8}, {Day: "06/13/2021", Happiness: 6}, {Day: "06/21/2021", Happiness: 7}, {Day: "06/29/2021", Happiness: 5}, {Day: "06/30/2021", Happiness: 8}, {Day: "07/03/2021", Happiness: 9}, {Day: "07/04/2021", Happiness: 7}, {Day: "07/05/2021", Happiness: 9}, {Day: "07/10/2021", Happiness: 6}]))
+localStorage.setItem("happinessScores", JSON.stringify([
+  
+]))
 
 const Insights = () => {
 
   const [tasks, setTasks] = useState()
+
+  const data = [
+    {Day: "10/03/2021", Work: 3, School: 1, Life: 1, Exercise: 2,Happiness: 8}, 
+    {Day: "10/13/2021", Work: 1, School: 1, Life: 2, Exercise: 3,Happiness: 6}, 
+    {Day: "10/21/2021", Work: 2, School: 1, Life: 3, Exercise: 1,Happiness: 7}, 
+    {Day: "10/29/2021", Work: 1, School: 3, Life: 2, Exercise: 1,Happiness: 5}, 
+    {Day: "10/30/2021", Work: 2, School: 4, Life: 3, Exercise: 2,Happiness: 8}, 
+    {Day: "11/02/2021", Work: 1, School: 2, Life: 1, Exercise: 3,Happiness: 9}
+  ]
+
 
   const reloadTasks = () => {
     fetchTasks(JSON.parse(localStorage.getItem('userData')).uid).then((response) => {
@@ -97,50 +107,14 @@ const Insights = () => {
   }
   
   const getTagCounts = () => {
-    var temp = tasks;
-    var sorted = temp.reduce(function (r, a) {
-      r[a.day] = r[a.day] || [];
-      r[a.day].push(a);
-      return r;
-    }, Object.create(null));
-
-    var insightsData = []
-    var cnt = 0;
-    for(var i in sorted) {
-      var dataPoint = {Day: "", Work: 0, School: 0, Life: 0, Exercise: 0, Happiness: JSON.parse(localStorage.getItem("happinessScores"))[cnt].Happiness}
-      cnt++;
-      for(var j in sorted[i]) {
-        dataPoint.Day = sorted[i][j].day
-        const tag = sorted[i][j].tag
-        if(sorted[i][j].completed === true) {
-          dataPoint[tag]++
-        }
-      }
-      insightsData.push(dataPoint)
-    }
-    return insightsData
+    
   }
 
   const confirmHappiness = () => {
-    var currData = JSON.parse(localStorage.getItem("happinessScores"))
-    const currHappiness = happiness;
-    var newDay = true;
-    for(var i in currData) {
-      if(currData[i].Day === localStorage.getItem('selected-date')){
-        currData[i].Happiness = currHappiness
-        localStorage.setItem('happinessScores', JSON.stringify(currData))
-        newDay = false;
-        break;
-      }
-    }
-    if(newDay === true) {
-      currData.push({Day: localStorage.getItem('selected-date'), Happiness: currHappiness})
-      localStorage.setItem("happinessScores", JSON.stringify(currData))
-    }
+    
   }
-
+  
   const handlePredictClick = () => {
-    const formData = getTagCounts();
     setLoading(true)
     fetch('https://incentiva-backend.herokuapp.com/', 
       {
@@ -149,7 +123,7 @@ const Insights = () => {
           'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(formData)
+        body: JSON.stringify(data)
       })
       .then(response => response.json())
       .then(response => {
@@ -193,15 +167,15 @@ const Insights = () => {
             <h2 style={{fontWeight: "bold", fontSize:"20px", textAlign: "center"}}>Analytics</h2>
             <Grid container justify="center" spacing={6}>
               <Grid item>
-                <TaskGraph data={getTagCounts()}/>
+                <TaskGraph data={data}/>
               </Grid>
               <Grid item>
-                <HappinessGraph data={getTagCounts()}/>
+                <HappinessGraph data={data}/>
               </Grid>
             </Grid>
             <Grid container spacing={10} justify="center" style={{marginTop: "10px"}}>
               <Grid item>
-                <TaskPie data={getTagCounts()} />
+                <TaskPie data={data} />
               </Grid>
               <Grid item>
                 <Grid container spacing={3}> 
@@ -226,11 +200,9 @@ const Insights = () => {
             </Grid>
           </>
         }
-        <Chatbot  />
     </div>
 
   );
 }
 
 export default Insights;
-

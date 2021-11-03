@@ -244,7 +244,7 @@ const Tasks = () => {
             </div>
             {!onDeck.length == 0 && <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold"}}>On Deck</Typography>}
             {!loading && 
-                <Container style={{maxWidth: "800px"}}>
+                <Container style={{maxWidth: "650px"}}>
                     <ItemList items={onDeck} classes={classes}/>
                 </Container>
             }
@@ -252,7 +252,7 @@ const Tasks = () => {
             <br></br>
             {!completed.length == 0 &&  <Typography variant="h6" style={{textAlign: "center", fontWeight: "bold", marginTop: "10px"}}>Completed</Typography>}
             {!loading && 
-                <Container maxWidth="sm">
+                <Container style={{maxWidth: "650px"}}>
                     <ItemList items={completed} classes={classes}/>
                 </Container>
             }
