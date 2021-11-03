@@ -81,7 +81,7 @@ const Insights = () => {
     {Day: "10/21/2021", Work: 2, School: 1, Life: 3, Exercise: 1,Happiness: 7}, 
     {Day: "10/29/2021", Work: 1, School: 3, Life: 2, Exercise: 1,Happiness: 5}, 
     {Day: "10/30/2021", Work: 2, School: 4, Life: 3, Exercise: 2,Happiness: 8}, 
-    {Day: "11/02/2021", Work: 1, School: 2, Life: 1, Exercise: 3,Happiness: 9}
+    {Day: "11/02/2021", Work: 1, School: 2, Life: 1, Exercise: 1,Happiness: 7}
   ]
 
 
